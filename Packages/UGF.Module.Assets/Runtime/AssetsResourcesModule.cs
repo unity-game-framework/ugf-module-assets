@@ -1,7 +1,7 @@
 using System;
 using UGF.Application.Runtime;
 using UGF.Coroutines.Runtime;
-using UGF.Module.Assets.Runtime.Coroutines;
+using UGF.Module.Unity.Runtime.Coroutines;
 using UnityEngine;
 
 namespace UGF.Module.Assets.Runtime
