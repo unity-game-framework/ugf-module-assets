@@ -1,12 +1,14 @@
 {
     "name": "com.ugf.module.assets",
     "displayName": "UGF.Module.Assets",
-    "version": "0.0.0-preview",
+    "version": "0.1.0-preview",
     "unity": "2019.3",
     "description": "No description.",
     "author": {
         "name": "Unity Game Framework",
         "url": "https://github.com/unity-game-framework"
     },
-    "dependencies": {}
+    "dependencies": {
+        "com.ugf.module.unity": "0.1.0-preview"
+    }
 }
