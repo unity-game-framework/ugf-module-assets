@@ -1,13 +1,15 @@
 using System;
+using System.Threading.Tasks;
 using UGF.Application.Runtime;
-using UGF.Coroutines.Runtime;
 
 namespace UGF.Module.Assets.Runtime
 {
     public interface IAssetsModule : IApplicationModule
     {
-        ICoroutine<T> LoadAsync<T>(string assetName);
-        ICoroutine<object> LoadAsync(string assetName, Type assetType);
+        T Load<T>(string assetName);
+        object Load(string assetName, Type assetType);
+        Task<T> LoadAsync<T>(string assetName);
+        Task<object> LoadAsync(string assetName, Type assetType);
         void Release<T>(T asset);
         void Release(object asset);
     }
