@@ -1,30 +1,40 @@
 using System;
+using System.Threading.Tasks;
 using UGF.Application.Runtime;
-using UGF.Coroutines.Runtime;
-using UGF.Module.Unity.Runtime.Coroutines;
 using UnityEngine;
 
 namespace UGF.Module.Assets.Runtime
 {
     public class AssetsResourcesModule : ApplicationModuleBase, IAssetsModule
     {
-        public ICoroutine<T> LoadAsync<T>(string assetName)
+        public T Load<T>(string assetName)
         {
-            if (string.IsNullOrEmpty(assetName)) throw new ArgumentException("Value cannot be null or empty.", nameof(assetName));
-
-            ResourceRequest request = Resources.LoadAsync(assetName, typeof(T));
-
-            return new ResourceRequestCoroutine<T>(request);
+            return (T)Load(assetName, typeof(T));
         }
 
-        public ICoroutine<object> LoadAsync(string assetName, Type assetType)
+        public object Load(string assetName, Type assetType)
+        {
+            return Resources.Load(assetName, assetType);
+        }
+
+        public async Task<T> LoadAsync<T>(string assetName)
+        {
+            return (T)await LoadAsync(assetName, typeof(T));
+        }
+
+        public async Task<object> LoadAsync(string assetName, Type assetType)
         {
             if (string.IsNullOrEmpty(assetName)) throw new ArgumentException("Value cannot be null or empty.", nameof(assetName));
             if (assetType == null) throw new ArgumentNullException(nameof(assetType));
 
-            ResourceRequest request = Resources.LoadAsync(assetName, assetType);
+            ResourceRequest operation = Resources.LoadAsync(assetName, assetType);
 
-            return new ResourceRequestCoroutine<object>(request);
+            while (operation.isDone)
+            {
+                await Task.Yield();
+            }
+
+            return operation.asset;
         }
 
         public void Release<T>(T asset)
