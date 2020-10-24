@@ -4,11 +4,11 @@ using UnityEngine;
 namespace UGF.Module.Assets.Runtime
 {
     [CreateAssetMenu(menuName = "UGF/Module.Assets/AssetsModuleInfo", order = 2000)]
-    public class AssetsModuleInfoAsset : ApplicationModuleInfoAsset<IAssetsModule>
+    public class AssetsModuleInfoAsset : ApplicationModuleAsset<IAssetsModule>
     {
-        protected override IApplicationModule OnBuild(IApplication application)
+        protected override IAssetsModule OnBuildTyped(IApplication application)
         {
-            return new AssetsResourcesModule();
+            return new AssetsResourcesModule(application);
         }
     }
 }

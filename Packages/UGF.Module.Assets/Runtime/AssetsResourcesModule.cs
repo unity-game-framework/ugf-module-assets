@@ -7,6 +7,10 @@ namespace UGF.Module.Assets.Runtime
 {
     public class AssetsResourcesModule : ApplicationModuleBase, IAssetsModule
     {
+        public AssetsResourcesModule(IApplication application) : base(application)
+        {
+        }
+
         public T Load<T>(string assetName)
         {
             return (T)Load(assetName, typeof(T));
