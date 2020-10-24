@@ -7,8 +7,11 @@ namespace UGF.Module.Assets.Runtime
         IReadOnlyDictionary<string, IAssetLoader> Loaders { get; }
         IReadOnlyDictionary<string, IAssetGroup> Groups { get; }
 
+        IAssetLoader GetLoader(string id);
         bool TryGetLoader(string id, out IAssetLoader loader);
+        IAssetGroup GetGroupByAsset(string id);
+        bool TryGetGroupByAsset(string id, out IAssetGroup group);
+        IAssetGroup GetGroup(string id);
         bool TryGetGroup(string id, out IAssetGroup group);
-        bool TryGetInfo(string id, out IAssetInfo info);
     }
 }

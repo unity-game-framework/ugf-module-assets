@@ -15,9 +15,9 @@ namespace UGF.Module.Assets.Runtime
         event AssetLoadHandler Unloaded;
 
         T Load<T>(string id);
-        object Load(string id, Type assetType);
+        object Load(string id, Type type);
         Task<T> LoadAsync<T>(string id);
-        Task<object> LoadAsync(string id, Type assetType);
+        Task<object> LoadAsync(string id, Type type);
         void Unload<T>(T asset);
         void Unload(object asset);
         Task UnloadAsync<T>(T asset);
