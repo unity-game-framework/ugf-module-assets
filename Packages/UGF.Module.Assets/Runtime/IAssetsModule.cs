@@ -4,13 +4,23 @@ using UGF.Application.Runtime;
 
 namespace UGF.Module.Assets.Runtime
 {
-    public interface IAssetsModule : IApplicationModule
+    public interface IAssetsModule : IApplicationModuleDescribed
     {
-        T Load<T>(string assetName);
-        object Load(string assetName, Type assetType);
-        Task<T> LoadAsync<T>(string assetName);
-        Task<object> LoadAsync(string assetName, Type assetType);
-        void Release<T>(T asset);
-        void Release(object asset);
+        new IAssetsModuleDescription Description { get; }
+        IAssetProvider Provider { get; }
+
+        event AssetLoadHandler Loading;
+        event AssetLoadHandler Loaded;
+        event AssetLoadHandler Unloading;
+        event AssetLoadHandler Unloaded;
+
+        T Load<T>(string id);
+        object Load(string id, Type assetType);
+        Task<T> LoadAsync<T>(string id);
+        Task<object> LoadAsync(string id, Type assetType);
+        void Unload<T>(T asset);
+        void Unload(object asset);
+        Task UnloadAsync<T>(T asset);
+        Task UnloadAsync(object asset);
     }
 }
