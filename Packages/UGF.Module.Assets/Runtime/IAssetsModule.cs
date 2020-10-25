@@ -14,13 +14,13 @@ namespace UGF.Module.Assets.Runtime
         event AssetLoadHandler Unloading;
         event AssetLoadHandler Unloaded;
 
-        T Load<T>(string id);
+        T Load<T>(string id) where T : class;
         object Load(string id, Type type);
-        Task<T> LoadAsync<T>(string id);
+        Task<T> LoadAsync<T>(string id) where T : class;
         Task<object> LoadAsync(string id, Type type);
-        void Unload<T>(T asset);
+        void Unload<T>(T asset) where T : class;
         void Unload(object asset);
-        Task UnloadAsync<T>(T asset);
+        Task UnloadAsync<T>(T asset) where T : class;
         Task UnloadAsync(object asset);
     }
 }
