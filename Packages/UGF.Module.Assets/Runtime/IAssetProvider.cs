@@ -7,6 +7,10 @@ namespace UGF.Module.Assets.Runtime
         IReadOnlyDictionary<string, IAssetLoader> Loaders { get; }
         IReadOnlyDictionary<string, IAssetGroup> Groups { get; }
 
+        void AddLoader(string id, IAssetLoader loader);
+        bool RemoveLoader(string id);
+        void AddGroup(string id, IAssetGroup group);
+        bool RemoveGroup(string id);
         IAssetLoader GetLoader(string id);
         bool TryGetLoader(string id, out IAssetLoader loader);
         IAssetGroup GetGroupByAsset(string id);
