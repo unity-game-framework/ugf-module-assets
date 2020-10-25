@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 934b74369b374463b336ba176a33e791, type: 3}
-  m_Name: New Asset Group Asset
+  m_Script: {fileID: 11500000, guid: 2055535c02f8406b9f50d8ed07bb8e9a, type: 3}
+  m_Name: New Resources Loader Asset
   m_EditorClassIdentifier: 
-  m_loader: 
-  m_assets: []
-  references:
-    version: 1
+  m_provideAssetUnload: 0
