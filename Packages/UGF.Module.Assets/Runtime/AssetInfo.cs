@@ -1,13 +1,16 @@
 ﻿using System;
-using UnityEngine;
 
 namespace UGF.Module.Assets.Runtime
 {
-    [Serializable]
     public class AssetInfo : IAssetInfo
     {
-        [SerializeField] private string m_address;
+        public string Address { get; }
 
-        public string Address { get { return m_address; } set { m_address = value; } }
+        public AssetInfo(string address)
+        {
+            if (string.IsNullOrEmpty(address)) throw new ArgumentException("Value cannot be null or empty.", nameof(address));
+
+            Address = address;
+        }
     }
 }
