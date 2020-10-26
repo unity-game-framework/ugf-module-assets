@@ -4,7 +4,7 @@ namespace UGF.Module.Assets.Runtime
 {
     public abstract class AssetGroupAssetBase : ScriptableObject
     {
-        public T Build<T>()
+        public T Build<T>() where T : class, IAssetGroup
         {
             return (T)OnBuild();
         }

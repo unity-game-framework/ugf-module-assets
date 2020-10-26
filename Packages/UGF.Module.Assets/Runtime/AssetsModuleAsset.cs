@@ -1,17 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UGF.Application.Runtime;
 using UGF.EditorTools.Runtime.IMGUI.AssetReferences;
 using UnityEngine;
 
 namespace UGF.Module.Assets.Runtime
 {
-    public class AssetsModuleAsset : ApplicationModuleDescribedAsset<IAssetsModule, IAssetsModuleDescription>
+    [CreateAssetMenu(menuName = "UGF/Application Modules/Assets Module", order = 2000)]
+    public class AssetsModuleAsset : ApplicationModuleDescribedAsset<IAssetsModule, AssetsModuleDescription>
     {
+        [SerializeField] private AssetProviderAssetBase m_assetProvider;
         [SerializeField] private List<AssetReference<AssetLoaderAssetBase>> m_loaders = new List<AssetReference<AssetLoaderAssetBase>>();
 
+        public AssetProviderAssetBase AssetProvider { get { return m_assetProvider; } set { m_assetProvider = value; } }
         public List<AssetReference<AssetLoaderAssetBase>> Loaders { get { return m_loaders; } }
 
-        protected override IAssetsModuleDescription OnGetDescription(IApplication application)
+        protected override AssetsModuleDescription OnGetDescription(IApplication application)
         {
             var description = new AssetsModuleDescription();
 
@@ -26,9 +30,11 @@ namespace UGF.Module.Assets.Runtime
             return description;
         }
 
-        protected override IAssetsModule OnBuild(IApplication application, IAssetsModuleDescription description)
+        protected override IAssetsModule OnBuild(IApplication application, AssetsModuleDescription description)
         {
-            return null;
+            IAssetProvider provider = m_assetProvider != null ? m_assetProvider.Build() : throw new ArgumentException("Asset provider not specified.");
+
+            return new AssetsModule(application, description, provider);
         }
     }
 }
