@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb76c9a4caed4aed8e8e64d38c5f3158, type: 3}
-  m_Name: Module
+  m_Name: Module2
   m_EditorClassIdentifier: 
   m_assetProvider: {fileID: 11400000, guid: 360d48639c0a8ca4580afb58160bdd5f, type: 2}
   m_unloadTrackedAssetsOnUninitialize: 1
@@ -20,5 +20,7 @@ MonoBehaviour:
   m_groups:
   - m_guid: 8a7613277b8f83248952db4d175f124f
     m_asset: {fileID: 11400000, guid: 8a7613277b8f83248952db4d175f124f, type: 2}
-  m_preload: []
-  m_preloadAsync: []
+  m_preload:
+  - 6ecbdf2a84bc4b94794d0ccbb7164158
+  m_preloadAsync:
+  - 7532bc5c40ab10644812b87b664d33ba

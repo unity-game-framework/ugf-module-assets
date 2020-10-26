@@ -16,3 +16,7 @@ MonoBehaviour:
   m_assets:
   - m_id: 0
     m_address: Asset
+  - m_id: 6ecbdf2a84bc4b94794d0ccbb7164158
+    m_address: Asset2
+  - m_id: 7532bc5c40ab10644812b87b664d33ba
+    m_address: Asset3

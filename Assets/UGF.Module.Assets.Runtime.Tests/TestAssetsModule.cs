@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using UGF.Application.Runtime;
 using UnityEngine;
@@ -152,6 +153,42 @@ namespace UGF.Module.Assets.Runtime.Tests
             Assert.IsEmpty(module.Tracker.Tracks);
             Assert.AreEqual(0, module.Tracker.Tracks.Count);
             Assert.False(module.Tracker.TryGet("0", out _));
+        }
+
+        [UnityTest]
+        public IEnumerator Preload()
+        {
+            var application = new ApplicationConfigured(new ApplicationResources
+            {
+                new ApplicationConfig
+                {
+                    Modules =
+                    {
+                        (IApplicationModuleAsset)Resources.Load("Module2", typeof(IApplicationModuleAsset))
+                    }
+                }
+            });
+
+            var module = application.GetModule<IAssetsModule>();
+
+            Assert.IsEmpty(module.Tracker.Tracks);
+
+            application.Initialize();
+
+            Assert.AreEqual(1, module.Tracker.Tracks.Count);
+            Assert.True(module.Tracker.Contains("6ecbdf2a84bc4b94794d0ccbb7164158"));
+            Assert.False(module.Tracker.Contains("7532bc5c40ab10644812b87b664d33ba"));
+
+            Task task = application.InitializeAsync();
+
+            while (!task.IsCompleted)
+            {
+                yield return null;
+            }
+
+            Assert.AreEqual(2, module.Tracker.Tracks.Count);
+            Assert.True(module.Tracker.Contains("6ecbdf2a84bc4b94794d0ccbb7164158"));
+            Assert.True(module.Tracker.Contains("7532bc5c40ab10644812b87b664d33ba"));
         }
 
         [Test]
