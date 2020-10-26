@@ -7,6 +7,7 @@ namespace UGF.Module.Assets.Runtime
         public object Asset { get; }
         public uint Count { get; }
         public bool Positive { get { return Count > 0; } }
+        public bool Zero { get { return Count == 0; } }
 
         public AssetTrack(object asset, uint count = 0)
         {

@@ -131,36 +131,49 @@ namespace UGF.Module.Assets.Runtime
 
         protected virtual object OnLoad(string id, Type type)
         {
-            if (!Tracker.TryGet(id, out object asset))
+            if (!Tracker.TryGet(id, out AssetTrack track))
             {
                 IAssetLoader loader = GetLoaderByAsset(id);
 
-                asset = loader.Load(Provider, id, type);
+                object asset = loader.Load(Provider, id, type);
+
+                track = Tracker.Add(id, asset);
             }
 
-            OnTrackAsset(id, asset);
+            track.Increment();
+            Tracker.Update(id, track);
 
-            return asset;
+            return track.Asset;
         }
 
         protected virtual async Task<object> OnLoadAsync(string id, Type type)
         {
-            if (!Tracker.TryGet(id, out object asset))
+            if (!Tracker.TryGet(id, out AssetTrack track))
             {
                 IAssetLoader loader = GetLoaderByAsset(id);
 
-                asset = await loader.LoadAsync(Provider, id, type);
+                object asset = await loader.LoadAsync(Provider, id, type);
+
+                track = Tracker.Add(id, asset);
             }
 
-            OnTrackAsset(id, asset);
+            track.Increment();
+            Tracker.Update(id, track);
 
-            return asset;
+            return track.Asset;
         }
 
         protected virtual void OnUnload(string id, object asset)
         {
-            if (OnUnTrackAsset(id))
+            AssetTrack track = Tracker.Get(id);
+
+            track.Decrement();
+            Tracker.Update(id, track);
+
+            if (track.Zero)
             {
+                Tracker.Remove(id);
+
                 IAssetLoader loader = GetLoaderByAsset(id);
 
                 loader.Unload(Provider, id, asset);
@@ -169,31 +182,21 @@ namespace UGF.Module.Assets.Runtime
 
         protected virtual Task OnUnloadAsync(string id, object asset)
         {
-            if (OnUnTrackAsset(id))
+            AssetTrack track = Tracker.Get(id);
+
+            track.Decrement();
+            Tracker.Update(id, track);
+
+            if (track.Zero)
             {
+                Tracker.Remove(id);
+
                 IAssetLoader loader = GetLoaderByAsset(id);
 
                 return loader.UnloadAsync(Provider, id, asset);
             }
 
             return Task.CompletedTask;
-        }
-
-        protected virtual void OnTrackAsset(string id, object asset)
-        {
-            if (!Tracker.Contains(id))
-            {
-                Tracker.Add(id, asset);
-            }
-
-            Tracker.Increment(id);
-        }
-
-        protected virtual bool OnUnTrackAsset(string id)
-        {
-            uint count = Tracker.Decrement(id);
-
-            return count == 0 && Tracker.Remove(id);
         }
 
         protected IAssetLoader GetLoaderByAsset(string id)
