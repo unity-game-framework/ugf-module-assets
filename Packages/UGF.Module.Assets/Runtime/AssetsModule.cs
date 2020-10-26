@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UGF.Application.Runtime;
 
@@ -41,6 +42,18 @@ namespace UGF.Module.Assets.Runtime
         protected override void OnUninitialize()
         {
             base.OnUninitialize();
+
+            if (Description.UnloadTrackedAssetsOnUninitialize)
+            {
+                while (Tracker.Tracks.Count > 0)
+                {
+                    KeyValuePair<string, AssetTrack> pair = Tracker.Tracks.First();
+
+                    Unload(pair.Key, pair.Value.Asset, true);
+                }
+            }
+
+            Tracker.Clear();
 
             foreach (KeyValuePair<string, IAssetLoader> pair in Description.Loaders)
             {
@@ -91,12 +104,12 @@ namespace UGF.Module.Assets.Runtime
             return asset;
         }
 
-        public void Unload<T>(string id, T asset) where T : class
+        public void Unload<T>(string id, T asset, bool force = false) where T : class
         {
             Unload(id, (object)asset);
         }
 
-        public void Unload(string id, object asset)
+        public void Unload(string id, object asset, bool force = false)
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
             if (asset == null) throw new ArgumentNullException(nameof(asset));
@@ -105,17 +118,17 @@ namespace UGF.Module.Assets.Runtime
 
             Unloading?.Invoke(id, asset);
 
-            OnUnload(id, asset);
+            OnUnload(id, asset, force);
 
             Unloaded?.Invoke(id, type);
         }
 
-        public Task UnloadAsync<T>(string id, T asset) where T : class
+        public Task UnloadAsync<T>(string id, T asset, bool force = false) where T : class
         {
-            return UnloadAsync(id, (object)asset);
+            return UnloadAsync(id, (object)asset, force);
         }
 
-        public async Task UnloadAsync(string id, object asset)
+        public async Task UnloadAsync(string id, object asset, bool force = false)
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
             if (asset == null) throw new ArgumentNullException(nameof(asset));
@@ -124,7 +137,7 @@ namespace UGF.Module.Assets.Runtime
 
             Unloading?.Invoke(id, asset);
 
-            await OnUnloadAsync(id, asset);
+            await OnUnloadAsync(id, asset, force);
 
             Unloaded?.Invoke(id, type);
         }
@@ -165,7 +178,7 @@ namespace UGF.Module.Assets.Runtime
             return track.Asset;
         }
 
-        protected virtual void OnUnload(string id, object asset)
+        protected virtual void OnUnload(string id, object asset, bool force)
         {
             AssetTrack track = Tracker.Get(id);
 
@@ -173,7 +186,7 @@ namespace UGF.Module.Assets.Runtime
 
             Tracker.Update(id, track);
 
-            if (track.Zero)
+            if (track.Zero || force)
             {
                 Tracker.Remove(id);
 
@@ -183,7 +196,7 @@ namespace UGF.Module.Assets.Runtime
             }
         }
 
-        protected virtual Task OnUnloadAsync(string id, object asset)
+        protected virtual Task OnUnloadAsync(string id, object asset, bool force)
         {
             AssetTrack track = Tracker.Get(id);
 
@@ -191,7 +204,7 @@ namespace UGF.Module.Assets.Runtime
 
             Tracker.Update(id, track);
 
-            if (track.Zero)
+            if (track.Zero || force)
             {
                 Tracker.Remove(id);
 

@@ -10,16 +10,21 @@ namespace UGF.Module.Assets.Runtime
     public class AssetsModuleAsset : ApplicationModuleDescribedAsset<IAssetsModule, AssetsModuleDescription>
     {
         [SerializeField] private AssetProviderAssetBase m_assetProvider;
+        [SerializeField] private bool m_unloadTrackedAssetsOnUninitialize = true;
         [SerializeField] private List<AssetReference<AssetLoaderAssetBase>> m_loaders = new List<AssetReference<AssetLoaderAssetBase>>();
         [SerializeField] private List<AssetReference<AssetGroupAssetBase>> m_groups = new List<AssetReference<AssetGroupAssetBase>>();
 
         public AssetProviderAssetBase AssetProvider { get { return m_assetProvider; } set { m_assetProvider = value; } }
+        public bool UnloadTrackedAssetsOnUninitialize { get { return m_unloadTrackedAssetsOnUninitialize; } set { m_unloadTrackedAssetsOnUninitialize = value; } }
         public List<AssetReference<AssetLoaderAssetBase>> Loaders { get { return m_loaders; } }
         public List<AssetReference<AssetGroupAssetBase>> Groups { get { return m_groups; } }
 
         protected override AssetsModuleDescription OnGetDescription(IApplication application)
         {
-            var description = new AssetsModuleDescription();
+            var description = new AssetsModuleDescription
+            {
+                UnloadTrackedAssetsOnUninitialize = m_unloadTrackedAssetsOnUninitialize
+            };
 
             for (int i = 0; i < m_loaders.Count; i++)
             {
