@@ -9,15 +9,13 @@ namespace UGF.Module.Assets.Runtime.Loaders.Resources
     {
         public bool ProviderAssetUnload { get; }
 
-        public ResourcesLoader(bool providerAssetUnload = false)
+        public ResourcesLoader(bool providerAssetUnload = true)
         {
             ProviderAssetUnload = providerAssetUnload;
         }
 
         protected override object OnLoad(IAssetProvider provider, string id, Type type)
         {
-            if (!typeof(Object).IsAssignableFrom(type)) throw new ArgumentException("Asset type must be a Unity Object type.");
-
             IAssetGroup group = provider.GetGroupByAsset(id);
             IAssetInfo info = group.GetInfo(id);
             Object asset = UnityEngine.Resources.Load(info.Address, type);
@@ -27,8 +25,6 @@ namespace UGF.Module.Assets.Runtime.Loaders.Resources
 
         protected override async Task<object> OnLoadAsync(IAssetProvider provider, string id, Type type)
         {
-            if (!typeof(Object).IsAssignableFrom(type)) throw new ArgumentException("Asset type must be a Unity Object type.");
-
             IAssetGroup group = provider.GetGroupByAsset(id);
             IAssetInfo info = group.GetInfo(id);
 
