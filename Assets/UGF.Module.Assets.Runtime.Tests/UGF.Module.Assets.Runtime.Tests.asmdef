@@ -1,0 +1,24 @@
+{
+    "name": "UGF.Module.Assets.Runtime.Tests",
+    "rootNamespace": "",
+    "references": [
+        "GUID:dd1bd288ad84c4448aae281c0b1a63a4",
+        "GUID:a4312e46e9f64bb4aa011ac96ffd2a61",
+        "GUID:d067af32d09350a4bb33960432735e4d",
+        "GUID:088d00b6871540e44bce58af1a3f0f17",
+        "GUID:27619889b8ba8c24980f49ee34dbb44a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
