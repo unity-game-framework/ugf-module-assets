@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UGF.Application.Runtime;
 using UGF.EditorTools.Runtime.IMGUI.AssetReferences;
 using UGF.EditorTools.Runtime.IMGUI.Attributes;
@@ -11,7 +10,6 @@ namespace UGF.Module.Assets.Runtime
     [CreateAssetMenu(menuName = "UGF/Application Modules/Assets Module", order = 2000)]
     public class AssetsModuleAsset : ApplicationModuleDescribedAsset<IAssetsModule, AssetsModuleDescription>
     {
-        [SerializeField] private AssetProviderAssetBase m_assetProvider;
         [SerializeField] private bool m_unloadTrackedAssetsOnUninitialize = true;
         [SerializeField] private List<AssetReference<AssetLoaderAssetBase>> m_loaders = new List<AssetReference<AssetLoaderAssetBase>>();
         [SerializeField] private List<AssetReference<AssetGroupAssetBase>> m_groups = new List<AssetReference<AssetGroupAssetBase>>();
@@ -20,7 +18,6 @@ namespace UGF.Module.Assets.Runtime
         [AssetGuid(typeof(Object))]
         [SerializeField] private List<string> m_preloadAsync = new List<string>();
 
-        public AssetProviderAssetBase AssetProvider { get { return m_assetProvider; } set { m_assetProvider = value; } }
         public bool UnloadTrackedAssetsOnUninitialize { get { return m_unloadTrackedAssetsOnUninitialize; } set { m_unloadTrackedAssetsOnUninitialize = value; } }
         public List<AssetReference<AssetLoaderAssetBase>> Loaders { get { return m_loaders; } }
         public List<AssetReference<AssetGroupAssetBase>> Groups { get { return m_groups; } }
@@ -58,9 +55,7 @@ namespace UGF.Module.Assets.Runtime
 
         protected override IAssetsModule OnBuild(IApplication application, AssetsModuleDescription description)
         {
-            IAssetProvider provider = m_assetProvider != null ? m_assetProvider.Build() : throw new ArgumentException("Asset provider not specified.");
-
-            return new AssetsModule(application, description, provider);
+            return new AssetsModule(application, description);
         }
     }
 }

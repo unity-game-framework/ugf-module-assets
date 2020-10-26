@@ -19,9 +19,9 @@ namespace UGF.Module.Assets.Runtime
         public event AssetUnloadHandler Unloading;
         public event AssetUnloadedHandler Unloaded;
 
-        public AssetsModule(IApplication application, AssetsModuleDescription description, IAssetProvider provider, IAssetTracker tracker = null) : base(application, description)
+        public AssetsModule(IApplication application, AssetsModuleDescription description, IAssetProvider provider = null, IAssetTracker tracker = null) : base(application, description)
         {
-            Provider = provider ?? throw new ArgumentNullException(nameof(provider));
+            Provider = provider ?? new AssetProvider();
             Tracker = tracker ?? new AssetTracker();
         }
 
