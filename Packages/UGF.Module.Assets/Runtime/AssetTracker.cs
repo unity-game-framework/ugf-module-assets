@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace UGF.Module.Assets.Runtime
 {
@@ -11,7 +12,7 @@ namespace UGF.Module.Assets.Runtime
 
         public AssetTracker()
         {
-            Tracks = new Dictionary<string, AssetTrack>(m_tracks);
+            Tracks = new ReadOnlyDictionary<string, AssetTrack>(m_tracks);
         }
 
         public bool Contains(string id)

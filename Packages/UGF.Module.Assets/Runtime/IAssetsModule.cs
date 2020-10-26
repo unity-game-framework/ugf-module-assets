@@ -8,6 +8,7 @@ namespace UGF.Module.Assets.Runtime
     {
         new IAssetsModuleDescription Description { get; }
         IAssetProvider Provider { get; }
+        IAssetTracker Tracker { get; }
 
         event AssetLoadHandler Loading;
         event AssetLoadedHandler Loaded;
