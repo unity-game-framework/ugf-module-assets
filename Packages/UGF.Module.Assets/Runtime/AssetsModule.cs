@@ -140,7 +140,8 @@ namespace UGF.Module.Assets.Runtime
                 track = Tracker.Add(id, asset);
             }
 
-            track.Increment();
+            track++;
+
             Tracker.Update(id, track);
 
             return track.Asset;
@@ -157,7 +158,8 @@ namespace UGF.Module.Assets.Runtime
                 track = Tracker.Add(id, asset);
             }
 
-            track.Increment();
+            track++;
+
             Tracker.Update(id, track);
 
             return track.Asset;
@@ -167,7 +169,8 @@ namespace UGF.Module.Assets.Runtime
         {
             AssetTrack track = Tracker.Get(id);
 
-            track.Decrement();
+            track--;
+
             Tracker.Update(id, track);
 
             if (track.Zero)
@@ -184,7 +187,8 @@ namespace UGF.Module.Assets.Runtime
         {
             AssetTrack track = Tracker.Get(id);
 
-            track.Decrement();
+            track--;
+
             Tracker.Update(id, track);
 
             if (track.Zero)
