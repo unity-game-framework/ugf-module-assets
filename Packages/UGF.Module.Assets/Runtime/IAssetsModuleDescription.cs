@@ -6,5 +6,6 @@ namespace UGF.Module.Assets.Runtime
     public interface IAssetsModuleDescription : IApplicationModuleDescription
     {
         IReadOnlyDictionary<string, IAssetLoader> Loaders { get; }
+        IReadOnlyDictionary<string, IAssetGroup> Groups { get; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UGF.Application.Runtime;
 
@@ -18,6 +19,36 @@ namespace UGF.Module.Assets.Runtime
         public AssetsModule(IApplication application, AssetsModuleDescription description, IAssetProvider provider) : base(application, description)
         {
             Provider = provider ?? throw new ArgumentNullException(nameof(provider));
+        }
+
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+
+            foreach (KeyValuePair<string, IAssetLoader> pair in Description.Loaders)
+            {
+                Provider.AddLoader(pair.Key, pair.Value);
+            }
+
+            foreach (KeyValuePair<string, IAssetGroup> pair in Description.Groups)
+            {
+                Provider.AddGroup(pair.Key, pair.Value);
+            }
+        }
+
+        protected override void OnUninitialize()
+        {
+            base.OnUninitialize();
+
+            foreach (KeyValuePair<string, IAssetLoader> pair in Description.Loaders)
+            {
+                Provider.RemoveGroup(pair.Key);
+            }
+
+            foreach (KeyValuePair<string, IAssetGroup> pair in Description.Groups)
+            {
+                Provider.RemoveGroup(pair.Key);
+            }
         }
 
         public T Load<T>(string id) where T : class
