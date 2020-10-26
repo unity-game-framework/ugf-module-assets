@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UGF.Application.Runtime;
+using Object = UnityEngine.Object;
 
 namespace UGF.Module.Assets.Runtime
 {
-    public class AssetsModule : ApplicationModuleDescribed<AssetsModuleDescription>, IAssetsModule
+    public class AssetsModule : ApplicationModuleDescribed<AssetsModuleDescription>, IAssetsModule, IApplicationModuleAsync
     {
         public IAssetProvider Provider { get; }
         public IAssetTracker Tracker { get; }
@@ -36,6 +37,23 @@ namespace UGF.Module.Assets.Runtime
             foreach (KeyValuePair<string, IAssetGroup> pair in Description.Groups)
             {
                 Provider.AddGroup(pair.Key, pair.Value);
+            }
+
+            for (int i = 0; i < Description.PreloadAssets.Count; i++)
+            {
+                string id = Description.PreloadAssets[i];
+
+                Load<Object>(id);
+            }
+        }
+
+        public async Task InitializeAsync()
+        {
+            for (int i = 0; i < Description.PreloadAssetsAsync.Count; i++)
+            {
+                string id = Description.PreloadAssetsAsync[i];
+
+                await LoadAsync<Object>(id);
             }
         }
 

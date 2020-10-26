@@ -7,6 +7,8 @@ namespace UGF.Module.Assets.Runtime
     {
         IReadOnlyDictionary<string, IAssetLoader> Loaders { get; }
         IReadOnlyDictionary<string, IAssetGroup> Groups { get; }
+        IReadOnlyList<string> PreloadAssets { get; }
+        IReadOnlyList<string> PreloadAssetsAsync { get; }
         bool UnloadTrackedAssetsOnUninitialize { get; }
     }
 }
