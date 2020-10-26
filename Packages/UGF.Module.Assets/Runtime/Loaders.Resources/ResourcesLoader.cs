@@ -46,17 +46,17 @@ namespace UGF.Module.Assets.Runtime.Loaders.Resources
 
         protected override void OnUnload(IAssetProvider provider, string id, object asset)
         {
-            InternalUnload(provider, id, asset);
+            InternalUnload(asset);
         }
 
         protected override Task OnUnloadAsync(IAssetProvider provider, string id, object asset)
         {
-            InternalUnload(provider, id, asset);
+            InternalUnload(asset);
 
             return Task.CompletedTask;
         }
 
-        private void InternalUnload(IAssetProvider provider, string id, object asset)
+        private void InternalUnload(object asset)
         {
             if (ProviderAssetUnload)
             {

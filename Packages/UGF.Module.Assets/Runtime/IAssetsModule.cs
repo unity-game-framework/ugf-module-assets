@@ -10,17 +10,17 @@ namespace UGF.Module.Assets.Runtime
         IAssetProvider Provider { get; }
 
         event AssetLoadHandler Loading;
-        event AssetLoadHandler Loaded;
-        event AssetLoadHandler Unloading;
-        event AssetLoadHandler Unloaded;
+        event AssetLoadedHandler Loaded;
+        event AssetUnloadHandler Unloading;
+        event AssetUnloadedHandler Unloaded;
 
         T Load<T>(string id) where T : class;
         object Load(string id, Type type);
         Task<T> LoadAsync<T>(string id) where T : class;
         Task<object> LoadAsync(string id, Type type);
-        void Unload<T>(T asset) where T : class;
-        void Unload(object asset);
-        Task UnloadAsync<T>(T asset) where T : class;
-        Task UnloadAsync(object asset);
+        void Unload<T>(string id, T asset) where T : class;
+        void Unload(string id, object asset);
+        Task UnloadAsync<T>(string id, T asset) where T : class;
+        Task UnloadAsync(string id, object asset);
     }
 }
