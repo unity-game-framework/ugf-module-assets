@@ -153,5 +153,41 @@ namespace UGF.Module.Assets.Runtime.Tests
             Assert.AreEqual(0, module.Tracker.Tracks.Count);
             Assert.False(module.Tracker.TryGet("0", out _));
         }
+
+        [Test]
+        public void Uninitialize()
+        {
+            var application = new ApplicationConfigured(new ApplicationResources
+            {
+                new ApplicationConfig
+                {
+                    Modules =
+                    {
+                        (IApplicationModuleAsset)Resources.Load("Module", typeof(IApplicationModuleAsset))
+                    }
+                }
+            });
+
+            application.Initialize();
+
+            var module = application.GetModule<IAssetsModule>();
+            object asset1 = module.Load("0", typeof(Material));
+            object asset2 = module.Load("0", typeof(Material));
+
+            Assert.NotNull(asset1);
+            Assert.NotNull(asset2);
+            Assert.AreEqual(asset1, asset2);
+            Assert.IsNotEmpty(module.Tracker.Tracks);
+            Assert.AreEqual(1, module.Tracker.Tracks.Count);
+            Assert.AreEqual(2, module.Tracker.Get("0").Count);
+
+            application.Uninitialize();
+
+            Assert.AreEqual(null, asset1);
+            Assert.AreEqual(null, asset2);
+            Assert.IsEmpty(module.Tracker.Tracks);
+            Assert.AreEqual(0, module.Tracker.Tracks.Count);
+            Assert.False(module.Tracker.TryGet("0", out _));
+        }
     }
 }
