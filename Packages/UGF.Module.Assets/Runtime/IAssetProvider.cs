@@ -11,6 +11,8 @@ namespace UGF.Module.Assets.Runtime
         bool RemoveLoader(string id);
         void AddGroup(string id, IAssetGroup group);
         bool RemoveGroup(string id);
+        void ClearLoaders();
+        void ClearGroups();
         IAssetLoader GetLoader(string id);
         bool TryGetLoader(string id, out IAssetLoader loader);
         IAssetGroup GetGroupByAsset(string id);

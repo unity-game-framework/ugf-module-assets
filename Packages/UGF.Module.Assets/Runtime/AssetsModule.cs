@@ -8,6 +8,7 @@ namespace UGF.Module.Assets.Runtime
     public class AssetsModule : ApplicationModuleDescribed<AssetsModuleDescription>, IAssetsModule
     {
         public IAssetProvider Provider { get; }
+        public IAssetTracker Tracker { get; }
 
         IAssetsModuleDescription IAssetsModule.Description { get { return Description; } }
 
@@ -16,9 +17,10 @@ namespace UGF.Module.Assets.Runtime
         public event AssetUnloadHandler Unloading;
         public event AssetUnloadedHandler Unloaded;
 
-        public AssetsModule(IApplication application, AssetsModuleDescription description, IAssetProvider provider) : base(application, description)
+        public AssetsModule(IApplication application, AssetsModuleDescription description, IAssetProvider provider, IAssetTracker tracker = null) : base(application, description)
         {
             Provider = provider ?? throw new ArgumentNullException(nameof(provider));
+            Tracker = tracker ?? new AssetTracker();
         }
 
         protected override void OnInitialize()
@@ -42,7 +44,7 @@ namespace UGF.Module.Assets.Runtime
 
             foreach (KeyValuePair<string, IAssetLoader> pair in Description.Loaders)
             {
-                Provider.RemoveGroup(pair.Key);
+                Provider.RemoveLoader(pair.Key);
             }
 
             foreach (KeyValuePair<string, IAssetGroup> pair in Description.Groups)
@@ -129,33 +131,69 @@ namespace UGF.Module.Assets.Runtime
 
         protected virtual object OnLoad(string id, Type type)
         {
-            IAssetLoader loader = GetLoaderByAsset(id);
-            object asset = loader.Load(Provider, id, type);
+            if (!Tracker.TryGet(id, out object asset))
+            {
+                IAssetLoader loader = GetLoaderByAsset(id);
+
+                asset = loader.Load(Provider, id, type);
+            }
+
+            OnTrackAsset(id, asset);
 
             return asset;
         }
 
-        protected virtual Task<object> OnLoadAsync(string id, Type type)
+        protected virtual async Task<object> OnLoadAsync(string id, Type type)
         {
-            IAssetLoader loader = GetLoaderByAsset(id);
-            Task<object> task = loader.LoadAsync(Provider, id, type);
+            if (!Tracker.TryGet(id, out object asset))
+            {
+                IAssetLoader loader = GetLoaderByAsset(id);
 
-            return task;
+                asset = await loader.LoadAsync(Provider, id, type);
+            }
+
+            OnTrackAsset(id, asset);
+
+            return asset;
         }
 
         protected virtual void OnUnload(string id, object asset)
         {
-            IAssetLoader loader = GetLoaderByAsset(id);
+            if (OnUnTrackAsset(id))
+            {
+                IAssetLoader loader = GetLoaderByAsset(id);
 
-            loader.Unload(Provider, id, asset);
+                loader.Unload(Provider, id, asset);
+            }
         }
 
         protected virtual Task OnUnloadAsync(string id, object asset)
         {
-            IAssetLoader loader = GetLoaderByAsset(id);
-            Task task = loader.UnloadAsync(Provider, id, asset);
+            if (OnUnTrackAsset(id))
+            {
+                IAssetLoader loader = GetLoaderByAsset(id);
 
-            return task;
+                return loader.UnloadAsync(Provider, id, asset);
+            }
+
+            return Task.CompletedTask;
+        }
+
+        protected virtual void OnTrackAsset(string id, object asset)
+        {
+            if (!Tracker.Contains(id))
+            {
+                Tracker.Add(id, asset);
+            }
+
+            Tracker.Increment(id);
+        }
+
+        protected virtual bool OnUnTrackAsset(string id)
+        {
+            uint count = Tracker.Decrement(id);
+
+            return count == 0 && Tracker.Remove(id);
         }
 
         protected IAssetLoader GetLoaderByAsset(string id)

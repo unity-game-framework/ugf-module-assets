@@ -48,6 +48,16 @@ namespace UGF.Module.Assets.Runtime
             return m_groups.Remove(id);
         }
 
+        public void ClearLoaders()
+        {
+            m_loaders.Clear();
+        }
+
+        public void ClearGroups()
+        {
+            m_groups.Clear();
+        }
+
         public IAssetLoader GetLoader(string id)
         {
             return TryGetLoader(id, out IAssetLoader loader) ? loader : throw new ArgumentException($"Asset loader not found by the specified id: '{id}'.");
