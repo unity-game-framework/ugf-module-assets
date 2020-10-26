@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_loader: 91ad2c859a2f87f42922ea41f4bcfa55
   m_assets:
-  - m_id: 0
+  - m_id: 7ab173a97bcf2bc44b710c33213fa557
     m_address: Asset
   - m_id: 6ecbdf2a84bc4b94794d0ccbb7164158
     m_address: Asset2
