@@ -158,7 +158,7 @@ namespace UGF.Module.Assets.Runtime
                 {
                     if (Tracker.TryGet(id, out AssetTrack track))
                     {
-                        Tracker.Increment(id);
+                        track = Tracker.Increment(id);
                     }
                     else
                     {
@@ -186,7 +186,7 @@ namespace UGF.Module.Assets.Runtime
                 {
                     if (Tracker.TryGet(id, out AssetTrack track))
                     {
-                        Tracker.Increment(id);
+                        track = Tracker.Increment(id);
                     }
                     else
                     {

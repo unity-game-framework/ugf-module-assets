@@ -112,7 +112,7 @@ namespace UGF.Module.Assets.Runtime
 
             AssetTrack track = Get(id);
 
-            track.Increment();
+            track = track.Increment();
 
             Update(id, track);
 
@@ -125,7 +125,7 @@ namespace UGF.Module.Assets.Runtime
 
             AssetTrack track = Get(id);
 
-            track.Decrement();
+            track = track.Decrement();
 
             Update(id, track);
 
