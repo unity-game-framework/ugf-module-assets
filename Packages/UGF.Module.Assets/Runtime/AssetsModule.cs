@@ -124,7 +124,7 @@ namespace UGF.Module.Assets.Runtime
 
         public void Unload<T>(string id, T asset, bool force = false) where T : class
         {
-            Unload(id, (object)asset);
+            Unload(id, (object)asset, force);
         }
 
         public void Unload(string id, object asset, bool force = false)
