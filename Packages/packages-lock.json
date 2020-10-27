@@ -21,7 +21,7 @@
       "url": "https://api.bintray.com/npm/unity-game-framework/public"
     },
     "com.ugf.editortools": {
-      "version": "1.5.2",
+      "version": "1.6.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
@@ -40,7 +40,7 @@
       "source": "embedded",
       "dependencies": {
         "com.ugf.application": "5.1.0",
-        "com.ugf.editortools": "1.5.2"
+        "com.ugf.editortools": "1.6.0"
       }
     },
     "com.unity.ext.nunit": {

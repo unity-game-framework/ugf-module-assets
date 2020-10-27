@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb76c9a4caed4aed8e8e64d38c5f3158, type: 3}
   m_Name: Module2
   m_EditorClassIdentifier: 
-  m_assetProvider: {fileID: 11400000, guid: 360d48639c0a8ca4580afb58160bdd5f, type: 2}
   m_unloadTrackedAssetsOnUninitialize: 1
   m_loaders:
   - m_guid: 91ad2c859a2f87f42922ea41f4bcfa55
