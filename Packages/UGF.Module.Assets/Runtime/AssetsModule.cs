@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UGF.Application.Runtime;
+using UGF.Logs.Runtime;
 using Object = UnityEngine.Object;
 
 namespace UGF.Module.Assets.Runtime
@@ -39,12 +40,23 @@ namespace UGF.Module.Assets.Runtime
                 Provider.AddGroup(pair.Key, pair.Value);
             }
 
+            Log.Debug("Assets Module initialized", new
+            {
+                loadersCount = Provider.Loaders.Count,
+                groupsCount = Provider.Groups.Count
+            });
+
             for (int i = 0; i < Description.PreloadAssets.Count; i++)
             {
                 string id = Description.PreloadAssets[i];
 
                 Load<Object>(id, AssetLoadParameters.Default);
             }
+
+            Log.Debug("Assets Module preload", new
+            {
+                count = Description.PreloadAssets.Count
+            });
         }
 
         public async Task InitializeAsync()
@@ -55,6 +67,11 @@ namespace UGF.Module.Assets.Runtime
 
                 await LoadAsync<Object>(id, AssetLoadParameters.Default);
             }
+
+            Log.Debug("Assets Module preload async", new
+            {
+                count = Description.PreloadAssetsAsync.Count
+            });
         }
 
         protected override void OnUninitialize()
@@ -63,6 +80,11 @@ namespace UGF.Module.Assets.Runtime
 
             if (Description.UnloadTrackedAssetsOnUninitialize)
             {
+                Log.Debug("Assets Module unload tracked assets on uninitialize", new
+                {
+                    count = Tracker.Tracks.Count
+                });
+
                 while (Tracker.Tracks.Count > 0)
                 {
                     KeyValuePair<string, AssetTrack> pair = Tracker.Tracks.First();
