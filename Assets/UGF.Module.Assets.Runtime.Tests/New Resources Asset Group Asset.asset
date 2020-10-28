@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21e8b28303b9482aa9ed0a381fe0a110, type: 3}
+  m_Name: New Resources Asset Group Asset
+  m_EditorClassIdentifier: 
+  m_loader: ac6510b4371337e4d9d7b25ae86ad0c6
+  m_assets:
+  - m_id: 
+    m_address: 
