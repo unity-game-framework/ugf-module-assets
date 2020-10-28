@@ -4,7 +4,7 @@
     "version": "0.3.0-preview",
     "unity": "2020.2",
     "apiCompatibility": ".NET Standard 2.0",
-    "description": "No description.",
+    "description": "Module to manage assets loading.",
     "author": {
         "name": "Unity Game Framework",
         "url": "https://github.com/unity-game-framework"
