@@ -18,9 +18,10 @@ namespace UGF.Module.Assets.Runtime.Loaders.Resources
         {
             IAssetGroup group = provider.GetGroupByAsset(id);
             IAssetInfo info = group.GetInfo(id);
+
             Object asset = UnityEngine.Resources.Load(info.Address, type);
 
-            return asset;
+            return asset ? asset : throw new NullReferenceException($"Resource load result is null by the specified arguments: id:'{id}', type:'{type}'.");
         }
 
         protected override async Task<object> OnLoadAsync(IAssetProvider provider, string id, Type type)
@@ -37,7 +38,7 @@ namespace UGF.Module.Assets.Runtime.Loaders.Resources
 
             Object asset = request.asset;
 
-            return asset;
+            return asset ? asset : throw new NullReferenceException($"Resource load result is null by the specified arguments: id:'{id}', type:'{type}'.");
         }
 
         protected override void OnUnload(IAssetProvider provider, string id, object asset)
