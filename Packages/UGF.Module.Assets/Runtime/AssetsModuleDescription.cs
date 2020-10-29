@@ -8,7 +8,7 @@ namespace UGF.Module.Assets.Runtime
         public Dictionary<string, IAssetGroup> Groups { get; } = new Dictionary<string, IAssetGroup>();
         public List<string> PreloadAssets { get; } = new List<string>();
         public List<string> PreloadAssetsAsync { get; } = new List<string>();
-        public bool UnloadTrackedAssetsOnUninitialize { get; set; }
+        public bool UnloadTrackedAssetsOnUninitialize { get; set; } = true;
 
         IReadOnlyDictionary<string, IAssetLoader> IAssetsModuleDescription.Loaders { get { return Loaders; } }
         IReadOnlyDictionary<string, IAssetGroup> IAssetsModuleDescription.Groups { get { return Groups; } }
