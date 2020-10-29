@@ -221,7 +221,7 @@ namespace UGF.Module.Assets.Runtime
                 }
                 case AssetLoadMode.Direct:
                 {
-                    return await LoadAssetAsync(id, type);
+                    return LoadAssetAsync(id, type);
                 }
                 default:
                     throw new ArgumentOutOfRangeException(nameof(parameters.Mode), $"Invalid asset load mode specified: '{parameters.Mode}'.");
@@ -285,13 +285,13 @@ namespace UGF.Module.Assets.Runtime
             return asset;
         }
 
-        protected virtual async Task<object> LoadAssetAsync(string id, Type type)
+        protected virtual Task<object> LoadAssetAsync(string id, Type type)
         {
             IAssetLoader loader = GetLoaderByAsset(id);
 
-            object asset = await loader.LoadAsync(Provider, id, type);
+            Task<object> task = loader.LoadAsync(Provider, id, type);
 
-            return asset;
+            return task;
         }
 
         protected virtual void UnloadAsset(string id, object asset)
