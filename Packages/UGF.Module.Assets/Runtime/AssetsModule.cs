@@ -121,11 +121,11 @@ namespace UGF.Module.Assets.Runtime
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
             if (type == null) throw new ArgumentNullException(nameof(type));
 
-            Loading?.Invoke(id, type);
+            Loading?.Invoke(id, type, parameters);
 
             object asset = OnLoad(id, type, parameters);
 
-            Loaded?.Invoke(id, asset);
+            Loaded?.Invoke(id, asset, parameters);
 
             return asset;
         }
@@ -135,11 +135,11 @@ namespace UGF.Module.Assets.Runtime
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
             if (type == null) throw new ArgumentNullException(nameof(type));
 
-            Loading?.Invoke(id, type);
+            Loading?.Invoke(id, type, parameters);
 
             object asset = await OnLoadAsync(id, type, parameters);
 
-            Loaded?.Invoke(id, asset);
+            Loaded?.Invoke(id, asset, parameters);
 
             return asset;
         }
@@ -151,11 +151,11 @@ namespace UGF.Module.Assets.Runtime
 
             Type type = asset.GetType();
 
-            Unloading?.Invoke(id, asset);
+            Unloading?.Invoke(id, asset, parameters);
 
             OnUnload(id, asset, parameters);
 
-            Unloaded?.Invoke(id, type);
+            Unloaded?.Invoke(id, type, parameters);
         }
 
         public async Task UnloadAsync(string id, object asset, AssetUnloadParameters parameters)
@@ -165,11 +165,11 @@ namespace UGF.Module.Assets.Runtime
 
             Type type = asset.GetType();
 
-            Unloading?.Invoke(id, asset);
+            Unloading?.Invoke(id, asset, parameters);
 
             await OnUnloadAsync(id, asset, parameters);
 
-            Unloaded?.Invoke(id, type);
+            Unloaded?.Invoke(id, type, parameters);
         }
 
         protected virtual object OnLoad(string id, Type type, AssetLoadParameters parameters)
