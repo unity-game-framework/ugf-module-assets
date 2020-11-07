@@ -13,17 +13,21 @@ namespace UGF.Module.Assets.Runtime
         public IAssetProvider Provider { get; }
         public IAssetTracker Tracker { get; }
 
-        IAssetsModuleDescription IAssetsModule.Description { get { return Description; } }
+        IAssetsModuleDescription IApplicationModuleDescribed<IAssetsModuleDescription>.Description { get { return Description; } }
 
         public event AssetLoadHandler Loading;
         public event AssetLoadedHandler Loaded;
         public event AssetUnloadHandler Unloading;
         public event AssetUnloadedHandler Unloaded;
 
-        public AssetsModule(IApplication application, AssetsModuleDescription description, IAssetProvider provider = null, IAssetTracker tracker = null) : base(application, description)
+        public AssetsModule(IApplication application, AssetsModuleDescription description) : this(application, description, new AssetProvider(), new AssetTracker())
         {
-            Provider = provider ?? new AssetProvider();
-            Tracker = tracker ?? new AssetTracker();
+        }
+
+        public AssetsModule(IApplication application, AssetsModuleDescription description, IAssetProvider provider, IAssetTracker tracker) : base(application, description)
+        {
+            Provider = provider ?? throw new ArgumentNullException(nameof(provider));
+            Tracker = tracker ?? throw new ArgumentNullException(nameof(tracker));
         }
 
         protected override void OnInitialize()
