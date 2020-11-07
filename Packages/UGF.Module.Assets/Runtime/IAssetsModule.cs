@@ -4,9 +4,8 @@ using UGF.Application.Runtime;
 
 namespace UGF.Module.Assets.Runtime
 {
-    public interface IAssetsModule : IApplicationModuleDescribed
+    public interface IAssetsModule : IApplicationModuleDescribed<IAssetsModuleDescription>
     {
-        new IAssetsModuleDescription Description { get; }
         IAssetProvider Provider { get; }
         IAssetTracker Tracker { get; }
 
