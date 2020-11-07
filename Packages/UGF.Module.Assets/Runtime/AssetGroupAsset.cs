@@ -15,8 +15,20 @@ namespace UGF.Module.Assets.Runtime
 
         protected override IAssetGroup OnBuild()
         {
-            var group = new AssetGroup(m_loader);
+            IAssetGroup group = OnCreateGroup();
 
+            OnPopulateGroup(group);
+
+            return group;
+        }
+
+        protected virtual IAssetGroup OnCreateGroup()
+        {
+            return new AssetGroup(m_loader);
+        }
+
+        protected virtual void OnPopulateGroup(IAssetGroup group)
+        {
             for (int i = 0; i < m_assets.Count; i++)
             {
                 TEntry entry = m_assets[i];
@@ -24,8 +36,6 @@ namespace UGF.Module.Assets.Runtime
 
                 group.Add(entry.Id, info);
             }
-
-            return group;
         }
     }
 }
