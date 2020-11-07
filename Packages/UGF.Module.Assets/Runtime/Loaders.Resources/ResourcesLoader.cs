@@ -5,7 +5,7 @@ using Object = UnityEngine.Object;
 
 namespace UGF.Module.Assets.Runtime.Loaders.Resources
 {
-    public class ResourcesLoader : AssetLoaderBase
+    public class ResourcesLoader : AssetLoader<IAssetGroup, IAssetInfo>
     {
         public bool ProviderAssetUnload { get; }
 
@@ -14,21 +14,15 @@ namespace UGF.Module.Assets.Runtime.Loaders.Resources
             ProviderAssetUnload = providerAssetUnload;
         }
 
-        protected override object OnLoad(IAssetProvider provider, string id, Type type)
+        protected override object OnLoad(IAssetProvider provider, IAssetGroup group, IAssetInfo info, string id, Type type)
         {
-            IAssetGroup group = provider.GetGroupByAsset(id);
-            IAssetInfo info = group.GetInfo(id);
-
             Object asset = UnityEngine.Resources.Load(info.Address, type);
 
             return asset ? asset : throw new NullReferenceException($"Resource load result is null by the specified arguments: id:'{id}', type:'{type}'.");
         }
 
-        protected override async Task<object> OnLoadAsync(IAssetProvider provider, string id, Type type)
+        protected override async Task<object> OnLoadAsync(IAssetProvider provider, IAssetGroup group, IAssetInfo info, string id, Type type)
         {
-            IAssetGroup group = provider.GetGroupByAsset(id);
-            IAssetInfo info = group.GetInfo(id);
-
             ResourceRequest request = UnityEngine.Resources.LoadAsync(info.Address, type);
 
             while (!request.isDone)
@@ -41,12 +35,12 @@ namespace UGF.Module.Assets.Runtime.Loaders.Resources
             return asset ? asset : throw new NullReferenceException($"Resource load result is null by the specified arguments: id:'{id}', type:'{type}'.");
         }
 
-        protected override void OnUnload(IAssetProvider provider, string id, object asset)
+        protected override void OnUnload(IAssetProvider provider, IAssetGroup group, IAssetInfo info, string id, object asset)
         {
             InternalUnload(asset);
         }
 
-        protected override Task OnUnloadAsync(IAssetProvider provider, string id, object asset)
+        protected override Task OnUnloadAsync(IAssetProvider provider, IAssetGroup group, IAssetInfo info, string id, object asset)
         {
             InternalUnload(asset);
 

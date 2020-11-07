@@ -121,11 +121,11 @@ namespace UGF.Module.Assets.Runtime
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
             if (type == null) throw new ArgumentNullException(nameof(type));
 
-            Loading?.Invoke(id, type);
+            Loading?.Invoke(id, type, parameters);
 
             object asset = OnLoad(id, type, parameters);
 
-            Loaded?.Invoke(id, asset);
+            Loaded?.Invoke(id, asset, parameters);
 
             return asset;
         }
@@ -135,11 +135,11 @@ namespace UGF.Module.Assets.Runtime
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
             if (type == null) throw new ArgumentNullException(nameof(type));
 
-            Loading?.Invoke(id, type);
+            Loading?.Invoke(id, type, parameters);
 
             object asset = await OnLoadAsync(id, type, parameters);
 
-            Loaded?.Invoke(id, asset);
+            Loaded?.Invoke(id, asset, parameters);
 
             return asset;
         }
@@ -151,11 +151,11 @@ namespace UGF.Module.Assets.Runtime
 
             Type type = asset.GetType();
 
-            Unloading?.Invoke(id, asset);
+            Unloading?.Invoke(id, asset, parameters);
 
             OnUnload(id, asset, parameters);
 
-            Unloaded?.Invoke(id, type);
+            Unloaded?.Invoke(id, type, parameters);
         }
 
         public async Task UnloadAsync(string id, object asset, AssetUnloadParameters parameters)
@@ -165,11 +165,11 @@ namespace UGF.Module.Assets.Runtime
 
             Type type = asset.GetType();
 
-            Unloading?.Invoke(id, asset);
+            Unloading?.Invoke(id, asset, parameters);
 
             await OnUnloadAsync(id, asset, parameters);
 
-            Unloaded?.Invoke(id, type);
+            Unloaded?.Invoke(id, type, parameters);
         }
 
         protected virtual object OnLoad(string id, Type type, AssetLoadParameters parameters)
@@ -221,7 +221,7 @@ namespace UGF.Module.Assets.Runtime
                 }
                 case AssetLoadMode.Direct:
                 {
-                    return await LoadAssetAsync(id, type);
+                    return LoadAssetAsync(id, type);
                 }
                 default:
                     throw new ArgumentOutOfRangeException(nameof(parameters.Mode), $"Invalid asset load mode specified: '{parameters.Mode}'.");
@@ -232,7 +232,7 @@ namespace UGF.Module.Assets.Runtime
         {
             switch (parameters.Mode)
             {
-                case AssetLoadMode.Track:
+                case AssetUnloadMode.Track:
                 {
                     if (parameters.Force || Tracker.UnTrack(id, out _))
                     {
@@ -242,13 +242,18 @@ namespace UGF.Module.Assets.Runtime
 
                     break;
                 }
-                case AssetLoadMode.Direct:
+                case AssetUnloadMode.TrackOnly:
+                {
+                    Tracker.UnTrack(id, out _);
+                    break;
+                }
+                case AssetUnloadMode.Direct:
                 {
                     UnloadAsset(id, asset);
                     break;
                 }
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(parameters.Mode), $"Invalid asset load mode specified: '{parameters.Mode}'.");
+                    throw new ArgumentOutOfRangeException(nameof(parameters.Mode), $"Invalid asset unload mode specified: '{parameters.Mode}'.");
             }
         }
 
@@ -256,7 +261,7 @@ namespace UGF.Module.Assets.Runtime
         {
             switch (parameters.Mode)
             {
-                case AssetLoadMode.Track:
+                case AssetUnloadMode.Track:
                 {
                     if (parameters.Force || Tracker.UnTrack(id, out _))
                     {
@@ -267,12 +272,18 @@ namespace UGF.Module.Assets.Runtime
 
                     return Task.CompletedTask;
                 }
-                case AssetLoadMode.Direct:
+                case AssetUnloadMode.TrackOnly:
+                {
+                    Tracker.UnTrack(id, out _);
+
+                    return Task.CompletedTask;
+                }
+                case AssetUnloadMode.Direct:
                 {
                     return UnloadAssetAsync(id, asset);
                 }
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(parameters.Mode), $"Invalid asset load mode specified: '{parameters.Mode}'.");
+                    throw new ArgumentOutOfRangeException(nameof(parameters.Mode), $"Invalid asset unload mode specified: '{parameters.Mode}'.");
             }
         }
 
@@ -285,13 +296,13 @@ namespace UGF.Module.Assets.Runtime
             return asset;
         }
 
-        protected virtual async Task<object> LoadAssetAsync(string id, Type type)
+        protected virtual Task<object> LoadAssetAsync(string id, Type type)
         {
             IAssetLoader loader = GetLoaderByAsset(id);
 
-            object asset = await loader.LoadAsync(Provider, id, type);
+            Task<object> task = loader.LoadAsync(Provider, id, type);
 
-            return asset;
+            return task;
         }
 
         protected virtual void UnloadAsset(string id, object asset)
