@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.ugf.application": {
-      "version": "5.1.0",
+      "version": "5.2.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -58,7 +58,7 @@
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "com.ugf.application": "5.1.0",
+        "com.ugf.application": "5.2.0",
         "com.ugf.editortools": "1.6.0",
         "com.ugf.logs": "3.0.0"
       }
