@@ -232,7 +232,7 @@ namespace UGF.Module.Assets.Runtime
         {
             switch (parameters.Mode)
             {
-                case AssetLoadMode.Track:
+                case AssetUnloadMode.Track:
                 {
                     if (parameters.Force || Tracker.UnTrack(id, out _))
                     {
@@ -242,13 +242,18 @@ namespace UGF.Module.Assets.Runtime
 
                     break;
                 }
-                case AssetLoadMode.Direct:
+                case AssetUnloadMode.TrackOnly:
+                {
+                    Tracker.UnTrack(id, out _);
+                    break;
+                }
+                case AssetUnloadMode.Direct:
                 {
                     UnloadAsset(id, asset);
                     break;
                 }
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(parameters.Mode), $"Invalid asset load mode specified: '{parameters.Mode}'.");
+                    throw new ArgumentOutOfRangeException(nameof(parameters.Mode), $"Invalid asset unload mode specified: '{parameters.Mode}'.");
             }
         }
 
@@ -256,7 +261,7 @@ namespace UGF.Module.Assets.Runtime
         {
             switch (parameters.Mode)
             {
-                case AssetLoadMode.Track:
+                case AssetUnloadMode.Track:
                 {
                     if (parameters.Force || Tracker.UnTrack(id, out _))
                     {
@@ -267,12 +272,18 @@ namespace UGF.Module.Assets.Runtime
 
                     return Task.CompletedTask;
                 }
-                case AssetLoadMode.Direct:
+                case AssetUnloadMode.TrackOnly:
+                {
+                    Tracker.UnTrack(id, out _);
+
+                    return Task.CompletedTask;
+                }
+                case AssetUnloadMode.Direct:
                 {
                     return UnloadAssetAsync(id, asset);
                 }
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(parameters.Mode), $"Invalid asset load mode specified: '{parameters.Mode}'.");
+                    throw new ArgumentOutOfRangeException(nameof(parameters.Mode), $"Invalid asset unload mode specified: '{parameters.Mode}'.");
             }
         }
 
