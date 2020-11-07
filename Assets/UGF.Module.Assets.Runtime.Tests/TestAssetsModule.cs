@@ -226,5 +226,98 @@ namespace UGF.Module.Assets.Runtime.Tests
             Assert.AreEqual(0, module.Tracker.Tracks.Count);
             Assert.False(module.Tracker.TryGet("7ab173a97bcf2bc44b710c33213fa557", out _));
         }
+
+        [Test]
+        public void UnloadUnused()
+        {
+            var application = new ApplicationConfigured(new ApplicationResources
+            {
+                new ApplicationConfig
+                {
+                    Modules =
+                    {
+                        (IApplicationModuleAsset)Resources.Load("Module", typeof(IApplicationModuleAsset))
+                    }
+                }
+            });
+
+            application.Initialize();
+
+            var module = application.GetModule<IAssetsModule>();
+            object asset1 = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Default);
+            object asset2 = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Default);
+
+            Assert.NotNull(asset1);
+            Assert.NotNull(asset2);
+            Assert.AreEqual(asset1, asset2);
+            Assert.IsNotEmpty(module.Tracker.Tracks);
+            Assert.AreEqual(1, module.Tracker.Tracks.Count);
+            Assert.AreEqual(2, module.Tracker.Get("7ab173a97bcf2bc44b710c33213fa557").Count);
+
+            module.Tracker.Update("7ab173a97bcf2bc44b710c33213fa557", new AssetTrack(asset1));
+
+            Assert.NotNull(asset1);
+            Assert.NotNull(asset2);
+            Assert.AreEqual(asset1, asset2);
+            Assert.AreEqual(1, module.Tracker.Tracks.Count);
+            Assert.AreEqual(0, module.Tracker.Get("7ab173a97bcf2bc44b710c33213fa557").Count);
+
+            module.UnloadUnused(false);
+
+            Assert.AreEqual(null, asset1);
+            Assert.AreEqual(null, asset2);
+            Assert.IsEmpty(module.Tracker.Tracks);
+            Assert.AreEqual(0, module.Tracker.Tracks.Count);
+            Assert.False(module.Tracker.TryGet("7ab173a97bcf2bc44b710c33213fa557", out _));
+        }
+
+        [UnityTest]
+        public IEnumerator UnloadUnusedAsync()
+        {
+            var application = new ApplicationConfigured(new ApplicationResources
+            {
+                new ApplicationConfig
+                {
+                    Modules =
+                    {
+                        (IApplicationModuleAsset)Resources.Load("Module", typeof(IApplicationModuleAsset))
+                    }
+                }
+            });
+
+            application.Initialize();
+
+            var module = application.GetModule<IAssetsModule>();
+            object asset1 = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Default);
+            object asset2 = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Default);
+
+            Assert.NotNull(asset1);
+            Assert.NotNull(asset2);
+            Assert.AreEqual(asset1, asset2);
+            Assert.IsNotEmpty(module.Tracker.Tracks);
+            Assert.AreEqual(1, module.Tracker.Tracks.Count);
+            Assert.AreEqual(2, module.Tracker.Get("7ab173a97bcf2bc44b710c33213fa557").Count);
+
+            module.Tracker.Update("7ab173a97bcf2bc44b710c33213fa557", new AssetTrack(asset1));
+
+            Assert.NotNull(asset1);
+            Assert.NotNull(asset2);
+            Assert.AreEqual(asset1, asset2);
+            Assert.AreEqual(1, module.Tracker.Tracks.Count);
+            Assert.AreEqual(0, module.Tracker.Get("7ab173a97bcf2bc44b710c33213fa557").Count);
+
+            Task task = module.UnloadUnusedAsync(false);
+
+            while (!task.IsCompleted)
+            {
+                yield return null;
+            }
+
+            Assert.AreEqual(null, asset1);
+            Assert.AreEqual(null, asset2);
+            Assert.IsEmpty(module.Tracker.Tracks);
+            Assert.AreEqual(0, module.Tracker.Tracks.Count);
+            Assert.False(module.Tracker.TryGet("7ab173a97bcf2bc44b710c33213fa557", out _));
+        }
     }
 }
