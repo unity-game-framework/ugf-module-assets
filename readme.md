@@ -4,7 +4,7 @@ UGF.Module.Assets
 
 ## Info
 
-- **Version**: `1.0.0`
+- **Version**: `2.0.0`
 - **Unity**: `2020.2`
 - **API Compatibility Level**: `.NET Standard 2.0`
 
@@ -17,7 +17,7 @@ UGF.Module.Assets
 
 ### Description
 
-No description.
+Module to manage assets loading.
 
 ### Changelog
 
