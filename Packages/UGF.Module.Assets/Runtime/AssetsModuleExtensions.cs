@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace UGF.Module.Assets.Runtime
 {
@@ -45,6 +47,55 @@ namespace UGF.Module.Assets.Runtime
             if (assetsModule == null) throw new ArgumentNullException(nameof(assetsModule));
 
             return assetsModule.UnloadAsync(id, asset, AssetUnloadParameters.Default);
+        }
+
+        public static void UnloadUnused(this IAssetsModule assetsModule, bool resourcesUnloadUnused = true)
+        {
+            if (assetsModule == null) throw new ArgumentNullException(nameof(assetsModule));
+
+            var entries = new List<KeyValuePair<string, AssetTrack>>(assetsModule.Tracker.Tracks);
+
+            for (int i = 0; i < entries.Count; i++)
+            {
+                KeyValuePair<string, AssetTrack> entry = entries[i];
+
+                if (entry.Value.Zero)
+                {
+                    assetsModule.Unload(entry.Key, entry.Value.Asset, AssetUnloadParameters.DefaultForce);
+                }
+            }
+
+            if (resourcesUnloadUnused)
+            {
+                Resources.UnloadUnusedAssets();
+            }
+        }
+
+        public static async Task UnloadUnusedAsync(this IAssetsModule assetsModule, bool resourcesUnloadUnused = true)
+        {
+            if (assetsModule == null) throw new ArgumentNullException(nameof(assetsModule));
+
+            var entries = new List<KeyValuePair<string, AssetTrack>>(assetsModule.Tracker.Tracks);
+
+            for (int i = 0; i < entries.Count; i++)
+            {
+                KeyValuePair<string, AssetTrack> entry = entries[i];
+
+                if (entry.Value.Zero)
+                {
+                    await assetsModule.UnloadAsync(entry.Key, entry.Value.Asset, AssetUnloadParameters.DefaultForce);
+                }
+            }
+
+            if (resourcesUnloadUnused)
+            {
+                AsyncOperation operation = Resources.UnloadUnusedAssets();
+
+                while (!operation.isDone)
+                {
+                    await Task.Yield();
+                }
+            }
         }
     }
 }
