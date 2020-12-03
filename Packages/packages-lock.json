@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.ugf.application": {
-      "version": "file:D:/Workspace/Unity Game Framework/ugf-application/Packages/UGF.Application",
+      "version": "file:../../ugf-application/Packages/UGF.Application",
       "depth": 0,
       "source": "local",
       "dependencies": {
@@ -11,7 +11,7 @@
       }
     },
     "com.ugf.builder": {
-      "version": "file:D:/Workspace/Unity Game Framework/ugf-builder/Packages/UGF.Builder",
+      "version": "file:../../ugf-builder/Packages/UGF.Builder",
       "depth": 0,
       "source": "local",
       "dependencies": {}
@@ -36,7 +36,7 @@
       "url": "https://api.bintray.com/npm/unity-game-framework/public"
     },
     "com.ugf.description": {
-      "version": "file:D:/Workspace/Unity Game Framework/ugf-description/Packages/UGF.Description",
+      "version": "file:../../ugf-description/Packages/UGF.Description",
       "depth": 0,
       "source": "local",
       "dependencies": {}
