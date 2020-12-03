@@ -1,19 +1,8 @@
-﻿using UnityEngine;
+﻿using UGF.Builder.Runtime;
 
 namespace UGF.Module.Assets.Runtime
 {
-    public abstract class AssetGroupAssetBase : ScriptableObject
+    public abstract class AssetGroupAssetBase : BuilderAsset<IAssetGroup>
     {
-        public T Build<T>() where T : class, IAssetGroup
-        {
-            return (T)OnBuild();
-        }
-
-        public IAssetGroup Build()
-        {
-            return OnBuild();
-        }
-
-        protected abstract IAssetGroup OnBuild();
     }
 }

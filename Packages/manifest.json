@@ -1,5 +1,8 @@
 {
   "dependencies": {
+    "com.ugf.application": "file:D:/Workspace/Unity Game Framework/ugf-application/Packages/UGF.Application",
+    "com.ugf.builder": "file:D:/Workspace/Unity Game Framework/ugf-builder/Packages/UGF.Builder",
+    "com.ugf.description": "file:D:/Workspace/Unity Game Framework/ugf-description/Packages/UGF.Description",
     "com.unity.ide.rider": "3.0.3",
     "com.unity.test-framework": "1.1.19"
   },

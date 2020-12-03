@@ -1,22 +1,27 @@
 {
   "dependencies": {
     "com.ugf.application": {
-      "version": "5.2.0",
+      "version": "file:D:/Workspace/Unity Game Framework/ugf-application/Packages/UGF.Application",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {
+        "com.ugf.initialize": "2.6.0",
+        "com.ugf.customsettings": "3.4.0",
+        "com.ugf.editortools": "1.7.0"
+      }
+    },
+    "com.ugf.builder": {
+      "version": "file:D:/Workspace/Unity Game Framework/ugf-builder/Packages/UGF.Builder",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
+    "com.ugf.customsettings": {
+      "version": "3.4.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.ugf.initialize": "2.4.0",
-        "com.ugf.customsettings": "3.0.1",
-        "com.ugf.editortools": "1.5.1"
-      },
-      "url": "https://api.bintray.com/npm/unity-game-framework/public"
-    },
-    "com.ugf.customsettings": {
-      "version": "3.0.1",
-      "depth": 2,
-      "source": "registry",
-      "dependencies": {
-        "com.ugf.editortools": "1.1.0"
+        "com.ugf.editortools": "1.7.0"
       },
       "url": "https://api.bintray.com/npm/unity-game-framework/public"
     },
@@ -30,16 +35,22 @@
       },
       "url": "https://api.bintray.com/npm/unity-game-framework/public"
     },
+    "com.ugf.description": {
+      "version": "file:D:/Workspace/Unity Game Framework/ugf-description/Packages/UGF.Description",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.ugf.editortools": {
-      "version": "1.6.0",
+      "version": "1.7.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://api.bintray.com/npm/unity-game-framework/public"
     },
     "com.ugf.initialize": {
-      "version": "2.4.0",
-      "depth": 2,
+      "version": "2.6.0",
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://api.bintray.com/npm/unity-game-framework/public"
