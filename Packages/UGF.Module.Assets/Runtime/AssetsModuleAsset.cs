@@ -7,7 +7,7 @@ using Object = UnityEngine.Object;
 
 namespace UGF.Module.Assets.Runtime
 {
-    [CreateAssetMenu(menuName = "UGF/Application Modules/Assets Module", order = 2000)]
+    [CreateAssetMenu(menuName = "Unity Game Framework/Assets/Assets Module", order = 2000)]
     public class AssetsModuleAsset : ApplicationModuleAsset<IAssetsModule, AssetsModuleDescription>
     {
         [SerializeField] private bool m_unloadTrackedAssetsOnUninitialize = true;
