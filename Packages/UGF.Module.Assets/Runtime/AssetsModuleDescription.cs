@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using UGF.Application.Runtime;
 
 namespace UGF.Module.Assets.Runtime
 {
-    public class AssetsModuleDescription : IAssetsModuleDescription
+    public class AssetsModuleDescription : ApplicationModuleDescription, IAssetsModuleDescription
     {
         public Dictionary<string, IAssetLoader> Loaders { get; } = new Dictionary<string, IAssetLoader>();
         public Dictionary<string, IAssetGroup> Groups { get; } = new Dictionary<string, IAssetGroup>();
@@ -14,5 +16,9 @@ namespace UGF.Module.Assets.Runtime
         IReadOnlyDictionary<string, IAssetGroup> IAssetsModuleDescription.Groups { get { return Groups; } }
         IReadOnlyList<string> IAssetsModuleDescription.PreloadAssets { get { return PreloadAssets; } }
         IReadOnlyList<string> IAssetsModuleDescription.PreloadAssetsAsync { get { return PreloadAssetsAsync; } }
+
+        public AssetsModuleDescription(Type registerType) : base(registerType)
+        {
+        }
     }
 }
