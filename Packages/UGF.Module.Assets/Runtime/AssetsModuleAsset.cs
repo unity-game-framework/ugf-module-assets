@@ -7,8 +7,8 @@ using Object = UnityEngine.Object;
 
 namespace UGF.Module.Assets.Runtime
 {
-    [CreateAssetMenu(menuName = "UGF/Application Modules/Assets Module", order = 2000)]
-    public class AssetsModuleAsset : ApplicationModuleDescribedAsset<IAssetsModule, AssetsModuleDescription>
+    [CreateAssetMenu(menuName = "Unity Game Framework/Assets/Assets Module", order = 2000)]
+    public class AssetsModuleAsset : ApplicationModuleAsset<IAssetsModule, AssetsModuleDescription>
     {
         [SerializeField] private bool m_unloadTrackedAssetsOnUninitialize = true;
         [SerializeField] private List<AssetReference<AssetLoaderAssetBase>> m_loaders = new List<AssetReference<AssetLoaderAssetBase>>();
@@ -24,9 +24,9 @@ namespace UGF.Module.Assets.Runtime
         public List<string> Preload { get { return m_preload; } }
         public List<string> PreloadAsync { get { return m_preloadAsync; } }
 
-        protected override AssetsModuleDescription OnGetDescription(IApplication application)
+        protected override IApplicationModuleDescription OnBuildDescription()
         {
-            var description = new AssetsModuleDescription
+            var description = new AssetsModuleDescription(typeof(IAssetsModule))
             {
                 UnloadTrackedAssetsOnUninitialize = m_unloadTrackedAssetsOnUninitialize
             };
@@ -53,9 +53,9 @@ namespace UGF.Module.Assets.Runtime
             return description;
         }
 
-        protected override IAssetsModule OnBuild(IApplication application, AssetsModuleDescription description)
+        protected override IAssetsModule OnBuild(AssetsModuleDescription description, IApplication application)
         {
-            return new AssetsModule(application, description);
+            return new AssetsModule(description, application);
         }
     }
 }

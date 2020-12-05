@@ -1,13 +1,13 @@
-﻿using UGF.Application.Editor;
-using UGF.EditorTools.Editor.IMGUI;
+﻿using UGF.EditorTools.Editor.IMGUI;
 using UGF.EditorTools.Editor.IMGUI.AssetReferences;
+using UGF.EditorTools.Editor.IMGUI.Scopes;
 using UGF.Module.Assets.Runtime;
 using UnityEditor;
 
 namespace UGF.Module.Assets.Editor
 {
     [CustomEditor(typeof(AssetsModuleAsset), true)]
-    internal class AssetsModuleAssetEditor : ApplicationModuleAssetEditor
+    internal class AssetsModuleAssetEditor : UnityEditor.Editor
     {
         private SerializedProperty m_propertyScript;
         private SerializedProperty m_propertyUnloadTrackedAssetsOnUninitialize;
@@ -42,23 +42,20 @@ namespace UGF.Module.Assets.Editor
 
         public override void OnInspectorGUI()
         {
-            serializedObject.UpdateIfRequiredOrScript();
-
-            using (new EditorGUI.DisabledScope(true))
+            using (new SerializedObjectUpdateScope(serializedObject))
             {
-                EditorGUILayout.PropertyField(m_propertyScript);
+                using (new EditorGUI.DisabledScope(true))
+                {
+                    EditorGUILayout.PropertyField(m_propertyScript);
+                }
+
+                EditorGUILayout.PropertyField(m_propertyUnloadTrackedAssetsOnUninitialize);
+
+                m_listLoaders.DrawGUILayout();
+                m_listGroups.DrawGUILayout();
+                m_listPreloadAssets.DrawGUILayout();
+                m_listPreloadAssetsAsync.DrawGUILayout();
             }
-
-            EditorGUILayout.PropertyField(m_propertyUnloadTrackedAssetsOnUninitialize);
-
-            m_listLoaders.DrawGUILayout();
-            m_listGroups.DrawGUILayout();
-            m_listPreloadAssets.DrawGUILayout();
-            m_listPreloadAssetsAsync.DrawGUILayout();
-
-            serializedObject.ApplyModifiedProperties();
-
-            DrawModuleRegisterTypeInfo();
         }
     }
 }

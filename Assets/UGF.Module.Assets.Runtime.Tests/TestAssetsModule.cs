@@ -39,7 +39,7 @@ namespace UGF.Module.Assets.Runtime.Tests
                 {
                     Modules =
                     {
-                        (IApplicationModuleAsset)Resources.Load("Module", typeof(IApplicationModuleAsset))
+                        (IApplicationModuleBuilder)Resources.Load("Module", typeof(IApplicationModuleBuilder))
                     }
                 }
             });
@@ -63,7 +63,7 @@ namespace UGF.Module.Assets.Runtime.Tests
                 {
                     Modules =
                     {
-                        (IApplicationModuleAsset)Resources.Load("Module", typeof(IApplicationModuleAsset))
+                        (IApplicationModuleBuilder)Resources.Load("Module", typeof(IApplicationModuleBuilder))
                     }
                 }
             });
@@ -90,7 +90,7 @@ namespace UGF.Module.Assets.Runtime.Tests
                 {
                     Modules =
                     {
-                        (IApplicationModuleAsset)Resources.Load("Module", typeof(IApplicationModuleAsset))
+                        (IApplicationModuleBuilder)Resources.Load("Module", typeof(IApplicationModuleBuilder))
                     }
                 }
             });
@@ -119,7 +119,7 @@ namespace UGF.Module.Assets.Runtime.Tests
                 {
                     Modules =
                     {
-                        (IApplicationModuleAsset)Resources.Load("Module", typeof(IApplicationModuleAsset))
+                        (IApplicationModuleBuilder)Resources.Load("Module", typeof(IApplicationModuleBuilder))
                     }
                 }
             });
@@ -164,7 +164,7 @@ namespace UGF.Module.Assets.Runtime.Tests
                 {
                     Modules =
                     {
-                        (IApplicationModuleAsset)Resources.Load("Module2", typeof(IApplicationModuleAsset))
+                        (IApplicationModuleBuilder)Resources.Load("Module2", typeof(IApplicationModuleBuilder))
                     }
                 }
             });
@@ -200,7 +200,7 @@ namespace UGF.Module.Assets.Runtime.Tests
                 {
                     Modules =
                     {
-                        (IApplicationModuleAsset)Resources.Load("Module", typeof(IApplicationModuleAsset))
+                        (IApplicationModuleBuilder)Resources.Load("Module", typeof(IApplicationModuleBuilder))
                     }
                 }
             });
@@ -236,7 +236,7 @@ namespace UGF.Module.Assets.Runtime.Tests
                 {
                     Modules =
                     {
-                        (IApplicationModuleAsset)Resources.Load("Module", typeof(IApplicationModuleAsset))
+                        (IApplicationModuleBuilder)Resources.Load("Module", typeof(IApplicationModuleBuilder))
                     }
                 }
             });
@@ -280,7 +280,7 @@ namespace UGF.Module.Assets.Runtime.Tests
                 {
                     Modules =
                     {
-                        (IApplicationModuleAsset)Resources.Load("Module", typeof(IApplicationModuleAsset))
+                        (IApplicationModuleBuilder)Resources.Load("Module", typeof(IApplicationModuleBuilder))
                     }
                 }
             });

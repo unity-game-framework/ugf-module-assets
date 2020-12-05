@@ -8,23 +8,23 @@ using Object = UnityEngine.Object;
 
 namespace UGF.Module.Assets.Runtime
 {
-    public class AssetsModule : ApplicationModuleDescribed<AssetsModuleDescription>, IAssetsModule, IApplicationModuleAsync
+    public class AssetsModule : ApplicationModule<AssetsModuleDescription>, IAssetsModule, IApplicationModuleAsync
     {
         public IAssetProvider Provider { get; }
         public IAssetTracker Tracker { get; }
 
-        IAssetsModuleDescription IApplicationModuleDescribed<IAssetsModuleDescription>.Description { get { return Description; } }
+        IAssetsModuleDescription IAssetsModule.Description { get { return Description; } }
 
         public event AssetLoadHandler Loading;
         public event AssetLoadedHandler Loaded;
         public event AssetUnloadHandler Unloading;
         public event AssetUnloadedHandler Unloaded;
 
-        public AssetsModule(IApplication application, AssetsModuleDescription description) : this(application, description, new AssetProvider(), new AssetTracker())
+        public AssetsModule(AssetsModuleDescription description, IApplication application) : this(description, application, new AssetProvider(), new AssetTracker())
         {
         }
 
-        public AssetsModule(IApplication application, AssetsModuleDescription description, IAssetProvider provider, IAssetTracker tracker) : base(application, description)
+        public AssetsModule(AssetsModuleDescription description, IApplication application, IAssetProvider provider, IAssetTracker tracker) : base(description, application)
         {
             Provider = provider ?? throw new ArgumentNullException(nameof(provider));
             Tracker = tracker ?? throw new ArgumentNullException(nameof(tracker));
