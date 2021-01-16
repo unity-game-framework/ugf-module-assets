@@ -169,11 +169,9 @@ namespace UGF.Module.Assets.Runtime.Tests
                 }
             });
 
-            var module = application.GetModule<IAssetsModule>();
-
-            Assert.IsEmpty(module.Tracker.Tracks);
-
             application.Initialize();
+
+            var module = application.GetModule<IAssetsModule>();
 
             Assert.AreEqual(1, module.Tracker.Tracks.Count);
             Assert.True(module.Tracker.Contains("6ecbdf2a84bc4b94794d0ccbb7164158"));

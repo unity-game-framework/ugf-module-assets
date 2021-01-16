@@ -26,8 +26,9 @@ namespace UGF.Module.Assets.Runtime
 
         protected override IApplicationModuleDescription OnBuildDescription()
         {
-            var description = new AssetsModuleDescription(typeof(IAssetsModule))
+            var description = new AssetsModuleDescription
             {
+                RegisterType = typeof(IAssetsModule),
                 UnloadTrackedAssetsOnUninitialize = m_unloadTrackedAssetsOnUninitialize
             };
 
