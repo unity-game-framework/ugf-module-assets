@@ -22,6 +22,6 @@
     "registry": "https://api.bintray.com/content/unity-game-framework/public"
   },
   "dependencies": {
-    "com.ugf.application": "8.0.0-preview.2"
+    "com.ugf.application": "8.0.0-preview.3"
   }
 }
