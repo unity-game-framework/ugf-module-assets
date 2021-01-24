@@ -1,14 +1,17 @@
 using System;
 using System.Threading.Tasks;
 using UGF.Application.Runtime;
+using UGF.RuntimeTools.Runtime.Contexts;
 
 namespace UGF.Module.Assets.Runtime
 {
     public interface IAssetsModule : IApplicationModule
     {
         new IAssetsModuleDescription Description { get; }
-        IAssetProvider Provider { get; }
+        IAssetLoaderProvider LoaderProvider { get; }
+        IAssetGroupProvider GroupProvider { get; }
         IAssetTracker Tracker { get; }
+        IContext Context { get; }
 
         event AssetLoadHandler Loading;
         event AssetLoadedHandler Loaded;
