@@ -86,12 +86,12 @@ namespace UGF.Module.Assets.Runtime
             {
                 Log.Debug("Assets Module unload tracked assets on uninitialize", new
                 {
-                    count = Tracker.Tracks.Count
+                    count = Tracker.Entries.Count
                 });
 
-                while (Tracker.Tracks.Count > 0)
+                while (Tracker.Entries.Count > 0)
                 {
-                    KeyValuePair<string, AssetTrack> pair = Tracker.Tracks.First();
+                    KeyValuePair<string, AssetTrack> pair = Tracker.Entries.First();
 
                     Unload(pair.Key, pair.Value.Asset, AssetUnloadParameters.DefaultForce);
                 }

@@ -1,25 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using UGF.RuntimeTools.Runtime.Providers;
 
 namespace UGF.Module.Assets.Runtime
 {
-    public class AssetTracker : IAssetTracker
+    public class AssetTracker : Provider<string, AssetTrack>, IAssetTracker
     {
-        public IReadOnlyDictionary<string, AssetTrack> Tracks { get; }
-
-        private readonly Dictionary<string, AssetTrack> m_tracks = new Dictionary<string, AssetTrack>();
-
-        public AssetTracker()
-        {
-            Tracks = new ReadOnlyDictionary<string, AssetTrack>(m_tracks);
-        }
-
         public bool Contains(string id)
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
 
-            return m_tracks.ContainsKey(id);
+            return Entries.ContainsKey(id);
         }
 
         public AssetTrack Add(string id, object asset)
@@ -29,21 +20,9 @@ namespace UGF.Module.Assets.Runtime
 
             var track = new AssetTrack(asset);
 
-            m_tracks.Add(id, track);
+            base.Add(id, track);
 
             return track;
-        }
-
-        public bool Remove(string id)
-        {
-            if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
-
-            return m_tracks.Remove(id);
-        }
-
-        public void Clear()
-        {
-            m_tracks.Clear();
         }
 
         public void Update(string id, AssetTrack track)
@@ -51,7 +30,8 @@ namespace UGF.Module.Assets.Runtime
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
             if (track.Asset == null) throw new ArgumentException($"Asset not found in specified track: '{track}'.");
 
-            m_tracks[id] = track;
+            Remove(id);
+            base.Add(id, track);
         }
 
         /// <summary>
@@ -141,7 +121,7 @@ namespace UGF.Module.Assets.Runtime
         {
             if (asset == null) throw new ArgumentNullException(nameof(asset));
 
-            foreach (KeyValuePair<string, AssetTrack> pair in m_tracks)
+            foreach (KeyValuePair<string, AssetTrack> pair in this)
             {
                 if (pair.Value.Asset == asset)
                 {
@@ -152,23 +132,6 @@ namespace UGF.Module.Assets.Runtime
 
             track = default;
             return false;
-        }
-
-        public AssetTrack Get(string id)
-        {
-            return TryGet(id, out AssetTrack asset) ? asset : throw new ArgumentException($"Asset track not found by the specified id: '{id}'.");
-        }
-
-        public bool TryGet(string id, out AssetTrack track)
-        {
-            if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
-
-            return m_tracks.TryGetValue(id, out track);
-        }
-
-        public Dictionary<string, AssetTrack>.Enumerator GetEnumerator()
-        {
-            return m_tracks.GetEnumerator();
         }
     }
 }
