@@ -4,7 +4,6 @@ namespace UGF.Module.Assets.Runtime
 {
     public interface IAssetTracker : IProvider<string, AssetTrack>
     {
-        bool Contains(string id);
         AssetTrack Add(string id, object asset);
         void Update(string id, AssetTrack track);
         bool Track(string id, object asset, out AssetTrack track);

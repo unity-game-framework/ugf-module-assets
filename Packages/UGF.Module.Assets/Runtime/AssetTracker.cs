@@ -6,13 +6,6 @@ namespace UGF.Module.Assets.Runtime
 {
     public class AssetTracker : Provider<string, AssetTrack>, IAssetTracker
     {
-        public bool Contains(string id)
-        {
-            if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
-
-            return Entries.ContainsKey(id);
-        }
-
         public AssetTrack Add(string id, object asset)
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
