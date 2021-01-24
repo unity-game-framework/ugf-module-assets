@@ -174,8 +174,8 @@ namespace UGF.Module.Assets.Runtime.Tests
             var module = application.GetModule<IAssetsModule>();
 
             Assert.AreEqual(1, module.Tracker.Entries.Count);
-            Assert.True(module.Tracker.Contains("6ecbdf2a84bc4b94794d0ccbb7164158"));
-            Assert.False(module.Tracker.Contains("7532bc5c40ab10644812b87b664d33ba"));
+            Assert.True(module.Tracker.Entries.ContainsKey("6ecbdf2a84bc4b94794d0ccbb7164158"));
+            Assert.False(module.Tracker.Entries.ContainsKey("7532bc5c40ab10644812b87b664d33ba"));
 
             Task task = application.InitializeAsync();
 
@@ -185,8 +185,8 @@ namespace UGF.Module.Assets.Runtime.Tests
             }
 
             Assert.AreEqual(2, module.Tracker.Entries.Count);
-            Assert.True(module.Tracker.Contains("6ecbdf2a84bc4b94794d0ccbb7164158"));
-            Assert.True(module.Tracker.Contains("7532bc5c40ab10644812b87b664d33ba"));
+            Assert.True(module.Tracker.Entries.ContainsKey("6ecbdf2a84bc4b94794d0ccbb7164158"));
+            Assert.True(module.Tracker.Entries.ContainsKey("7532bc5c40ab10644812b87b664d33ba"));
         }
 
         [Test]
