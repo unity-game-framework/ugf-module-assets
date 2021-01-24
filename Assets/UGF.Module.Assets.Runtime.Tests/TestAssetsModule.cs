@@ -133,8 +133,8 @@ namespace UGF.Module.Assets.Runtime.Tests
             Assert.NotNull(asset1);
             Assert.NotNull(asset2);
             Assert.AreEqual(asset1, asset2);
-            Assert.IsNotEmpty(module.Tracker.Tracks);
-            Assert.AreEqual(1, module.Tracker.Tracks.Count);
+            Assert.IsNotEmpty(module.Tracker.Entries);
+            Assert.AreEqual(1, module.Tracker.Entries.Count);
             Assert.AreEqual(2, module.Tracker.Get("7ab173a97bcf2bc44b710c33213fa557").Count);
 
             module.Unload("7ab173a97bcf2bc44b710c33213fa557", asset1, AssetUnloadParameters.Default);
@@ -142,16 +142,16 @@ namespace UGF.Module.Assets.Runtime.Tests
             Assert.NotNull(asset1);
             Assert.NotNull(asset2);
             Assert.AreEqual(asset1, asset2);
-            Assert.IsNotEmpty(module.Tracker.Tracks);
-            Assert.AreEqual(1, module.Tracker.Tracks.Count);
+            Assert.IsNotEmpty(module.Tracker.Entries);
+            Assert.AreEqual(1, module.Tracker.Entries.Count);
             Assert.AreEqual(1, module.Tracker.Get("7ab173a97bcf2bc44b710c33213fa557").Count);
 
             module.Unload("7ab173a97bcf2bc44b710c33213fa557", asset2, AssetUnloadParameters.Default);
 
             Assert.AreEqual(null, asset1);
             Assert.AreEqual(null, asset2);
-            Assert.IsEmpty(module.Tracker.Tracks);
-            Assert.AreEqual(0, module.Tracker.Tracks.Count);
+            Assert.IsEmpty(module.Tracker.Entries);
+            Assert.AreEqual(0, module.Tracker.Entries.Count);
             Assert.False(module.Tracker.TryGet("7ab173a97bcf2bc44b710c33213fa557", out _));
         }
 
@@ -173,7 +173,7 @@ namespace UGF.Module.Assets.Runtime.Tests
 
             var module = application.GetModule<IAssetsModule>();
 
-            Assert.AreEqual(1, module.Tracker.Tracks.Count);
+            Assert.AreEqual(1, module.Tracker.Entries.Count);
             Assert.True(module.Tracker.Contains("6ecbdf2a84bc4b94794d0ccbb7164158"));
             Assert.False(module.Tracker.Contains("7532bc5c40ab10644812b87b664d33ba"));
 
@@ -184,7 +184,7 @@ namespace UGF.Module.Assets.Runtime.Tests
                 yield return null;
             }
 
-            Assert.AreEqual(2, module.Tracker.Tracks.Count);
+            Assert.AreEqual(2, module.Tracker.Entries.Count);
             Assert.True(module.Tracker.Contains("6ecbdf2a84bc4b94794d0ccbb7164158"));
             Assert.True(module.Tracker.Contains("7532bc5c40ab10644812b87b664d33ba"));
         }
@@ -212,16 +212,16 @@ namespace UGF.Module.Assets.Runtime.Tests
             Assert.NotNull(asset1);
             Assert.NotNull(asset2);
             Assert.AreEqual(asset1, asset2);
-            Assert.IsNotEmpty(module.Tracker.Tracks);
-            Assert.AreEqual(1, module.Tracker.Tracks.Count);
+            Assert.IsNotEmpty(module.Tracker.Entries);
+            Assert.AreEqual(1, module.Tracker.Entries.Count);
             Assert.AreEqual(2, module.Tracker.Get("7ab173a97bcf2bc44b710c33213fa557").Count);
 
             application.Uninitialize();
 
             Assert.AreEqual(null, asset1);
             Assert.AreEqual(null, asset2);
-            Assert.IsEmpty(module.Tracker.Tracks);
-            Assert.AreEqual(0, module.Tracker.Tracks.Count);
+            Assert.IsEmpty(module.Tracker.Entries);
+            Assert.AreEqual(0, module.Tracker.Entries.Count);
             Assert.False(module.Tracker.TryGet("7ab173a97bcf2bc44b710c33213fa557", out _));
         }
 
@@ -248,8 +248,8 @@ namespace UGF.Module.Assets.Runtime.Tests
             Assert.NotNull(asset1);
             Assert.NotNull(asset2);
             Assert.AreEqual(asset1, asset2);
-            Assert.IsNotEmpty(module.Tracker.Tracks);
-            Assert.AreEqual(1, module.Tracker.Tracks.Count);
+            Assert.IsNotEmpty(module.Tracker.Entries);
+            Assert.AreEqual(1, module.Tracker.Entries.Count);
             Assert.AreEqual(2, module.Tracker.Get("7ab173a97bcf2bc44b710c33213fa557").Count);
 
             module.Tracker.Update("7ab173a97bcf2bc44b710c33213fa557", new AssetTrack(asset1));
@@ -257,15 +257,15 @@ namespace UGF.Module.Assets.Runtime.Tests
             Assert.NotNull(asset1);
             Assert.NotNull(asset2);
             Assert.AreEqual(asset1, asset2);
-            Assert.AreEqual(1, module.Tracker.Tracks.Count);
+            Assert.AreEqual(1, module.Tracker.Entries.Count);
             Assert.AreEqual(0, module.Tracker.Get("7ab173a97bcf2bc44b710c33213fa557").Count);
 
             module.UnloadUnused(false);
 
             Assert.AreEqual(null, asset1);
             Assert.AreEqual(null, asset2);
-            Assert.IsEmpty(module.Tracker.Tracks);
-            Assert.AreEqual(0, module.Tracker.Tracks.Count);
+            Assert.IsEmpty(module.Tracker.Entries);
+            Assert.AreEqual(0, module.Tracker.Entries.Count);
             Assert.False(module.Tracker.TryGet("7ab173a97bcf2bc44b710c33213fa557", out _));
         }
 
@@ -292,8 +292,8 @@ namespace UGF.Module.Assets.Runtime.Tests
             Assert.NotNull(asset1);
             Assert.NotNull(asset2);
             Assert.AreEqual(asset1, asset2);
-            Assert.IsNotEmpty(module.Tracker.Tracks);
-            Assert.AreEqual(1, module.Tracker.Tracks.Count);
+            Assert.IsNotEmpty(module.Tracker.Entries);
+            Assert.AreEqual(1, module.Tracker.Entries.Count);
             Assert.AreEqual(2, module.Tracker.Get("7ab173a97bcf2bc44b710c33213fa557").Count);
 
             module.Tracker.Update("7ab173a97bcf2bc44b710c33213fa557", new AssetTrack(asset1));
@@ -301,7 +301,7 @@ namespace UGF.Module.Assets.Runtime.Tests
             Assert.NotNull(asset1);
             Assert.NotNull(asset2);
             Assert.AreEqual(asset1, asset2);
-            Assert.AreEqual(1, module.Tracker.Tracks.Count);
+            Assert.AreEqual(1, module.Tracker.Entries.Count);
             Assert.AreEqual(0, module.Tracker.Get("7ab173a97bcf2bc44b710c33213fa557").Count);
 
             Task task = module.UnloadUnusedAsync(false);
@@ -313,8 +313,8 @@ namespace UGF.Module.Assets.Runtime.Tests
 
             Assert.AreEqual(null, asset1);
             Assert.AreEqual(null, asset2);
-            Assert.IsEmpty(module.Tracker.Tracks);
-            Assert.AreEqual(0, module.Tracker.Tracks.Count);
+            Assert.IsEmpty(module.Tracker.Entries);
+            Assert.AreEqual(0, module.Tracker.Entries.Count);
             Assert.False(module.Tracker.TryGet("7ab173a97bcf2bc44b710c33213fa557", out _));
         }
     }
