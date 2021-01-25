@@ -53,7 +53,7 @@ namespace UGF.Module.Assets.Runtime
         {
             if (assetsModule == null) throw new ArgumentNullException(nameof(assetsModule));
 
-            var entries = new List<KeyValuePair<string, AssetTrack>>(assetsModule.Tracker.Tracks);
+            var entries = new List<KeyValuePair<string, AssetTrack>>(assetsModule.Tracker.Entries);
 
             for (int i = 0; i < entries.Count; i++)
             {
@@ -75,7 +75,7 @@ namespace UGF.Module.Assets.Runtime
         {
             if (assetsModule == null) throw new ArgumentNullException(nameof(assetsModule));
 
-            var entries = new List<KeyValuePair<string, AssetTrack>>(assetsModule.Tracker.Tracks);
+            var entries = new List<KeyValuePair<string, AssetTrack>>(assetsModule.Tracker.Entries);
 
             for (int i = 0; i < entries.Count; i++)
             {

@@ -4,14 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using UGF.Application.Runtime;
 using UGF.Logs.Runtime;
+using UGF.RuntimeTools.Runtime.Contexts;
 using Object = UnityEngine.Object;
 
 namespace UGF.Module.Assets.Runtime
 {
     public class AssetsModule : ApplicationModule<AssetsModuleDescription>, IAssetsModule, IApplicationModuleAsync
     {
-        public IAssetProvider Provider { get; }
+        public IAssetLoaderProvider Loaders { get; }
+        public IAssetGroupProvider Groups { get; }
         public IAssetTracker Tracker { get; }
+        public IContext Context { get; }
 
         IAssetsModuleDescription IAssetsModule.Description { get { return Description; } }
 
@@ -20,14 +23,21 @@ namespace UGF.Module.Assets.Runtime
         public event AssetUnloadHandler Unloading;
         public event AssetUnloadedHandler Unloaded;
 
-        public AssetsModule(AssetsModuleDescription description, IApplication application) : this(description, application, new AssetProvider(), new AssetTracker())
+        public AssetsModule(AssetsModuleDescription description, IApplication application) : this(description, application, new AssetLoaderProvider(), new AssetGroupProvider(), new AssetTracker(), new Context())
         {
         }
 
-        public AssetsModule(AssetsModuleDescription description, IApplication application, IAssetProvider provider, IAssetTracker tracker) : base(description, application)
+        public AssetsModule(AssetsModuleDescription description, IApplication application, IAssetLoaderProvider loaders, IAssetGroupProvider groups, IAssetTracker tracker, IContext context) : base(description, application)
         {
-            Provider = provider ?? throw new ArgumentNullException(nameof(provider));
+            Loaders = loaders ?? throw new ArgumentNullException(nameof(loaders));
+            Groups = groups ?? throw new ArgumentNullException(nameof(groups));
             Tracker = tracker ?? throw new ArgumentNullException(nameof(tracker));
+            Context = context ?? throw new ArgumentNullException(nameof(context));
+
+            Context.Add(Application);
+            Context.Add(Loaders);
+            Context.Add(Groups);
+            Context.Add(Tracker);
         }
 
         protected override void OnInitialize()
@@ -36,18 +46,18 @@ namespace UGF.Module.Assets.Runtime
 
             foreach (KeyValuePair<string, IAssetLoader> pair in Description.Loaders)
             {
-                Provider.AddLoader(pair.Key, pair.Value);
+                Loaders.Add(pair.Key, pair.Value);
             }
 
             foreach (KeyValuePair<string, IAssetGroup> pair in Description.Groups)
             {
-                Provider.AddGroup(pair.Key, pair.Value);
+                Groups.Add(pair.Key, pair.Value);
             }
 
             Log.Debug("Assets Module initialized", new
             {
-                loadersCount = Provider.Loaders.Count,
-                groupsCount = Provider.Groups.Count
+                loadersCount = Loaders.Entries.Count,
+                groupsCount = Groups.Entries.Count
             });
 
             for (int i = 0; i < Description.PreloadAssets.Count; i++)
@@ -86,12 +96,12 @@ namespace UGF.Module.Assets.Runtime
             {
                 Log.Debug("Assets Module unload tracked assets on uninitialize", new
                 {
-                    count = Tracker.Tracks.Count
+                    count = Tracker.Entries.Count
                 });
 
-                while (Tracker.Tracks.Count > 0)
+                while (Tracker.Entries.Count > 0)
                 {
-                    KeyValuePair<string, AssetTrack> pair = Tracker.Tracks.First();
+                    KeyValuePair<string, AssetTrack> pair = Tracker.Entries.First();
 
                     Unload(pair.Key, pair.Value.Asset, AssetUnloadParameters.DefaultForce);
                 }
@@ -101,12 +111,12 @@ namespace UGF.Module.Assets.Runtime
 
             foreach (KeyValuePair<string, IAssetLoader> pair in Description.Loaders)
             {
-                Provider.RemoveLoader(pair.Key);
+                Loaders.Remove(pair.Key);
             }
 
             foreach (KeyValuePair<string, IAssetGroup> pair in Description.Groups)
             {
-                Provider.RemoveGroup(pair.Key);
+                Groups.Remove(pair.Key);
             }
         }
 
@@ -295,7 +305,7 @@ namespace UGF.Module.Assets.Runtime
         {
             IAssetLoader loader = GetLoaderByAsset(id);
 
-            object asset = loader.Load(Provider, id, type);
+            object asset = loader.Load(id, type, Context);
 
             return asset;
         }
@@ -304,7 +314,7 @@ namespace UGF.Module.Assets.Runtime
         {
             IAssetLoader loader = GetLoaderByAsset(id);
 
-            Task<object> task = loader.LoadAsync(Provider, id, type);
+            Task<object> task = loader.LoadAsync(id, type, Context);
 
             return task;
         }
@@ -313,14 +323,14 @@ namespace UGF.Module.Assets.Runtime
         {
             IAssetLoader loader = GetLoaderByAsset(id);
 
-            loader.Unload(Provider, id, asset);
+            loader.Unload(id, asset, Context);
         }
 
         protected virtual Task UnloadAssetAsync(string id, object asset)
         {
             IAssetLoader loader = GetLoaderByAsset(id);
 
-            Task task = loader.UnloadAsync(Provider, id, asset);
+            Task task = loader.UnloadAsync(id, asset, Context);
 
             return task;
         }
@@ -335,7 +345,7 @@ namespace UGF.Module.Assets.Runtime
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
 
             loader = default;
-            return Provider.TryGetGroupByAsset(id, out IAssetGroup group) && Provider.TryGetLoader(group.LoaderId, out loader);
+            return Groups.TryGetByAsset(id, out IAssetGroup group) && Loaders.TryGet(group.LoaderId, out loader);
         }
     }
 }

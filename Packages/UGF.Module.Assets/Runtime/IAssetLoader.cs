@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
+using UGF.RuntimeTools.Runtime.Contexts;
 
 namespace UGF.Module.Assets.Runtime
 {
     public interface IAssetLoader
     {
-        object Load(IAssetProvider provider, string id, Type type);
-        Task<object> LoadAsync(IAssetProvider provider, string id, Type type);
-        void Unload(IAssetProvider provider, string id, object asset);
-        Task UnloadAsync(IAssetProvider provider, string id, object asset);
+        object Load(string id, Type type, IContext context);
+        Task<object> LoadAsync(string id, Type type, IContext context);
+        void Unload(string id, object asset, IContext context);
+        Task UnloadAsync(string id, object asset, IContext context);
     }
 }
