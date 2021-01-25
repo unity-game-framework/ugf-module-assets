@@ -8,8 +8,8 @@ namespace UGF.Module.Assets.Runtime
     public interface IAssetsModule : IApplicationModule
     {
         new IAssetsModuleDescription Description { get; }
-        IAssetLoaderProvider LoaderProvider { get; }
-        IAssetGroupProvider GroupProvider { get; }
+        IAssetLoaderProvider Loaders { get; }
+        IAssetGroupProvider Groups { get; }
         IAssetTracker Tracker { get; }
         IContext Context { get; }
 
