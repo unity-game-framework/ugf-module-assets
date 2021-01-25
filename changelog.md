@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0-preview](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/4.0.0-preview) - 2021-01-25  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assets/milestone/9?closed=1)  
+    
+
+### Changed
+
+- Update providers and application package ([#39](https://github.com/unity-game-framework/ugf-module-assets/pull/39))  
+    - Update dependencies: `com.ugf.application` to `8.0.0-preview.3` version.
+    - Add `AssetLoaderProvider` and `AssetGroupProvider` providers.
+    - Change `IAssetsModule` to work with changed providers.
+    - Change `IAssetLoader` methods to take `IContext` as one of arguments.
+    - Change `IAssetTracker` and `AssetTracker` to implement `IProvider<string, AssetTrack>` interface.
+    - Remove `AssetsProvider` and replaced by other providers.
+    - Remove `IAssetProvider` argument from `IAssetLoader` methods.
+
 ## [1.0.0](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/1.0.0) - 2020-10-28  
 
 ### Release Notes
