@@ -10,7 +10,7 @@ namespace UGF.Module.Assets.Runtime
     {
         new IAssetsModuleDescription Description { get; }
         IProvider<string, IAssetLoader> Loaders { get; }
-        IProvider<string, IAssetGroup> Groups { get; }
+        IProvider<string, IAssetInfo> Assets { get; }
         IAssetTracker Tracker { get; }
         IContext Context { get; }
 

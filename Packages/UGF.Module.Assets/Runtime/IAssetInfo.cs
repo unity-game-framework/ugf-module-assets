@@ -2,6 +2,7 @@
 {
     public interface IAssetInfo
     {
+        string LoaderId { get; }
         string Address { get; }
     }
 }

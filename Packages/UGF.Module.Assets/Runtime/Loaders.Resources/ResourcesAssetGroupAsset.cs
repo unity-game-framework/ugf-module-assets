@@ -21,12 +21,12 @@ namespace UGF.Module.Assets.Runtime.Loaders.Resources
             public string Address { get { return m_address; } set { m_address = value; } }
         }
 
-        protected override void OnPopulateGroup(IAssetGroup group)
+        protected override void OnPopulateGroup(AssetGroup group)
         {
             for (int i = 0; i < m_assets.Count; i++)
             {
                 Entry entry = m_assets[i];
-                var info = new AssetInfo(entry.Address);
+                var info = new AssetInfo(Loader, entry.Address);
 
                 group.Add(entry.Id, info);
             }

@@ -46,9 +46,12 @@ namespace UGF.Module.Assets.Runtime
             for (int i = 0; i < m_groups.Count; i++)
             {
                 AssetReference<AssetGroupAssetBase> asset = m_groups[i];
-                IAssetGroup group = asset.Asset.Build();
+                AssetGroup group = asset.Asset.Build();
 
-                description.Groups.Add(asset.Guid, group);
+                foreach (KeyValuePair<string, IAssetInfo> pair in group)
+                {
+                    description.Assets.Add(pair.Key, pair.Value);
+                }
             }
 
             return description;

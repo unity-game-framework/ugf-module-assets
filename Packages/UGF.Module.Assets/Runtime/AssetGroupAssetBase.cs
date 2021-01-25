@@ -2,7 +2,7 @@
 
 namespace UGF.Module.Assets.Runtime
 {
-    public abstract class AssetGroupAssetBase : BuilderAsset<IAssetGroup>
+    public abstract class AssetGroupAssetBase : BuilderAsset<AssetGroup>
     {
     }
 }

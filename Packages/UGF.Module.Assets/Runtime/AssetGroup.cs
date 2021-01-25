@@ -3,7 +3,7 @@ using UGF.RuntimeTools.Runtime.Providers;
 
 namespace UGF.Module.Assets.Runtime
 {
-    public class AssetGroup : Provider<string, IAssetInfo>, IAssetGroup
+    public class AssetGroup : Provider<string, IAssetInfo>
     {
         public string LoaderId { get; }
 

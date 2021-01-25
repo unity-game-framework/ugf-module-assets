@@ -6,7 +6,7 @@ using Object = UnityEngine.Object;
 
 namespace UGF.Module.Assets.Runtime.Loaders.Resources
 {
-    public class ResourcesLoader : AssetLoader<IAssetGroup, IAssetInfo>
+    public class ResourcesLoader : AssetLoader<IAssetInfo>
     {
         public bool ProviderAssetUnload { get; }
 
@@ -15,14 +15,14 @@ namespace UGF.Module.Assets.Runtime.Loaders.Resources
             ProviderAssetUnload = providerAssetUnload;
         }
 
-        protected override object OnLoad(IAssetGroup group, IAssetInfo info, string id, Type type, IContext context)
+        protected override object OnLoad(IAssetInfo info, string id, Type type, IContext context)
         {
             Object asset = UnityEngine.Resources.Load(info.Address, type);
 
             return asset ? asset : throw new NullReferenceException($"Resource load result is null by the specified arguments: id:'{id}', type:'{type}'.");
         }
 
-        protected override async Task<object> OnLoadAsync(IAssetGroup group, IAssetInfo info, string id, Type type, IContext context)
+        protected override async Task<object> OnLoadAsync(IAssetInfo info, string id, Type type, IContext context)
         {
             ResourceRequest request = UnityEngine.Resources.LoadAsync(info.Address, type);
 
@@ -36,12 +36,12 @@ namespace UGF.Module.Assets.Runtime.Loaders.Resources
             return asset ? asset : throw new NullReferenceException($"Resource load result is null by the specified arguments: id:'{id}', type:'{type}'.");
         }
 
-        protected override void OnUnload(IAssetGroup group, IAssetInfo info, string id, object asset, IContext context)
+        protected override void OnUnload(IAssetInfo info, string id, object asset, IContext context)
         {
             InternalUnload(asset);
         }
 
-        protected override Task OnUnloadAsync(IAssetGroup group, IAssetInfo info, string id, object asset, IContext context)
+        protected override Task OnUnloadAsync(IAssetInfo info, string id, object asset, IContext context)
         {
             InternalUnload(asset);
 

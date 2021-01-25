@@ -10,20 +10,20 @@ namespace UGF.Module.Assets.Runtime
 
         public string Loader { get { return m_loader; } set { m_loader = value; } }
 
-        protected override IAssetGroup OnBuild()
+        protected override AssetGroup OnBuild()
         {
-            IAssetGroup group = OnBuildGroup();
+            AssetGroup group = OnBuildGroup();
 
             OnPopulateGroup(group);
 
             return group;
         }
 
-        protected virtual IAssetGroup OnBuildGroup()
+        protected virtual AssetGroup OnBuildGroup()
         {
             return new AssetGroup(m_loader);
         }
 
-        protected abstract void OnPopulateGroup(IAssetGroup group);
+        protected abstract void OnPopulateGroup(AssetGroup group);
     }
 }
