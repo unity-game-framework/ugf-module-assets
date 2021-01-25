@@ -5,16 +5,17 @@ using System.Threading.Tasks;
 using UGF.Application.Runtime;
 using UGF.Logs.Runtime;
 using UGF.RuntimeTools.Runtime.Contexts;
+using UGF.RuntimeTools.Runtime.Providers;
 using Object = UnityEngine.Object;
 
 namespace UGF.Module.Assets.Runtime
 {
     public class AssetsModule : ApplicationModule<AssetsModuleDescription>, IAssetsModule, IApplicationModuleAsync
     {
-        public IAssetLoaderProvider Loaders { get; }
-        public IAssetGroupProvider Groups { get; }
+        public IProvider<string, IAssetLoader> Loaders { get; }
+        public IProvider<string, IAssetGroup> Groups { get; }
         public IAssetTracker Tracker { get; }
-        public IContext Context { get; }
+        public IContext Context { get; } = new Context();
 
         IAssetsModuleDescription IAssetsModule.Description { get { return Description; } }
 
@@ -23,21 +24,19 @@ namespace UGF.Module.Assets.Runtime
         public event AssetUnloadHandler Unloading;
         public event AssetUnloadedHandler Unloaded;
 
-        public AssetsModule(AssetsModuleDescription description, IApplication application) : this(description, application, new AssetLoaderProvider(), new AssetGroupProvider(), new AssetTracker(), new Context())
+        public AssetsModule(AssetsModuleDescription description, IApplication application) : this(description, application, new Provider<string, IAssetLoader>(), new Provider<string, IAssetGroup>(), new AssetTracker())
         {
         }
 
-        public AssetsModule(AssetsModuleDescription description, IApplication application, IAssetLoaderProvider loaders, IAssetGroupProvider groups, IAssetTracker tracker, IContext context) : base(description, application)
+        public AssetsModule(AssetsModuleDescription description, IApplication application, IProvider<string, IAssetLoader> loaders, IProvider<string, IAssetGroup> groups, IAssetTracker tracker) : base(description, application)
         {
             Loaders = loaders ?? throw new ArgumentNullException(nameof(loaders));
             Groups = groups ?? throw new ArgumentNullException(nameof(groups));
             Tracker = tracker ?? throw new ArgumentNullException(nameof(tracker));
-            Context = context ?? throw new ArgumentNullException(nameof(context));
 
             Context.Add(Application);
             Context.Add(Loaders);
             Context.Add(Groups);
-            Context.Add(Tracker);
         }
 
         protected override void OnInitialize()
@@ -345,7 +344,7 @@ namespace UGF.Module.Assets.Runtime
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
 
             loader = default;
-            return Groups.TryGetByAsset(id, out IAssetGroup group) && Loaders.TryGet(group.LoaderId, out loader);
+            return Groups.TryGetByAssetId(id, out IAssetGroup group) && Loaders.TryGet(group.LoaderId, out loader);
         }
     }
 }

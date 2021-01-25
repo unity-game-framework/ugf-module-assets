@@ -2,14 +2,15 @@ using System;
 using System.Threading.Tasks;
 using UGF.Application.Runtime;
 using UGF.RuntimeTools.Runtime.Contexts;
+using UGF.RuntimeTools.Runtime.Providers;
 
 namespace UGF.Module.Assets.Runtime
 {
     public interface IAssetsModule : IApplicationModule
     {
         new IAssetsModuleDescription Description { get; }
-        IAssetLoaderProvider Loaders { get; }
-        IAssetGroupProvider Groups { get; }
+        IProvider<string, IAssetLoader> Loaders { get; }
+        IProvider<string, IAssetGroup> Groups { get; }
         IAssetTracker Tracker { get; }
         IContext Context { get; }
 
