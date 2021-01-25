@@ -8,14 +8,14 @@ namespace UGF.Module.Assets.Runtime
     {
         public static IAssetGroup GetByAssetId(this IProvider<string, IAssetGroup> provider, string id)
         {
-            return TryGetByAssetId(provider, id, out var group) ? group : throw new ArgumentException($"Asset group not found by the specified asset id: '{id}'.");
+            return TryGetByAssetId(provider, id, out IAssetGroup group) ? group : throw new ArgumentException($"Asset group not found by the specified asset id: '{id}'.");
         }
 
         public static bool TryGetByAssetId(this IProvider<string, IAssetGroup> provider, string id, out IAssetGroup group)
         {
             foreach (KeyValuePair<string, IAssetGroup> pair in provider.Entries)
             {
-                if (pair.Value.Assets.ContainsKey(pair.Key))
+                if (pair.Value.Entries.ContainsKey(pair.Key))
                 {
                     group = pair.Value;
                     return true;

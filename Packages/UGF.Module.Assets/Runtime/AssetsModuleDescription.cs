@@ -3,7 +3,7 @@ using UGF.Application.Runtime;
 
 namespace UGF.Module.Assets.Runtime
 {
-    public partial class AssetsModuleDescription : ApplicationModuleDescription, IAssetsModuleDescription
+    public class AssetsModuleDescription : ApplicationModuleDescription, IAssetsModuleDescription
     {
         public Dictionary<string, IAssetLoader> Loaders { get; } = new Dictionary<string, IAssetLoader>();
         public Dictionary<string, IAssetGroup> Groups { get; } = new Dictionary<string, IAssetGroup>();
@@ -15,9 +15,5 @@ namespace UGF.Module.Assets.Runtime
         IReadOnlyDictionary<string, IAssetGroup> IAssetsModuleDescription.Groups { get { return Groups; } }
         IReadOnlyList<string> IAssetsModuleDescription.PreloadAssets { get { return PreloadAssets; } }
         IReadOnlyList<string> IAssetsModuleDescription.PreloadAssetsAsync { get { return PreloadAssetsAsync; } }
-
-        public AssetsModuleDescription()
-        {
-        }
     }
 }

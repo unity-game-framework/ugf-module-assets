@@ -13,7 +13,7 @@ namespace UGF.Module.Assets.Runtime
         {
             var provider = context.Get<IProvider<string, IAssetGroup>>();
             var group = (TGroup)provider.GetByAssetId(id);
-            var info = group.GetInfo<TInfo>(id);
+            var info = group.Get<TInfo>(id);
 
             return OnLoad(group, info, id, type, context);
         }
@@ -22,7 +22,7 @@ namespace UGF.Module.Assets.Runtime
         {
             var provider = context.Get<IProvider<string, IAssetGroup>>();
             var group = (TGroup)provider.GetByAssetId(id);
-            var info = group.GetInfo<TInfo>(id);
+            var info = group.Get<TInfo>(id);
 
             return OnLoadAsync(group, info, id, type, context);
         }
@@ -31,7 +31,7 @@ namespace UGF.Module.Assets.Runtime
         {
             var provider = context.Get<IProvider<string, IAssetGroup>>();
             var group = (TGroup)provider.GetByAssetId(id);
-            var info = group.GetInfo<TInfo>(id);
+            var info = group.Get<TInfo>(id);
 
             OnUnload(group, info, id, asset, context);
         }
@@ -40,7 +40,7 @@ namespace UGF.Module.Assets.Runtime
         {
             var provider = context.Get<IProvider<string, IAssetGroup>>();
             var group = (TGroup)provider.GetByAssetId(id);
-            var info = group.GetInfo<TInfo>(id);
+            var info = group.Get<TInfo>(id);
 
             return OnUnloadAsync(group, info, id, asset, context);
         }
