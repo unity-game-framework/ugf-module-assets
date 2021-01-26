@@ -23,7 +23,7 @@ namespace UGF.Module.Assets.Runtime.Loaders.Resources
             public string Address { get { return m_address; } set { m_address = value; } }
         }
 
-        public override void GetAssets(IDictionary<string, IAssetInfo> assets)
+        protected override void OnGetAssets(IDictionary<string, IAssetInfo> assets)
         {
             for (int i = 0; i < m_assets.Count; i++)
             {
