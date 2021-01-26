@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UGF.EditorTools.Runtime.IMGUI.Attributes;
 using UnityEngine;
 
 namespace UGF.Module.Assets.Runtime.Loaders.Resources
@@ -7,6 +8,7 @@ namespace UGF.Module.Assets.Runtime.Loaders.Resources
     [CreateAssetMenu(menuName = "Unity Game Framework/Assets/Resources Asset Group", order = 2000)]
     public class ResourcesAssetGroupAsset : AssetGroupAsset
     {
+        [AssetGuid(typeof(AssetLoaderAsset))]
         [SerializeField] private string m_loader;
         [SerializeField] private List<Entry> m_assets = new List<Entry>();
 
