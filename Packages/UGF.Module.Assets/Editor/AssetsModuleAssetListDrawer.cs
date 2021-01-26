@@ -1,5 +1,4 @@
-﻿using System;
-using UGF.EditorTools.Editor.IMGUI;
+﻿using UGF.EditorTools.Editor.IMGUI;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,8 +6,6 @@ namespace UGF.Module.Assets.Editor
 {
     internal class AssetsModuleAssetListDrawer : ReorderableListDrawer
     {
-        private readonly GUIContent[] m_labels = { GUIContent.none, GUIContent.none };
-
         public AssetsModuleAssetListDrawer(SerializedProperty serializedProperty) : base(serializedProperty)
         {
         }
