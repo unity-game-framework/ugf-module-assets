@@ -11,16 +11,16 @@ namespace UGF.Module.Assets.Runtime
     public class AssetsModuleAsset : ApplicationModuleAsset<IAssetsModule, AssetsModuleDescription>
     {
         [SerializeField] private bool m_unloadTrackedAssetsOnUninitialize = true;
-        [SerializeField] private List<AssetReference<AssetLoaderAssetBase>> m_loaders = new List<AssetReference<AssetLoaderAssetBase>>();
-        [SerializeField] private List<AssetReference<AssetGroupAssetBase>> m_groups = new List<AssetReference<AssetGroupAssetBase>>();
+        [SerializeField] private List<AssetReference<AssetLoaderAsset>> m_loaders = new List<AssetReference<AssetLoaderAsset>>();
+        [SerializeField] private List<AssetReference<AssetGroupAsset>> m_groups = new List<AssetReference<AssetGroupAsset>>();
         [AssetGuid(typeof(Object))]
         [SerializeField] private List<string> m_preload = new List<string>();
         [AssetGuid(typeof(Object))]
         [SerializeField] private List<string> m_preloadAsync = new List<string>();
 
         public bool UnloadTrackedAssetsOnUninitialize { get { return m_unloadTrackedAssetsOnUninitialize; } set { m_unloadTrackedAssetsOnUninitialize = value; } }
-        public List<AssetReference<AssetLoaderAssetBase>> Loaders { get { return m_loaders; } }
-        public List<AssetReference<AssetGroupAssetBase>> Groups { get { return m_groups; } }
+        public List<AssetReference<AssetLoaderAsset>> Loaders { get { return m_loaders; } }
+        public List<AssetReference<AssetGroupAsset>> Groups { get { return m_groups; } }
         public List<string> Preload { get { return m_preload; } }
         public List<string> PreloadAsync { get { return m_preloadAsync; } }
 
@@ -37,7 +37,7 @@ namespace UGF.Module.Assets.Runtime
 
             for (int i = 0; i < m_loaders.Count; i++)
             {
-                AssetReference<AssetLoaderAssetBase> asset = m_loaders[i];
+                AssetReference<AssetLoaderAsset> asset = m_loaders[i];
                 IAssetLoader loader = asset.Asset.Build();
 
                 description.Loaders.Add(asset.Guid, loader);
@@ -45,13 +45,9 @@ namespace UGF.Module.Assets.Runtime
 
             for (int i = 0; i < m_groups.Count; i++)
             {
-                AssetReference<AssetGroupAssetBase> asset = m_groups[i];
-                AssetGroup group = asset.Asset.Build();
+                AssetGroupAsset group = m_groups[i].Asset;
 
-                foreach (KeyValuePair<string, IAssetInfo> pair in group)
-                {
-                    description.Assets.Add(pair.Key, pair.Value);
-                }
+                group.GetAssets(description.Assets);
             }
 
             return description;

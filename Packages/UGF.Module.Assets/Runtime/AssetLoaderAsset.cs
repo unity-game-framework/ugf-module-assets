@@ -2,7 +2,7 @@
 
 namespace UGF.Module.Assets.Runtime
 {
-    public abstract class AssetLoaderAssetBase : BuilderAsset<IAssetLoader>
+    public abstract class AssetLoaderAsset : BuilderAsset<IAssetLoader>
     {
     }
 }

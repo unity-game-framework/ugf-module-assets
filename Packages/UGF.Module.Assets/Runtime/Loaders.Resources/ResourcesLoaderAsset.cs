@@ -3,7 +3,7 @@
 namespace UGF.Module.Assets.Runtime.Loaders.Resources
 {
     [CreateAssetMenu(menuName = "Unity Game Framework/Assets/Resources Loader", order = 2000)]
-    public class ResourcesLoaderAsset : AssetLoaderAssetBase
+    public class ResourcesLoaderAsset : AssetLoaderAsset
     {
         [SerializeField] private bool m_provideAssetUnload = true;
 
