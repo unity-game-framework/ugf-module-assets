@@ -302,7 +302,7 @@ namespace UGF.Module.Assets.Runtime
 
         protected virtual object LoadAsset(string id, Type type)
         {
-            IAssetLoader loader = GetLoaderByAsset(id);
+            IAssetLoader loader = this.GetLoaderByAsset(id);
 
             object asset = loader.Load(id, type, Context);
 
@@ -311,7 +311,7 @@ namespace UGF.Module.Assets.Runtime
 
         protected virtual Task<object> LoadAssetAsync(string id, Type type)
         {
-            IAssetLoader loader = GetLoaderByAsset(id);
+            IAssetLoader loader = this.GetLoaderByAsset(id);
 
             Task<object> task = loader.LoadAsync(id, type, Context);
 
@@ -320,29 +320,18 @@ namespace UGF.Module.Assets.Runtime
 
         protected virtual void UnloadAsset(string id, object asset)
         {
-            IAssetLoader loader = GetLoaderByAsset(id);
+            IAssetLoader loader = this.GetLoaderByAsset(id);
 
             loader.Unload(id, asset, Context);
         }
 
         protected virtual Task UnloadAssetAsync(string id, object asset)
         {
-            IAssetLoader loader = GetLoaderByAsset(id);
+            IAssetLoader loader = this.GetLoaderByAsset(id);
 
             Task task = loader.UnloadAsync(id, asset, Context);
 
             return task;
-        }
-
-        protected IAssetLoader GetLoaderByAsset(string id)
-        {
-            return TryGetLoaderByAsset(id, out IAssetLoader loader) ? loader : throw new ArgumentException($"Asset loader not found by the specified asset id: '{id}'.");
-        }
-
-        protected bool TryGetLoaderByAsset(string id, out IAssetLoader loader)
-        {
-            loader = default;
-            return Assets.TryGet(id, out IAssetInfo asset) && Loaders.TryGet(asset.LoaderId, out loader);
         }
     }
 }

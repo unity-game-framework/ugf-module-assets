@@ -7,6 +7,17 @@ namespace UGF.Module.Assets.Runtime
 {
     public static class AssetsModuleExtensions
     {
+        public static IAssetLoader GetLoaderByAsset(this IAssetsModule assetsModule, string id)
+        {
+            return TryGetLoaderByAsset(assetsModule, id, out IAssetLoader loader) ? loader : throw new ArgumentException($"Asset loader not found by the specified asset id: '{id}'.");
+        }
+
+        public static bool TryGetLoaderByAsset(this IAssetsModule assetsModule, string id, out IAssetLoader loader)
+        {
+            loader = default;
+            return assetsModule.Assets.TryGet(id, out IAssetInfo asset) && assetsModule.Loaders.TryGet(asset.LoaderId, out loader);
+        }
+
         public static T Load<T>(this IAssetsModule assetsModule, string id) where T : class
         {
             if (assetsModule == null) throw new ArgumentNullException(nameof(assetsModule));
