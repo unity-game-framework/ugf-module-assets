@@ -6,9 +6,9 @@ using UGF.RuntimeTools.Runtime.Providers;
 
 namespace UGF.Module.Assets.Runtime
 {
-    public interface IAssetsModule : IApplicationModule
+    public interface IAssetModule : IApplicationModule
     {
-        new IAssetsModuleDescription Description { get; }
+        new IAssetModuleDescription Description { get; }
         IProvider<string, IAssetLoader> Loaders { get; }
         IProvider<string, IAssetInfo> Assets { get; }
         IAssetTracker Tracker { get; }

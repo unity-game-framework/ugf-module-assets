@@ -6,8 +6,8 @@ using UnityEditor;
 
 namespace UGF.Module.Assets.Editor
 {
-    [CustomEditor(typeof(AssetsModuleAsset), true)]
-    internal class AssetsModuleAssetEditor : UnityEditor.Editor
+    [CustomEditor(typeof(AssetModuleAsset), true)]
+    internal class AssetModuleAssetEditor : UnityEditor.Editor
     {
         private SerializedProperty m_propertyScript;
         private SerializedProperty m_propertyUnloadTrackedAssetsOnUninitialize;

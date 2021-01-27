@@ -10,25 +10,25 @@ using Object = UnityEngine.Object;
 
 namespace UGF.Module.Assets.Runtime
 {
-    public class AssetsModule : ApplicationModule<AssetsModuleDescription>, IAssetsModule, IApplicationModuleAsync
+    public class AssetModule : ApplicationModule<AssetModuleDescription>, IAssetModule, IApplicationModuleAsync
     {
         public IProvider<string, IAssetLoader> Loaders { get; }
         public IProvider<string, IAssetInfo> Assets { get; }
         public IAssetTracker Tracker { get; }
         public IContext Context { get; } = new Context();
 
-        IAssetsModuleDescription IAssetsModule.Description { get { return Description; } }
+        IAssetModuleDescription IAssetModule.Description { get { return Description; } }
 
         public event AssetLoadHandler Loading;
         public event AssetLoadedHandler Loaded;
         public event AssetUnloadHandler Unloading;
         public event AssetUnloadedHandler Unloaded;
 
-        public AssetsModule(AssetsModuleDescription description, IApplication application) : this(description, application, new Provider<string, IAssetLoader>(), new Provider<string, IAssetInfo>(), new AssetTracker())
+        public AssetModule(AssetModuleDescription description, IApplication application) : this(description, application, new Provider<string, IAssetLoader>(), new Provider<string, IAssetInfo>(), new AssetTracker())
         {
         }
 
-        public AssetsModule(AssetsModuleDescription description, IApplication application, IProvider<string, IAssetLoader> loaders, IProvider<string, IAssetInfo> assets, IAssetTracker tracker) : base(description, application)
+        public AssetModule(AssetModuleDescription description, IApplication application, IProvider<string, IAssetLoader> loaders, IProvider<string, IAssetInfo> assets, IAssetTracker tracker) : base(description, application)
         {
             Loaders = loaders ?? throw new ArgumentNullException(nameof(loaders));
             Assets = assets ?? throw new ArgumentNullException(nameof(assets));

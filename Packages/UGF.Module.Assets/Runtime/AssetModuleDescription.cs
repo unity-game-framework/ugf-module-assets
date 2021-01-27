@@ -3,7 +3,7 @@ using UGF.Application.Runtime;
 
 namespace UGF.Module.Assets.Runtime
 {
-    public class AssetsModuleDescription : ApplicationModuleDescription, IAssetsModuleDescription
+    public class AssetModuleDescription : ApplicationModuleDescription, IAssetModuleDescription
     {
         public Dictionary<string, IAssetLoader> Loaders { get; } = new Dictionary<string, IAssetLoader>();
         public Dictionary<string, IAssetInfo> Assets { get; } = new Dictionary<string, IAssetInfo>();
@@ -11,9 +11,9 @@ namespace UGF.Module.Assets.Runtime
         public List<string> PreloadAssetsAsync { get; } = new List<string>();
         public bool UnloadTrackedAssetsOnUninitialize { get; set; } = true;
 
-        IReadOnlyDictionary<string, IAssetLoader> IAssetsModuleDescription.Loaders { get { return Loaders; } }
-        IReadOnlyDictionary<string, IAssetInfo> IAssetsModuleDescription.Assets { get { return Assets; } }
-        IReadOnlyList<string> IAssetsModuleDescription.PreloadAssets { get { return PreloadAssets; } }
-        IReadOnlyList<string> IAssetsModuleDescription.PreloadAssetsAsync { get { return PreloadAssetsAsync; } }
+        IReadOnlyDictionary<string, IAssetLoader> IAssetModuleDescription.Loaders { get { return Loaders; } }
+        IReadOnlyDictionary<string, IAssetInfo> IAssetModuleDescription.Assets { get { return Assets; } }
+        IReadOnlyList<string> IAssetModuleDescription.PreloadAssets { get { return PreloadAssets; } }
+        IReadOnlyList<string> IAssetModuleDescription.PreloadAssetsAsync { get { return PreloadAssetsAsync; } }
     }
 }

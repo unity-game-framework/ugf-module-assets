@@ -3,7 +3,7 @@ using UGF.Application.Runtime;
 
 namespace UGF.Module.Assets.Runtime
 {
-    public interface IAssetsModuleDescription : IApplicationModuleDescription
+    public interface IAssetModuleDescription : IApplicationModuleDescription
     {
         IReadOnlyDictionary<string, IAssetLoader> Loaders { get; }
         IReadOnlyDictionary<string, IAssetInfo> Assets { get; }

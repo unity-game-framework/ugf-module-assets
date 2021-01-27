@@ -6,8 +6,8 @@ using UnityEngine;
 
 namespace UGF.Module.Assets.Runtime
 {
-    [CreateAssetMenu(menuName = "Unity Game Framework/Assets/Assets Module", order = 2000)]
-    public class AssetsModuleAsset : ApplicationModuleAsset<IAssetsModule, AssetsModuleDescription>
+    [CreateAssetMenu(menuName = "Unity Game Framework/Assets/Asset Module", order = 2000)]
+    public class AssetModuleAsset : ApplicationModuleAsset<IAssetModule, AssetModuleDescription>
     {
         [SerializeField] private bool m_unloadTrackedAssetsOnUninitialize = true;
         [SerializeField] private List<AssetReference<AssetLoaderAsset>> m_loaders = new List<AssetReference<AssetLoaderAsset>>();
@@ -23,9 +23,9 @@ namespace UGF.Module.Assets.Runtime
 
         protected override IApplicationModuleDescription OnBuildDescription()
         {
-            var description = new AssetsModuleDescription
+            var description = new AssetModuleDescription
             {
-                RegisterType = typeof(IAssetsModule),
+                RegisterType = typeof(IAssetModule),
                 UnloadTrackedAssetsOnUninitialize = m_unloadTrackedAssetsOnUninitialize
             };
 
@@ -50,9 +50,9 @@ namespace UGF.Module.Assets.Runtime
             return description;
         }
 
-        protected override IAssetsModule OnBuild(AssetsModuleDescription description, IApplication application)
+        protected override IAssetModule OnBuild(AssetModuleDescription description, IApplication application)
         {
-            return new AssetsModule(description, application);
+            return new AssetModule(description, application);
         }
     }
 }
