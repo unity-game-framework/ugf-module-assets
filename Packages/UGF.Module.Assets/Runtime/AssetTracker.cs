@@ -59,14 +59,17 @@ namespace UGF.Module.Assets.Runtime
         /// UnTracks specified asset, decrements count when asset already tracked and removes when asset track count reached zero.
         /// </summary>
         /// <param name="id">The id of the asset.</param>
+        /// <param name="asset">The asset to untrack.</param>
         /// <param name="track">The modified asset track as result.</param>
         /// <returns>Returns True when asset track count reached zero and was removed, otherwise False.</returns>
-        public bool UnTrack(string id, out AssetTrack track)
+        public bool UnTrack(string id, object asset, out AssetTrack track)
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
 
             if (TryGet(id, out track))
             {
+                if (track.Asset != asset) throw new ArgumentException($"Asset track not the same as specified asset: track:'{track.Asset}', asset:'{asset}'.");
+
                 track = Decrement(id);
 
                 if (track.Zero)

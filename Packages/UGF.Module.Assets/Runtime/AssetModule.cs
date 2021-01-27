@@ -213,7 +213,7 @@ namespace UGF.Module.Assets.Runtime
 
         protected virtual void OnUnload(string id, object asset, IAssetUnloadParameters parameters)
         {
-            if (Tracker.UnTrack(id, out _))
+            if (Tracker.UnTrack(id, asset, out _))
             {
                 Tracker.Remove(id);
                 UnloadAsset(id, asset, parameters);
@@ -222,7 +222,7 @@ namespace UGF.Module.Assets.Runtime
 
         protected virtual Task OnUnloadAsync(string id, object asset, IAssetUnloadParameters parameters)
         {
-            if (Tracker.UnTrack(id, out _))
+            if (Tracker.UnTrack(id, asset, out _))
             {
                 Tracker.Remove(id);
 

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using UnityEngine;
 
 namespace UGF.Module.Assets.Runtime
 {
@@ -34,53 +32,24 @@ namespace UGF.Module.Assets.Runtime
             return (T)await assetModule.LoadAsync(id, typeof(T), parameters);
         }
 
-        public static void UnloadUnused(this IAssetModule assetModule, bool resourcesUnloadUnused = true)
+        public static void UnloadForce(this IAssetModule assetModule, string id, IAssetUnloadParameters parameters)
         {
-            if (assetModule == null) throw new ArgumentNullException(nameof(assetModule));
+            AssetTrack track = assetModule.Tracker.Get(id);
+            IAssetLoader loader = GetLoaderByAsset(assetModule, id);
 
-            var entries = new List<KeyValuePair<string, AssetTrack>>(assetModule.Tracker.Entries);
+            assetModule.Tracker.Remove(id);
 
-            for (int i = 0; i < entries.Count; i++)
-            {
-                KeyValuePair<string, AssetTrack> entry = entries[i];
-
-                if (entry.Value.Zero)
-                {
-                    assetModule.Unload(entry.Key, entry.Value.Asset, AssetUnloadParameters.Empty);
-                }
-            }
-
-            if (resourcesUnloadUnused)
-            {
-                Resources.UnloadUnusedAssets();
-            }
+            loader.Unload(id, track.Asset, parameters, assetModule.Context);
         }
 
-        public static async Task UnloadUnusedAsync(this IAssetModule assetModule, bool resourcesUnloadUnused = true)
+        public static Task UnloadForceAsync(this IAssetModule assetModule, string id, IAssetUnloadParameters parameters)
         {
-            if (assetModule == null) throw new ArgumentNullException(nameof(assetModule));
+            AssetTrack track = assetModule.Tracker.Get(id);
+            IAssetLoader loader = GetLoaderByAsset(assetModule, id);
 
-            var entries = new List<KeyValuePair<string, AssetTrack>>(assetModule.Tracker.Entries);
+            assetModule.Tracker.Remove(id);
 
-            for (int i = 0; i < entries.Count; i++)
-            {
-                KeyValuePair<string, AssetTrack> entry = entries[i];
-
-                if (entry.Value.Zero)
-                {
-                    await assetModule.UnloadAsync(entry.Key, entry.Value.Asset, AssetUnloadParameters.Empty);
-                }
-            }
-
-            if (resourcesUnloadUnused)
-            {
-                AsyncOperation operation = Resources.UnloadUnusedAssets();
-
-                while (!operation.isDone)
-                {
-                    await Task.Yield();
-                }
-            }
+            return loader.UnloadAsync(id, track.Asset, parameters, assetModule.Context);
         }
     }
 }

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2055535c02f8406b9f50d8ed07bb8e9a, type: 3}
   m_Name: Loader
   m_EditorClassIdentifier: 
-  m_provideAssetUnload: 1
+  m_enableUnload: 1
