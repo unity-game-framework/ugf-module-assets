@@ -187,117 +187,55 @@ namespace UGF.Module.Assets.Runtime
 
         protected virtual object OnLoad(string id, Type type, AssetLoadParameters parameters)
         {
-            switch (parameters.Mode)
+            if (Tracker.TryGet(id, out AssetTrack track))
             {
-                case AssetLoadMode.Track:
-                {
-                    if (Tracker.TryGet(id, out AssetTrack track))
-                    {
-                        track = Tracker.Increment(id);
-                    }
-                    else
-                    {
-                        object asset = LoadAsset(id, type);
-
-                        Tracker.Track(id, asset, out track);
-                    }
-
-                    return track.Asset;
-                }
-                case AssetLoadMode.Direct:
-                {
-                    return LoadAsset(id, type);
-                }
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(parameters.Mode), $"Invalid asset load mode specified: '{parameters.Mode}'.");
+                track = Tracker.Increment(id);
             }
+            else
+            {
+                object asset = LoadAsset(id, type);
+
+                Tracker.Track(id, asset, out track);
+            }
+
+            return track.Asset;
         }
 
         protected virtual async Task<object> OnLoadAsync(string id, Type type, AssetLoadParameters parameters)
         {
-            switch (parameters.Mode)
+            if (Tracker.TryGet(id, out AssetTrack track))
             {
-                case AssetLoadMode.Track:
-                {
-                    if (Tracker.TryGet(id, out AssetTrack track))
-                    {
-                        track = Tracker.Increment(id);
-                    }
-                    else
-                    {
-                        object asset = await LoadAssetAsync(id, type);
-
-                        Tracker.Track(id, asset, out track);
-                    }
-
-                    return track.Asset;
-                }
-                case AssetLoadMode.Direct:
-                {
-                    return LoadAssetAsync(id, type);
-                }
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(parameters.Mode), $"Invalid asset load mode specified: '{parameters.Mode}'.");
+                track = Tracker.Increment(id);
             }
+            else
+            {
+                object asset = await LoadAssetAsync(id, type);
+
+                Tracker.Track(id, asset, out track);
+            }
+
+            return track.Asset;
         }
 
         protected virtual void OnUnload(string id, object asset, AssetUnloadParameters parameters)
         {
-            switch (parameters.Mode)
+            if (parameters.Force || Tracker.UnTrack(id, out _))
             {
-                case AssetUnloadMode.Track:
-                {
-                    if (parameters.Force || Tracker.UnTrack(id, out _))
-                    {
-                        Tracker.Remove(id);
-                        UnloadAsset(id, asset);
-                    }
-
-                    break;
-                }
-                case AssetUnloadMode.TrackOnly:
-                {
-                    Tracker.UnTrack(id, out _);
-                    break;
-                }
-                case AssetUnloadMode.Direct:
-                {
-                    UnloadAsset(id, asset);
-                    break;
-                }
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(parameters.Mode), $"Invalid asset unload mode specified: '{parameters.Mode}'.");
+                Tracker.Remove(id);
+                UnloadAsset(id, asset);
             }
         }
 
         protected virtual Task OnUnloadAsync(string id, object asset, AssetUnloadParameters parameters)
         {
-            switch (parameters.Mode)
+            if (parameters.Force || Tracker.UnTrack(id, out _))
             {
-                case AssetUnloadMode.Track:
-                {
-                    if (parameters.Force || Tracker.UnTrack(id, out _))
-                    {
-                        Tracker.Remove(id);
+                Tracker.Remove(id);
 
-                        return UnloadAssetAsync(id, asset);
-                    }
-
-                    return Task.CompletedTask;
-                }
-                case AssetUnloadMode.TrackOnly:
-                {
-                    Tracker.UnTrack(id, out _);
-
-                    return Task.CompletedTask;
-                }
-                case AssetUnloadMode.Direct:
-                {
-                    return UnloadAssetAsync(id, asset);
-                }
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(parameters.Mode), $"Invalid asset unload mode specified: '{parameters.Mode}'.");
+                return UnloadAssetAsync(id, asset);
             }
+
+            return Task.CompletedTask;
         }
 
         protected virtual object LoadAsset(string id, Type type)
