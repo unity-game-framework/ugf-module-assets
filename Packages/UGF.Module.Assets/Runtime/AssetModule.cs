@@ -63,7 +63,7 @@ namespace UGF.Module.Assets.Runtime
             {
                 string id = Description.PreloadAssets[i];
 
-                Load<Object>(id, AssetLoadParameters.Default);
+                this.Load<Object>(id, AssetLoadParameters.Empty);
             }
 
             Log.Debug("Assets Module preload", new
@@ -78,7 +78,7 @@ namespace UGF.Module.Assets.Runtime
             {
                 string id = Description.PreloadAssetsAsync[i];
 
-                await LoadAsync<Object>(id, AssetLoadParameters.Default);
+                await this.LoadAsync<Object>(id, AssetLoadParameters.Empty);
             }
 
             Log.Debug("Assets Module preload async", new
@@ -102,7 +102,7 @@ namespace UGF.Module.Assets.Runtime
                 {
                     KeyValuePair<string, AssetTrack> pair = Tracker.Entries.First();
 
-                    Unload(pair.Key, pair.Value.Asset, AssetUnloadParameters.DefaultForce);
+                    Unload(pair.Key, pair.Value.Asset, AssetUnloadParameters.Empty);
                 }
             }
 
@@ -119,20 +119,11 @@ namespace UGF.Module.Assets.Runtime
             }
         }
 
-        public T Load<T>(string id, AssetLoadParameters parameters) where T : class
-        {
-            return (T)Load(id, typeof(T), parameters);
-        }
-
-        public async Task<T> LoadAsync<T>(string id, AssetLoadParameters parameters) where T : class
-        {
-            return (T)await LoadAsync(id, typeof(T), parameters);
-        }
-
-        public object Load(string id, Type type, AssetLoadParameters parameters)
+        public object Load(string id, Type type, IAssetLoadParameters parameters)
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
             if (type == null) throw new ArgumentNullException(nameof(type));
+            if (parameters == null) throw new ArgumentNullException(nameof(parameters));
 
             Loading?.Invoke(id, type, parameters);
 
@@ -143,10 +134,11 @@ namespace UGF.Module.Assets.Runtime
             return asset;
         }
 
-        public async Task<object> LoadAsync(string id, Type type, AssetLoadParameters parameters)
+        public async Task<object> LoadAsync(string id, Type type, IAssetLoadParameters parameters)
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
             if (type == null) throw new ArgumentNullException(nameof(type));
+            if (parameters == null) throw new ArgumentNullException(nameof(parameters));
 
             Loading?.Invoke(id, type, parameters);
 
@@ -157,10 +149,11 @@ namespace UGF.Module.Assets.Runtime
             return asset;
         }
 
-        public void Unload(string id, object asset, AssetUnloadParameters parameters)
+        public void Unload(string id, object asset, IAssetUnloadParameters parameters)
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
             if (asset == null) throw new ArgumentNullException(nameof(asset));
+            if (parameters == null) throw new ArgumentNullException(nameof(parameters));
 
             Type type = asset.GetType();
 
@@ -171,10 +164,11 @@ namespace UGF.Module.Assets.Runtime
             Unloaded?.Invoke(id, type, parameters);
         }
 
-        public async Task UnloadAsync(string id, object asset, AssetUnloadParameters parameters)
+        public async Task UnloadAsync(string id, object asset, IAssetUnloadParameters parameters)
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
             if (asset == null) throw new ArgumentNullException(nameof(asset));
+            if (parameters == null) throw new ArgumentNullException(nameof(parameters));
 
             Type type = asset.GetType();
 
@@ -185,7 +179,7 @@ namespace UGF.Module.Assets.Runtime
             Unloaded?.Invoke(id, type, parameters);
         }
 
-        protected virtual object OnLoad(string id, Type type, AssetLoadParameters parameters)
+        protected virtual object OnLoad(string id, Type type, IAssetLoadParameters parameters)
         {
             if (Tracker.TryGet(id, out AssetTrack track))
             {
@@ -193,7 +187,7 @@ namespace UGF.Module.Assets.Runtime
             }
             else
             {
-                object asset = LoadAsset(id, type);
+                object asset = LoadAsset(id, type, parameters);
 
                 Tracker.Track(id, asset, out track);
             }
@@ -201,7 +195,7 @@ namespace UGF.Module.Assets.Runtime
             return track.Asset;
         }
 
-        protected virtual async Task<object> OnLoadAsync(string id, Type type, AssetLoadParameters parameters)
+        protected virtual async Task<object> OnLoadAsync(string id, Type type, IAssetLoadParameters parameters)
         {
             if (Tracker.TryGet(id, out AssetTrack track))
             {
@@ -209,7 +203,7 @@ namespace UGF.Module.Assets.Runtime
             }
             else
             {
-                object asset = await LoadAssetAsync(id, type);
+                object asset = await LoadAssetAsync(id, type, parameters);
 
                 Tracker.Track(id, asset, out track);
             }
@@ -217,28 +211,28 @@ namespace UGF.Module.Assets.Runtime
             return track.Asset;
         }
 
-        protected virtual void OnUnload(string id, object asset, AssetUnloadParameters parameters)
+        protected virtual void OnUnload(string id, object asset, IAssetUnloadParameters parameters)
         {
-            if (parameters.Force || Tracker.UnTrack(id, out _))
+            if (Tracker.UnTrack(id, out _))
             {
                 Tracker.Remove(id);
-                UnloadAsset(id, asset);
+                UnloadAsset(id, asset, parameters);
             }
         }
 
-        protected virtual Task OnUnloadAsync(string id, object asset, AssetUnloadParameters parameters)
+        protected virtual Task OnUnloadAsync(string id, object asset, IAssetUnloadParameters parameters)
         {
-            if (parameters.Force || Tracker.UnTrack(id, out _))
+            if (Tracker.UnTrack(id, out _))
             {
                 Tracker.Remove(id);
 
-                return UnloadAssetAsync(id, asset);
+                return UnloadAssetAsync(id, asset, parameters);
             }
 
             return Task.CompletedTask;
         }
 
-        protected virtual object LoadAsset(string id, Type type)
+        protected virtual object LoadAsset(string id, Type type, IAssetLoadParameters parameters)
         {
             IAssetLoader loader = this.GetLoaderByAsset(id);
 
@@ -247,7 +241,7 @@ namespace UGF.Module.Assets.Runtime
             return asset;
         }
 
-        protected virtual Task<object> LoadAssetAsync(string id, Type type)
+        protected virtual Task<object> LoadAssetAsync(string id, Type type, IAssetLoadParameters parameters)
         {
             IAssetLoader loader = this.GetLoaderByAsset(id);
 
@@ -256,14 +250,14 @@ namespace UGF.Module.Assets.Runtime
             return task;
         }
 
-        protected virtual void UnloadAsset(string id, object asset)
+        protected virtual void UnloadAsset(string id, object asset, IAssetUnloadParameters parameters)
         {
             IAssetLoader loader = this.GetLoaderByAsset(id);
 
             loader.Unload(id, asset, Context);
         }
 
-        protected virtual Task UnloadAssetAsync(string id, object asset)
+        protected virtual Task UnloadAssetAsync(string id, object asset, IAssetUnloadParameters parameters)
         {
             IAssetLoader loader = this.GetLoaderByAsset(id);
 

@@ -1,10 +1,7 @@
-﻿using System;
-
-namespace UGF.Module.Assets.Runtime
+﻿namespace UGF.Module.Assets.Runtime
 {
-    [Serializable]
-    public struct AssetLoadParameters
+    public class AssetLoadParameters : IAssetLoadParameters
     {
-        public static AssetLoadParameters Default { get; } = new AssetLoadParameters();
+        public static AssetLoadParameters Empty { get; } = new AssetLoadParameters();
     }
 }

@@ -1,21 +1,7 @@
-﻿using System;
-using UnityEngine;
-
-namespace UGF.Module.Assets.Runtime
+﻿namespace UGF.Module.Assets.Runtime
 {
-    [Serializable]
-    public struct AssetUnloadParameters
+    public class AssetUnloadParameters : IAssetUnloadParameters
     {
-        [SerializeField] private bool m_force;
-
-        public bool Force { get { return m_force; } set { m_force = value; } }
-
-        public static AssetUnloadParameters Default { get; } = new AssetUnloadParameters(false);
-        public static AssetUnloadParameters DefaultForce { get; } = new AssetUnloadParameters(true);
-
-        public AssetUnloadParameters(bool force)
-        {
-            m_force = force;
-        }
+        public static AssetUnloadParameters Empty { get; } = new AssetUnloadParameters();
     }
 }

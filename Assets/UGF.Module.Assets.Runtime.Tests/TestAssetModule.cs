@@ -47,7 +47,7 @@ namespace UGF.Module.Assets.Runtime.Tests
             application.Initialize();
 
             var module = application.GetModule<IAssetModule>();
-            object asset = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Default);
+            object asset = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Empty);
 
             Assert.NotNull(asset);
             Assert.IsInstanceOf<Material>(asset);
@@ -71,12 +71,12 @@ namespace UGF.Module.Assets.Runtime.Tests
             application.Initialize();
 
             var module = application.GetModule<IAssetModule>();
-            object asset = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Default);
+            object asset = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Empty);
 
             Assert.NotNull(asset);
             Assert.IsInstanceOf<Material>(asset);
 
-            module.Unload("7ab173a97bcf2bc44b710c33213fa557", asset, AssetUnloadParameters.Default);
+            module.Unload("7ab173a97bcf2bc44b710c33213fa557", asset, AssetUnloadParameters.Empty);
 
             Assert.Null(asset);
         }
@@ -98,12 +98,12 @@ namespace UGF.Module.Assets.Runtime.Tests
             application.Initialize();
 
             var module = application.GetModule<IAssetModule>();
-            object asset = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Default);
+            object asset = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Empty);
 
             Assert.NotNull(asset);
             Assert.IsInstanceOf<Material>(asset);
 
-            module.Unload("7ab173a97bcf2bc44b710c33213fa557", asset, AssetUnloadParameters.Default);
+            module.Unload("7ab173a97bcf2bc44b710c33213fa557", asset, AssetUnloadParameters.Empty);
 
             yield return Resources.UnloadUnusedAssets();
 
@@ -127,8 +127,8 @@ namespace UGF.Module.Assets.Runtime.Tests
             application.Initialize();
 
             var module = application.GetModule<IAssetModule>();
-            object asset1 = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Default);
-            object asset2 = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Default);
+            object asset1 = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Empty);
+            object asset2 = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Empty);
 
             Assert.NotNull(asset1);
             Assert.NotNull(asset2);
@@ -137,7 +137,7 @@ namespace UGF.Module.Assets.Runtime.Tests
             Assert.AreEqual(1, module.Tracker.Entries.Count);
             Assert.AreEqual(2, module.Tracker.Get("7ab173a97bcf2bc44b710c33213fa557").Count);
 
-            module.Unload("7ab173a97bcf2bc44b710c33213fa557", asset1, AssetUnloadParameters.Default);
+            module.Unload("7ab173a97bcf2bc44b710c33213fa557", asset1, AssetUnloadParameters.Empty);
 
             Assert.NotNull(asset1);
             Assert.NotNull(asset2);
@@ -146,7 +146,7 @@ namespace UGF.Module.Assets.Runtime.Tests
             Assert.AreEqual(1, module.Tracker.Entries.Count);
             Assert.AreEqual(1, module.Tracker.Get("7ab173a97bcf2bc44b710c33213fa557").Count);
 
-            module.Unload("7ab173a97bcf2bc44b710c33213fa557", asset2, AssetUnloadParameters.Default);
+            module.Unload("7ab173a97bcf2bc44b710c33213fa557", asset2, AssetUnloadParameters.Empty);
 
             Assert.AreEqual(null, asset1);
             Assert.AreEqual(null, asset2);
@@ -206,8 +206,8 @@ namespace UGF.Module.Assets.Runtime.Tests
             application.Initialize();
 
             var module = application.GetModule<IAssetModule>();
-            object asset1 = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Default);
-            object asset2 = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Default);
+            object asset1 = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Empty);
+            object asset2 = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Empty);
 
             Assert.NotNull(asset1);
             Assert.NotNull(asset2);
@@ -242,8 +242,8 @@ namespace UGF.Module.Assets.Runtime.Tests
             application.Initialize();
 
             var module = application.GetModule<IAssetModule>();
-            object asset1 = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Default);
-            object asset2 = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Default);
+            object asset1 = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Empty);
+            object asset2 = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Empty);
 
             Assert.NotNull(asset1);
             Assert.NotNull(asset2);
@@ -286,8 +286,8 @@ namespace UGF.Module.Assets.Runtime.Tests
             application.Initialize();
 
             var module = application.GetModule<IAssetModule>();
-            object asset1 = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Default);
-            object asset2 = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Default);
+            object asset1 = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Empty);
+            object asset2 = module.Load("7ab173a97bcf2bc44b710c33213fa557", typeof(Material), AssetLoadParameters.Empty);
 
             Assert.NotNull(asset1);
             Assert.NotNull(asset2);

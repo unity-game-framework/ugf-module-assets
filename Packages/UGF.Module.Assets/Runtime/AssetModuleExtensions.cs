@@ -20,46 +20,18 @@ namespace UGF.Module.Assets.Runtime
             return assetModule.Assets.TryGet(id, out IAssetInfo asset) && assetModule.Loaders.TryGet(asset.LoaderId, out loader);
         }
 
-        public static T Load<T>(this IAssetModule assetModule, string id) where T : class
+        public static T Load<T>(this IAssetModule assetModule, string id, IAssetLoadParameters parameters) where T : class
         {
             if (assetModule == null) throw new ArgumentNullException(nameof(assetModule));
 
-            return assetModule.Load<T>(id, AssetLoadParameters.Default);
+            return (T)assetModule.Load(id, typeof(T), parameters);
         }
 
-        public static object Load(this IAssetModule assetModule, string id, Type type)
+        public static async Task<T> LoadAsync<T>(this IAssetModule assetModule, string id, IAssetLoadParameters parameters) where T : class
         {
             if (assetModule == null) throw new ArgumentNullException(nameof(assetModule));
 
-            return assetModule.Load(id, type, AssetLoadParameters.Default);
-        }
-
-        public static Task<T> LoadAsync<T>(this IAssetModule assetModule, string id) where T : class
-        {
-            if (assetModule == null) throw new ArgumentNullException(nameof(assetModule));
-
-            return assetModule.LoadAsync<T>(id, AssetLoadParameters.Default);
-        }
-
-        public static Task<object> LoadAsync(this IAssetModule assetModule, string id, Type type)
-        {
-            if (assetModule == null) throw new ArgumentNullException(nameof(assetModule));
-
-            return assetModule.LoadAsync(id, type, AssetLoadParameters.Default);
-        }
-
-        public static void Unload(this IAssetModule assetModule, string id, object asset)
-        {
-            if (assetModule == null) throw new ArgumentNullException(nameof(assetModule));
-
-            assetModule.Unload(id, asset, AssetUnloadParameters.Default);
-        }
-
-        public static Task UnloadAsync(this IAssetModule assetModule, string id, object asset)
-        {
-            if (assetModule == null) throw new ArgumentNullException(nameof(assetModule));
-
-            return assetModule.UnloadAsync(id, asset, AssetUnloadParameters.Default);
+            return (T)await assetModule.LoadAsync(id, typeof(T), parameters);
         }
 
         public static void UnloadUnused(this IAssetModule assetModule, bool resourcesUnloadUnused = true)
@@ -74,7 +46,7 @@ namespace UGF.Module.Assets.Runtime
 
                 if (entry.Value.Zero)
                 {
-                    assetModule.Unload(entry.Key, entry.Value.Asset, AssetUnloadParameters.DefaultForce);
+                    assetModule.Unload(entry.Key, entry.Value.Asset, AssetUnloadParameters.Empty);
                 }
             }
 
@@ -96,7 +68,7 @@ namespace UGF.Module.Assets.Runtime
 
                 if (entry.Value.Zero)
                 {
-                    await assetModule.UnloadAsync(entry.Key, entry.Value.Asset, AssetUnloadParameters.DefaultForce);
+                    await assetModule.UnloadAsync(entry.Key, entry.Value.Asset, AssetUnloadParameters.Empty);
                 }
             }
 
