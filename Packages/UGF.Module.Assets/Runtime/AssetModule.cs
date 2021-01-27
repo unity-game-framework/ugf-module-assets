@@ -236,7 +236,7 @@ namespace UGF.Module.Assets.Runtime
         {
             IAssetLoader loader = this.GetLoaderByAsset(id);
 
-            object asset = loader.Load(id, type, Context);
+            object asset = loader.Load(id, type, parameters, Context);
 
             return asset;
         }
@@ -245,7 +245,7 @@ namespace UGF.Module.Assets.Runtime
         {
             IAssetLoader loader = this.GetLoaderByAsset(id);
 
-            Task<object> task = loader.LoadAsync(id, type, Context);
+            Task<object> task = loader.LoadAsync(id, type, parameters, Context);
 
             return task;
         }
@@ -254,14 +254,14 @@ namespace UGF.Module.Assets.Runtime
         {
             IAssetLoader loader = this.GetLoaderByAsset(id);
 
-            loader.Unload(id, asset, Context);
+            loader.Unload(id, asset, parameters, Context);
         }
 
         protected virtual Task UnloadAssetAsync(string id, object asset, IAssetUnloadParameters parameters)
         {
             IAssetLoader loader = this.GetLoaderByAsset(id);
 
-            Task task = loader.UnloadAsync(id, asset, Context);
+            Task task = loader.UnloadAsync(id, asset, parameters, Context);
 
             return task;
         }
