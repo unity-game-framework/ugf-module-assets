@@ -23,6 +23,78 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Remove `AssetsProvider` and replaced by other providers.
     - Remove `IAssetProvider` argument from `IAssetLoader` methods.
 
+## [3.1.0](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/3.1.0) - 2021-01-16  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assets/milestone/8?closed=1)  
+    
+
+### Changed
+
+- Update application dependency ([#36](https://github.com/unity-game-framework/ugf-module-assets/pull/36))  
+    - Update dependencies: `com.ugf.application` to `7.1.0` version.
+    - Deprecate `AssetsModuleDescription` constructor with `registerType` argument, use properties initialization instead.
+
+## [3.0.0](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/3.0.0) - 2020-12-05  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assets/milestone/7?closed=1)  
+    
+
+### Changed
+
+- Update to support latest application package ([#33](https://github.com/unity-game-framework/ugf-module-assets/pull/33))  
+    - Update to use `UGF.Builder` and `UGF.Description` packages from the latest version of `UGF.Application` package.
+    - Change dependencies: `com.ugf.application` to `6.0.0` and `com.ugf.logs` to `4.1.0`.
+    - Change all assets to use and implement builders features.
+    - Change `AssetGroupAsset` to be abstract from assets storage, and no longer require generic argument.
+    - Change name of the root of create asset menu, from `UGF` to `Unity Game Framework`.
+    - Remove `IAssetGroupAssetEntry` interface and `AssetGroupAssetEntry` abstract class, implementations moved to specific classes.
+    - Remove `ResourcesAssetGroupEntry`, implementation moved to `ResourcesAssetGroupAsset` as `Entry` nested structure.
+
+## [2.0.1](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/2.0.1) - 2020-11-07  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assets/milestone/6?closed=1)  
+    
+
+### Changed
+
+- Update UGF.Application package ([#29](https://github.com/unity-game-framework/ugf-module-assets/pull/29))  
+    - Update `UGF.Application` package to `5.2.0` version.
+    - Change `IAssetsModule` to implement `IApplicationModuleDescribed<IAssetsModuleDescription>` interface.
+    - Add `AssetsModule` default constructor.
+
+## [2.0.0](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/2.0.0) - 2020-11-07  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assets/milestone/5?closed=1)  
+    
+
+### Added
+
+- Add ability to unload asset with track only ([#26](https://github.com/unity-game-framework/ugf-module-assets/pull/26))  
+    - Add `AssetUnloadMode` with `TrackOnly` option.
+    - Add `AssetUnloadParameters.DefaultTrackOnly` default parameters for unload with track only.
+    - Change `AssetUnloadParameters` to use `AssetUnloadMode` instead of `AssetLoadMode`.
+    - Change `AssetsModule` to work with `AssetUnloadMode` when unloads asset.
+- Add AssetsModule unload unused ([#25](https://github.com/unity-game-framework/ugf-module-assets/pull/25))  
+    - Add `UnloadUnused` and `UnloadUnusedAsync` extension methods for `IAssetsModule` to unload tracked assets with zero counter.
+- Add generic asset loader ([#22](https://github.com/unity-game-framework/ugf-module-assets/pull/22))  
+    - Add `AssetGroupAsset<T>.OnCreateGroup` and `OnPopulateGroup` methods to override `IAssetGroup` creation.
+    - Add `AssetLoader<TGroup, TInfo>` loader class with fetching of `IAssetGroup` and `IAssetInfo` by default.
+    - Change `ResourcesLoader` to inherit from `AssetLoader<TGroup, TInfo>` class.
+
+### Changed
+
+- Add parameters for asset load and unload handlers ([#21](https://github.com/unity-game-framework/ugf-module-assets/pull/21))  
+    - Change `AssetLoadHandler`, `AssetLoadedHandler`, `AssetUnloadHandler` and `AssetUnloadedHandler` signature to have `AssetLoadParameters` and `AssetUnloadParameters` arguments.
+    - Change `AssetsModule` to pass `AssetLoadParameters` and `AssetUnloadParameters` for all events.
+
 ## [1.0.0](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/1.0.0) - 2020-10-28  
 
 ### Release Notes
@@ -82,5 +154,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - This is a initial release.
-
 

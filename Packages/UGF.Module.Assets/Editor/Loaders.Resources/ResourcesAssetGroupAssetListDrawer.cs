@@ -19,10 +19,14 @@ namespace UGF.Module.Assets.Editor.Loaders.Resources
             AttributeEditorGUIUtility.DrawResourcesPathField(position, propertyAddress, GUIContent.none, typeof(Object));
 
             Object asset = UnityEngine.Resources.Load(propertyAddress.stringValue);
-            string path = AssetDatabase.GetAssetPath(asset);
-            string guid = AssetDatabase.AssetPathToGUID(path);
 
-            propertyId.stringValue = guid;
+            if (asset != null)
+            {
+                string path = AssetDatabase.GetAssetPath(asset);
+                string guid = AssetDatabase.AssetPathToGUID(path);
+
+                propertyId.stringValue = guid;
+            }
         }
 
         protected override float OnElementHeightContent(SerializedProperty serializedProperty, int index)

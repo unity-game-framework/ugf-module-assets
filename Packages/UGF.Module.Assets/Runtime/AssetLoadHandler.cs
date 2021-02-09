@@ -2,5 +2,5 @@
 
 namespace UGF.Module.Assets.Runtime
 {
-    public delegate void AssetLoadHandler(string id, Type type, AssetLoadParameters parameters);
+    public delegate void AssetLoadHandler(string id, Type type, IAssetLoadParameters parameters);
 }
