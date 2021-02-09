@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.ugf.application": {
-      "version": "8.0.0-preview.3",
+      "version": "8.0.0-preview.4",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -75,7 +75,7 @@
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "com.ugf.application": "8.0.0-preview.3"
+        "com.ugf.application": "8.0.0-preview.4"
       }
     },
     "com.ugf.runtimetools": {
