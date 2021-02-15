@@ -2,6 +2,7 @@
 using UGF.EditorTools.Editor.IMGUI.Scopes;
 using UGF.Module.Assets.Runtime.Loaders.Resources;
 using UnityEditor;
+using UnityEngine;
 
 namespace UGF.Module.Assets.Editor.Loaders.Resources
 {
@@ -11,6 +12,14 @@ namespace UGF.Module.Assets.Editor.Loaders.Resources
         private SerializedProperty m_propertyScript;
         private SerializedProperty m_propertyLoader;
         private ReorderableListDrawer m_list;
+        private Styles m_styles;
+
+        private class Styles
+        {
+            public GUIContent RefreshContent { get; } = new GUIContent("Refresh", "Refresh all entries to update address for each entry.");
+            public GUIContent RefreshAllContent { get; } = new GUIContent("Refresh All", "Refresh all groups in project to update address for each entry.");
+            public string MissingEntryMessage { get; } = "Group contains entries with missing or invalid address.";
+        }
 
         private void OnEnable()
         {
@@ -28,6 +37,8 @@ namespace UGF.Module.Assets.Editor.Loaders.Resources
 
         public override void OnInspectorGUI()
         {
+            m_styles ??= new Styles();
+
             using (new SerializedObjectUpdateScope(serializedObject))
             {
                 using (new EditorGUI.DisabledScope(true))
@@ -38,6 +49,31 @@ namespace UGF.Module.Assets.Editor.Loaders.Resources
                 EditorGUILayout.PropertyField(m_propertyLoader);
 
                 m_list.DrawGUILayout();
+            }
+
+            EditorGUILayout.Space();
+
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                GUILayout.FlexibleSpace();
+
+                if (GUILayout.Button(m_styles.RefreshAllContent))
+                {
+                    ResourcesAssetEditorUtility.UpdateAllAssetGroups();
+                }
+
+                if (GUILayout.Button(m_styles.RefreshContent))
+                {
+                    ResourcesAssetEditorUtility.UpdateAssetGroupEntries((ResourcesAssetGroupAsset)target);
+                    EditorUtility.SetDirty(target);
+                }
+            }
+
+            EditorGUILayout.Space();
+
+            if (ResourcesAssetEditorUtility.IsAssetGroupHasMissingEntries((ResourcesAssetGroupAsset)target))
+            {
+                EditorGUILayout.HelpBox(m_styles.MissingEntryMessage, MessageType.Warning);
             }
         }
     }

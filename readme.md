@@ -4,13 +4,13 @@ UGF.Module.Assets
 
 ## Info
 
-- **Version**: `3.1.0`
-- **Unity**: `2020.2`
+- **Version**: `4.0.0-preview.1`
+- **Unity**: `2021.1`
 - **API Compatibility Level**: `.NET Standard 2.0`
 
 ### Dependencies
 
-- `com.ugf.application`: `7.1.0`
+- `com.ugf.application`: `8.0.0-preview.4`
 
 
 ### Description
@@ -22,8 +22,6 @@ Module to manage assets loading.
 - [Full changelog](changelog.md)
 
 ### Registry
-
-- [Public](https://bintray.com/unity-game-framework/public)
 
 Read about where packages stored: [Registry](https://github.com/unity-game-framework/organization/blob/master/docs/registry.md).
 

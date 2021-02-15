@@ -5,6 +5,54 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0-preview.1](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/4.0.0-preview.1) - 2021-02-09  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assets/milestone/10?closed=1)  
+    
+
+### Changed
+
+- Update project registry ([#45](https://github.com/unity-game-framework/ugf-module-assets/pull/45))  
+    - Update package publish registry.
+    - Update dependencies: `com.ugf.application` to `8.0.0-preview.4` version.
+- Update to Unity 2021.1 ([#44](https://github.com/unity-game-framework/ugf-module-assets/pull/44))  
+- Remove groups and loaders provider types ([#41](https://github.com/unity-game-framework/ugf-module-assets/pull/41))  
+    - Add `ResourcesAssetEditorSettings` settings with `UpdateAllGroupsOnBuild` property to control update of all asset groups before player build.
+    - Add `ResourcesAssetEditorUtility` class to work with `ResourcesAssetGroupAsset` assets.
+    - Add `IAssetLoadParameters` and `IAssetUnloadParameters` interfaces and implementations to replace solution with structures.
+    - Add `AssetModuleExtensions` with `GetLoaderByAsset`, `TryGetLoaderByAsset` methods and etc.
+    - Change `IAssetInfo` and implementations to define `LoaderId` property.
+    - Change name of `IAssetsModule` and related classes to `IAssetModule`.
+    - Change `IAssetModule`, `IAssetLoader` and implementations to work with asset load and unload parameter interfaces.
+    - Change `AssetModuleAsset` to work with reworked `AssetGroupAsset` groups.
+    - Change `IAssetTracker` to require the same asset to be specified when untrack usage.
+    - Change `ResourcesLoader` and `ResourcesAssetGroupAsset` to work with reworked parameters and groups.
+    - Change name of abstract `AssetLoaderAssetBase` class to `AssetLoaderAsset`.
+    - Remove `IAssetGroupProvider` and implementations, change to store loader id for each asset info.
+    - Remove `IAssetGroup` and replated classes, replaced by abstract `AssetGroupAsset` class.
+    - Remove `AssetLoadMode` and `AssetUnloadMode` enums and change to track all loaded assets by default.
+    - Remove `AssetLoaderProvider` and replaced by generic providers solution.
+
+## [4.0.0-preview](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/4.0.0-preview) - 2021-01-25  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assets/milestone/9?closed=1)  
+    
+
+### Changed
+
+- Update providers and application package ([#39](https://github.com/unity-game-framework/ugf-module-assets/pull/39))  
+    - Update dependencies: `com.ugf.application` to `8.0.0-preview.3` version.
+    - Add `AssetLoaderProvider` and `AssetGroupProvider` providers.
+    - Change `IAssetsModule` to work with changed providers.
+    - Change `IAssetLoader` methods to take `IContext` as one of arguments.
+    - Change `IAssetTracker` and `AssetTracker` to implement `IProvider<string, AssetTrack>` interface.
+    - Remove `AssetsProvider` and replaced by other providers.
+    - Remove `IAssetProvider` argument from `IAssetLoader` methods.
+
 ## [3.1.0](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/3.1.0) - 2021-01-16  
 
 ### Release Notes
