@@ -14,7 +14,7 @@ namespace UGF.Module.Assets.Editor.Loaders.Resources
         [SettingsProvider]
         private static SettingsProvider GetProvider()
         {
-            return new CustomSettingsProvider<ResourcesAssetEditorSettingsData>("Project/UGF/Assets Resources", Settings, SettingsScope.Project);
+            return new CustomSettingsProvider<ResourcesAssetEditorSettingsData>("Project/Unity Game Framework/Assets Resources", Settings, SettingsScope.Project);
         }
     }
 }
