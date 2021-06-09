@@ -10,7 +10,7 @@ namespace UGF.Module.Assets.Runtime
         where TLoadParameters : class, IAssetLoadParameters
         where TUnloadParameters : class, IAssetUnloadParameters
     {
-        protected AssetLoader(IAssetLoadParameters defaultLoadParameters, IAssetUnloadParameters defaultUnloadParameters) : base(defaultLoadParameters, defaultUnloadParameters)
+        protected AssetLoader(TLoadParameters defaultLoadParameters, TUnloadParameters defaultUnloadParameters) : base(defaultLoadParameters, defaultUnloadParameters)
         {
         }
 
