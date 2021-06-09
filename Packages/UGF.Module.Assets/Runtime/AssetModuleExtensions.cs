@@ -70,6 +70,24 @@ namespace UGF.Module.Assets.Runtime
             return (T)await assetModule.LoadAsync(id, typeof(T), parameters);
         }
 
+        public static void Unload(this IAssetModule assetModule, string id, object asset)
+        {
+            if (assetModule == null) throw new ArgumentNullException(nameof(assetModule));
+
+            IAssetUnloadParameters parameters = GetDefaultUnloadParametersByAsset(assetModule, id);
+
+            assetModule.Unload(id, asset, parameters);
+        }
+
+        public static Task UnloadAsync(this IAssetModule assetModule, string id, object asset)
+        {
+            if (assetModule == null) throw new ArgumentNullException(nameof(assetModule));
+
+            IAssetUnloadParameters parameters = GetDefaultUnloadParametersByAsset(assetModule, id);
+
+            return assetModule.UnloadAsync(id, asset, parameters);
+        }
+
         public static void UnloadForce(this IAssetModule assetModule, string id, IAssetUnloadParameters parameters = null)
         {
             parameters ??= GetDefaultUnloadParametersByAsset(assetModule, id);
