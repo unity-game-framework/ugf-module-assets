@@ -5,26 +5,9 @@ namespace UGF.Module.Assets.Runtime
 {
     public static class AssetModuleExtensions
     {
-        public static IAssetUnloadParameters GetDefaultUnloadParametersByAsset(this IAssetModule assetModule, string id)
-        {
-            return TryGetDefaultUnloadParametersByAsset(assetModule, id, out IAssetUnloadParameters parameters) ? parameters : throw new ArgumentException($"Unload parameters not found by the specified asset id: '{id}'.");
-        }
-
-        public static bool TryGetDefaultUnloadParametersByAsset(this IAssetModule assetModule, string id, out IAssetUnloadParameters parameters)
-        {
-            if (TryGetLoaderByAsset(assetModule, id, out IAssetLoader loader))
-            {
-                parameters = loader.DefaultUnloadParameters;
-                return true;
-            }
-
-            parameters = null;
-            return false;
-        }
-
         public static IAssetLoadParameters GetDefaultLoadParametersByAsset(this IAssetModule assetModule, string id)
         {
-            return TryGetDefaultLoadParametersByAsset(assetModule, id, out IAssetLoadParameters parameters) ? parameters : throw new ArgumentException($"Load parameters not found by the specified asset id: '{id}'.");
+            return TryGetDefaultLoadParametersByAsset(assetModule, id, out IAssetLoadParameters parameters) ? parameters : throw new ArgumentException($"Asset load parameters not found by the specified asset id: '{id}'.");
         }
 
         public static bool TryGetDefaultLoadParametersByAsset(this IAssetModule assetModule, string id, out IAssetLoadParameters parameters)
@@ -32,6 +15,23 @@ namespace UGF.Module.Assets.Runtime
             if (TryGetLoaderByAsset(assetModule, id, out IAssetLoader loader))
             {
                 parameters = loader.DefaultLoadParameters;
+                return true;
+            }
+
+            parameters = null;
+            return false;
+        }
+
+        public static IAssetUnloadParameters GetDefaultUnloadParametersByAsset(this IAssetModule assetModule, string id)
+        {
+            return TryGetDefaultUnloadParametersByAsset(assetModule, id, out IAssetUnloadParameters parameters) ? parameters : throw new ArgumentException($"Asset unload parameters not found by the specified asset id: '{id}'.");
+        }
+
+        public static bool TryGetDefaultUnloadParametersByAsset(this IAssetModule assetModule, string id, out IAssetUnloadParameters parameters)
+        {
+            if (TryGetLoaderByAsset(assetModule, id, out IAssetLoader loader))
+            {
+                parameters = loader.DefaultUnloadParameters;
                 return true;
             }
 
@@ -70,10 +70,22 @@ namespace UGF.Module.Assets.Runtime
             return (T)await assetModule.LoadAsync(id, typeof(T), parameters);
         }
 
+        public static object Load(this IAssetModule assetModule, string id, Type type)
+        {
+            IAssetLoadParameters parameters = GetDefaultLoadParametersByAsset(assetModule, id);
+
+            return assetModule.Load(id, type, parameters);
+        }
+
+        public static Task<object> LoadAsync(this IAssetModule assetModule, string id, Type type)
+        {
+            IAssetLoadParameters parameters = GetDefaultLoadParametersByAsset(assetModule, id);
+
+            return assetModule.LoadAsync(id, type, parameters);
+        }
+
         public static void Unload(this IAssetModule assetModule, string id, object asset)
         {
-            if (assetModule == null) throw new ArgumentNullException(nameof(assetModule));
-
             IAssetUnloadParameters parameters = GetDefaultUnloadParametersByAsset(assetModule, id);
 
             assetModule.Unload(id, asset, parameters);
@@ -81,8 +93,6 @@ namespace UGF.Module.Assets.Runtime
 
         public static Task UnloadAsync(this IAssetModule assetModule, string id, object asset)
         {
-            if (assetModule == null) throw new ArgumentNullException(nameof(assetModule));
-
             IAssetUnloadParameters parameters = GetDefaultUnloadParametersByAsset(assetModule, id);
 
             return assetModule.UnloadAsync(id, asset, parameters);
