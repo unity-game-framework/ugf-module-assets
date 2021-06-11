@@ -63,7 +63,7 @@ namespace UGF.Module.Assets.Runtime
             {
                 string id = Description.PreloadAssets[i];
 
-                this.Load<Object>(id, AssetLoadParameters.Empty);
+                this.Load<Object>(id);
             }
 
             Log.Debug("Assets Module preload", new
@@ -78,7 +78,7 @@ namespace UGF.Module.Assets.Runtime
             {
                 string id = Description.PreloadAssetsAsync[i];
 
-                await this.LoadAsync<Object>(id, AssetLoadParameters.Empty);
+                await this.LoadAsync<Object>(id);
             }
 
             Log.Debug("Assets Module preload async", new
@@ -102,7 +102,7 @@ namespace UGF.Module.Assets.Runtime
                 {
                     KeyValuePair<string, AssetTrack> pair = Tracker.Entries.First();
 
-                    Unload(pair.Key, pair.Value.Asset, AssetUnloadParameters.Empty);
+                    this.Unload(pair.Key, pair.Value.Asset);
                 }
             }
 

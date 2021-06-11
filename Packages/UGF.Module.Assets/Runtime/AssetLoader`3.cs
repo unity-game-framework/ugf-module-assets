@@ -10,6 +10,10 @@ namespace UGF.Module.Assets.Runtime
         where TLoadParameters : class, IAssetLoadParameters
         where TUnloadParameters : class, IAssetUnloadParameters
     {
+        protected AssetLoader(TLoadParameters defaultLoadParameters, TUnloadParameters defaultUnloadParameters) : base(defaultLoadParameters, defaultUnloadParameters)
+        {
+        }
+
         protected override object OnLoad(string id, Type type, IAssetLoadParameters parameters, IContext context)
         {
             var provider = context.Get<IProvider<string, IAssetInfo>>();
