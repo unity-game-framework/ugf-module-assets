@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0-preview.3](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/4.0.0-preview.3) - 2021-06-11  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assets/milestone/12?closed=1)  
+    
+
+### Added
+
+- Add asset info default load and unload parameters ([#50](https://github.com/unity-game-framework/ugf-module-assets/pull/50))  
+    - Add `IAssetLoadParameters` and `IAssetUnloadParameters` properties for `IAssetLoader` interface and class implementations.
+    - Add `Load`, `LoadAsync`, `Unload` and `UnloadAsync` methods without parameters argument for `IAssetLoader` interface and class implementations which use default load and unload parameters from loader.
+    - Add implementation of default load and unload parameters and methods overloads as virtual methods for `AssetLoaderBase` class.
+    - Add `TryGetDefaultLoadParametersByAsset`, `GetDefaultLoadParametersByAsset`, `TryGetDefaultUnloadParametersByAsset` and `GetDefaultUnloadParametersByAsset` extension methods for `IAssetModule` interface to get default load and unload parameters of loader by the specified asset id.
+    - Add `Load`, `LoadAsync`, `Unload` and `UnloadAsync` extension methods for `IAssetModule` interface without load and unload parameters as argument which use default parameters of loader.
+    - Change `AssetModule` to load and unload assets on initialization and uninitialization using default parameters from loaders.
+    - Change `Load<T>` and `LoadAsync<T>` extension methods for `IAssetModule` to make load parameters optional, default parameters from loader will be used instead.
+    - Change `UnloadForce` and `UnloadForceAsync` extension methods for `IAssetModule` to make unload parameters optional, default parameters from loader will be used instead.
+
 ## [4.0.0-preview.2](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/4.0.0-preview.2) - 2021-05-25  
 
 ### Release Notes
