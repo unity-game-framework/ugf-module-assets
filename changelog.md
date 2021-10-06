@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0-preview.4](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/4.0.0-preview.4) - 2021-10-06  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assets/milestone/13?closed=1)  
+    
+
+### Added
+
+- Add refresh all groups in project settings ([#52](https://github.com/unity-game-framework/ugf-module-assets/pull/52))  
+    - Add `Refresh All` button in project settings to refresh all groups in the project.
+    - Deprecate `ResourcesAssetEditorUtility.UpdateAllAssetGroups()` method, use `UpdateAssetGroupAll()` method instead.
+
 ## [4.0.0-preview.3](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/4.0.0-preview.3) - 2021-06-11  
 
 ### Release Notes
