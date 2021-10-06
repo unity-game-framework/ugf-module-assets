@@ -14,7 +14,7 @@ namespace UGF.Module.Assets.Editor.Loaders.Resources
 
             if (settings.Exists() && settings.GetData().UpdateAllGroupsOnBuild)
             {
-                ResourcesAssetEditorUtility.UpdateAllAssetGroups();
+                ResourcesAssetEditorUtility.UpdateAssetGroupAll();
             }
         }
     }
