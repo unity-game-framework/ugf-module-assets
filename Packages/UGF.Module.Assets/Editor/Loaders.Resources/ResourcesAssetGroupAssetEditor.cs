@@ -59,7 +59,7 @@ namespace UGF.Module.Assets.Editor.Loaders.Resources
 
                 if (GUILayout.Button(m_styles.RefreshAllContent))
                 {
-                    ResourcesAssetEditorUtility.UpdateAllAssetGroups();
+                    ResourcesAssetEditorProgress.StartUpdateAssetGroupAll();
                 }
 
                 if (GUILayout.Button(m_styles.RefreshContent))
