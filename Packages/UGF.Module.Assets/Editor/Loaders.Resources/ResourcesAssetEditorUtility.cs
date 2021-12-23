@@ -6,7 +6,7 @@ using Object = UnityEngine.Object;
 
 namespace UGF.Module.Assets.Editor.Loaders.Resources
 {
-    public static partial class ResourcesAssetEditorUtility
+    public static class ResourcesAssetEditorUtility
     {
         public static bool IsAssetGroupHasMissingEntries(ResourcesAssetGroupAsset group)
         {

@@ -6,11 +6,11 @@ using Object = UnityEngine.Object;
 
 namespace UGF.Module.Assets.Runtime.Loaders.Resources
 {
-    public class ResourcesLoader : AssetLoader<IAssetInfo>
+    public class ResourcesAssetLoader : AssetLoader<IAssetInfo>
     {
         public bool EnableUnload { get; }
 
-        public ResourcesLoader(bool enableUnload = true)
+        public ResourcesAssetLoader(bool enableUnload = true)
         {
             EnableUnload = enableUnload;
         }

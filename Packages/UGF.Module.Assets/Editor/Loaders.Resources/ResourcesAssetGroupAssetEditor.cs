@@ -9,7 +9,6 @@ namespace UGF.Module.Assets.Editor.Loaders.Resources
     [CustomEditor(typeof(ResourcesAssetGroupAsset), true)]
     internal class ResourcesAssetGroupAssetEditor : UnityEditor.Editor
     {
-        private SerializedProperty m_propertyScript;
         private SerializedProperty m_propertyLoader;
         private ReorderableListDrawer m_list;
         private Styles m_styles;
@@ -23,7 +22,6 @@ namespace UGF.Module.Assets.Editor.Loaders.Resources
 
         private void OnEnable()
         {
-            m_propertyScript = serializedObject.FindProperty("m_Script");
             m_propertyLoader = serializedObject.FindProperty("m_loader");
             m_list = new ResourcesAssetGroupAssetListDrawer(serializedObject.FindProperty("m_assets"));
 
@@ -41,10 +39,7 @@ namespace UGF.Module.Assets.Editor.Loaders.Resources
 
             using (new SerializedObjectUpdateScope(serializedObject))
             {
-                using (new EditorGUI.DisabledScope(true))
-                {
-                    EditorGUILayout.PropertyField(m_propertyScript);
-                }
+                EditorIMGUIUtility.DrawScriptProperty(serializedObject);
 
                 EditorGUILayout.PropertyField(m_propertyLoader);
 
