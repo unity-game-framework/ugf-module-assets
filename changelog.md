@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/4.0.0) - 2021-12-23  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assets/milestone/14?closed=1)  
+    
+
+### Added
+
+- Add direct asset loader ([#54](https://github.com/unity-game-framework/ugf-module-assets/pull/54))  
+    - Update package _Unity_ version to `2021.2`.
+    - Update dependencies: `com.ugf.application` to `8.0.0` version.
+    - Add `ReferencedAssetLoader` and related classes to support loading of asset by direct asset reference.
+    - Add `ReferencedAssetGroupAsset` class to define collection of assets loaded directly by asset reference.
+    - Change `ResourcesLoader` class and related classes name to `ResourcesAssetLoader` scheme.
+    - Remove deprecated code.
+
 ## [4.0.0-preview.4](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/4.0.0-preview.4) - 2021-10-06  
 
 ### Release Notes
