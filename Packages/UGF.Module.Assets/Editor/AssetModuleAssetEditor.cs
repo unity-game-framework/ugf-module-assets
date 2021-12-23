@@ -9,7 +9,6 @@ namespace UGF.Module.Assets.Editor
     [CustomEditor(typeof(AssetModuleAsset), true)]
     internal class AssetModuleAssetEditor : UnityEditor.Editor
     {
-        private SerializedProperty m_propertyScript;
         private SerializedProperty m_propertyUnloadTrackedAssetsOnUninitialize;
         private AssetReferenceListDrawer m_listLoaders;
         private AssetReferenceListDrawer m_listGroups;
@@ -18,7 +17,6 @@ namespace UGF.Module.Assets.Editor
 
         private void OnEnable()
         {
-            m_propertyScript = serializedObject.FindProperty("m_Script");
             m_propertyUnloadTrackedAssetsOnUninitialize = serializedObject.FindProperty("m_unloadTrackedAssetsOnUninitialize");
 
             m_listLoaders = new AssetReferenceListDrawer(serializedObject.FindProperty("m_loaders"));
@@ -44,10 +42,7 @@ namespace UGF.Module.Assets.Editor
         {
             using (new SerializedObjectUpdateScope(serializedObject))
             {
-                using (new EditorGUI.DisabledScope(true))
-                {
-                    EditorGUILayout.PropertyField(m_propertyScript);
-                }
+                EditorIMGUIUtility.DrawScriptProperty(serializedObject);
 
                 EditorGUILayout.PropertyField(m_propertyUnloadTrackedAssetsOnUninitialize);
 
