@@ -55,6 +55,30 @@ namespace UGF.Module.Assets.Runtime.Tests
         }
 
         [Test]
+        public void LoadReferenced()
+        {
+            var application = new ApplicationConfigured(new ApplicationResources
+            {
+                new ApplicationConfig
+                {
+                    Modules =
+                    {
+                        (IApplicationModuleBuilder)Resources.Load("Module", typeof(IApplicationModuleBuilder))
+                    }
+                }
+            });
+
+            application.Initialize();
+
+            var module = application.GetModule<IAssetModule>();
+            object asset = module.Load<Material>("d307b79fb3863804f8298a0390544dc6");
+
+            Assert.NotNull(asset);
+            Assert.IsInstanceOf<Material>(asset);
+            Assert.AreEqual("AssetReferenced", ((Material)asset).name);
+        }
+
+        [Test]
         public void Unload()
         {
             var application = new ApplicationConfigured(new ApplicationResources
