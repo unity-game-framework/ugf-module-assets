@@ -11,7 +11,9 @@ namespace UGF.Module.Assets.Editor
     {
         private SerializedProperty m_propertyUnloadTrackedAssetsOnUninitialize;
         private AssetIdReferenceListDrawer m_listLoaders;
+        private ReorderableListSelectionDrawerByPath m_listLoadersSelection;
         private AssetIdReferenceListDrawer m_listGroups;
+        private ReorderableListSelectionDrawerByPath m_listGroupsSelection;
         private ReorderableListDrawer m_listPreloadAssets;
         private ReorderableListDrawer m_listPreloadAssetsAsync;
 
@@ -20,12 +22,32 @@ namespace UGF.Module.Assets.Editor
             m_propertyUnloadTrackedAssetsOnUninitialize = serializedObject.FindProperty("m_unloadTrackedAssetsOnUninitialize");
 
             m_listLoaders = new AssetIdReferenceListDrawer(serializedObject.FindProperty("m_loaders"));
+
+            m_listLoadersSelection = new ReorderableListSelectionDrawerByPath(m_listLoaders, "m_asset")
+            {
+                Drawer =
+                {
+                    DisplayTitlebar = true
+                }
+            };
+
             m_listGroups = new AssetIdReferenceListDrawer(serializedObject.FindProperty("m_groups"));
+
+            m_listGroupsSelection = new ReorderableListSelectionDrawerByPath(m_listGroups, "m_asset")
+            {
+                Drawer =
+                {
+                    DisplayTitlebar = true
+                }
+            };
+
             m_listPreloadAssets = new ReorderableListDrawer(serializedObject.FindProperty("m_preload"));
             m_listPreloadAssetsAsync = new ReorderableListDrawer(serializedObject.FindProperty("m_preloadAsync"));
 
             m_listLoaders.Enable();
+            m_listLoadersSelection.Enable();
             m_listGroups.Enable();
+            m_listGroupsSelection.Enable();
             m_listPreloadAssets.Enable();
             m_listPreloadAssetsAsync.Enable();
         }
@@ -33,7 +55,9 @@ namespace UGF.Module.Assets.Editor
         private void OnDisable()
         {
             m_listLoaders.Disable();
+            m_listLoadersSelection.Disable();
             m_listGroups.Disable();
+            m_listGroupsSelection.Disable();
             m_listPreloadAssets.Disable();
             m_listPreloadAssetsAsync.Disable();
         }
@@ -50,6 +74,9 @@ namespace UGF.Module.Assets.Editor
                 m_listGroups.DrawGUILayout();
                 m_listPreloadAssets.DrawGUILayout();
                 m_listPreloadAssetsAsync.DrawGUILayout();
+
+                m_listLoadersSelection.DrawGUILayout();
+                m_listGroupsSelection.DrawGUILayout();
             }
         }
     }
