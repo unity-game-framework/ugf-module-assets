@@ -11,7 +11,7 @@ namespace UGF.Module.Assets.Runtime
             return TryGetDefaultLoadParametersByAsset(assetModule, id, out IAssetLoadParameters parameters) ? parameters : throw new ArgumentException($"Asset load parameters not found by the specified asset id: '{id}'.");
         }
 
-        public static bool TryGetDefaultLoadParametersByAsset(this IAssetModule assetModule, string id, out IAssetLoadParameters parameters)
+        public static bool TryGetDefaultLoadParametersByAsset(this IAssetModule assetModule, GlobalId id, out IAssetLoadParameters parameters)
         {
             if (TryGetLoaderByAsset(assetModule, id, out IAssetLoader loader))
             {
