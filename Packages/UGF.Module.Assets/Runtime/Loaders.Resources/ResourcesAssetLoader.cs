@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using UGF.EditorTools.Runtime.Ids;
 using UGF.RuntimeTools.Runtime.Contexts;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -15,14 +16,14 @@ namespace UGF.Module.Assets.Runtime.Loaders.Resources
             EnableUnload = enableUnload;
         }
 
-        protected override object OnLoad(IAssetInfo info, string id, Type type, IAssetLoadParameters parameters, IContext context)
+        protected override object OnLoad(IAssetInfo info, GlobalId id, Type type, IAssetLoadParameters parameters, IContext context)
         {
             Object asset = UnityEngine.Resources.Load(info.Address, type);
 
             return asset ? asset : throw new NullReferenceException($"Resource load result is null by the specified arguments: id:'{id}', type:'{type}'.");
         }
 
-        protected override async Task<object> OnLoadAsync(IAssetInfo info, string id, Type type, IAssetLoadParameters parameters, IContext context)
+        protected override async Task<object> OnLoadAsync(IAssetInfo info, GlobalId id, Type type, IAssetLoadParameters parameters, IContext context)
         {
             ResourceRequest request = UnityEngine.Resources.LoadAsync(info.Address, type);
 
@@ -36,7 +37,7 @@ namespace UGF.Module.Assets.Runtime.Loaders.Resources
             return asset ? asset : throw new NullReferenceException($"Resource load result is null by the specified arguments: id:'{id}', type:'{type}'.");
         }
 
-        protected override void OnUnload(IAssetInfo info, string id, object asset, IAssetUnloadParameters parameters, IContext context)
+        protected override void OnUnload(IAssetInfo info, GlobalId id, object asset, IAssetUnloadParameters parameters, IContext context)
         {
             if (EnableUnload)
             {
@@ -44,7 +45,7 @@ namespace UGF.Module.Assets.Runtime.Loaders.Resources
             }
         }
 
-        protected override Task OnUnloadAsync(IAssetInfo info, string id, object asset, IAssetUnloadParameters parameters, IContext context)
+        protected override Task OnUnloadAsync(IAssetInfo info, GlobalId id, object asset, IAssetUnloadParameters parameters, IContext context)
         {
             if (EnableUnload)
             {
@@ -56,7 +57,7 @@ namespace UGF.Module.Assets.Runtime.Loaders.Resources
 
         private static void InternalUnload(object asset)
         {
-            if (!(asset is Object unityAsset)) throw new ArgumentException($"Asset must be a Unity Object to unload: '{asset}'.");
+            if (asset is not Object unityAsset) throw new ArgumentException($"Asset must be a Unity Object to unload: '{asset}'.");
 
             UnityEngine.Resources.UnloadAsset(unityAsset);
         }

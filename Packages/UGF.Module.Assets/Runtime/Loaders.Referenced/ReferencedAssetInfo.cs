@@ -1,4 +1,5 @@
 ﻿using System;
+using UGF.EditorTools.Runtime.Ids;
 using Object = UnityEngine.Object;
 
 namespace UGF.Module.Assets.Runtime.Loaders.Referenced
@@ -7,7 +8,7 @@ namespace UGF.Module.Assets.Runtime.Loaders.Referenced
     {
         public Object Asset { get; }
 
-        public ReferencedAssetInfo(string loaderId, string address, Object asset) : base(loaderId, address)
+        public ReferencedAssetInfo(GlobalId loaderId, GlobalId address, Object asset) : base(loaderId, address)
         {
             Asset = asset ? asset : throw new ArgumentNullException(nameof(asset));
         }

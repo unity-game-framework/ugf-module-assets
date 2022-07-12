@@ -1,4 +1,6 @@
-﻿namespace UGF.Module.Assets.Runtime
+﻿using UGF.EditorTools.Runtime.Ids;
+
+namespace UGF.Module.Assets.Runtime
 {
-    public delegate void AssetUnloadHandler(string id, object asset, IAssetUnloadParameters parameters);
+    public delegate void AssetUnloadHandler(GlobalId id, object asset, IAssetUnloadParameters parameters);
 }

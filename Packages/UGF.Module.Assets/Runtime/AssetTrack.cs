@@ -62,6 +62,7 @@ namespace UGF.Module.Assets.Runtime
             return Count.CompareTo(other.Count);
         }
 
+        [Obsolete("Test", true)]
         public static bool operator ==(AssetTrack first, AssetTrack second)
         {
             return first.Equals(second);

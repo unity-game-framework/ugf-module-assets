@@ -1,8 +1,10 @@
-﻿namespace UGF.Module.Assets.Runtime
+﻿using UGF.EditorTools.Runtime.Ids;
+
+namespace UGF.Module.Assets.Runtime
 {
     public interface IAssetInfo
     {
-        string LoaderId { get; }
+        GlobalId LoaderId { get; }
         string Address { get; }
     }
 }
