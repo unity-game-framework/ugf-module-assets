@@ -10,7 +10,7 @@ using Object = UnityEngine.Object;
 
 namespace UGF.Module.Assets.Runtime
 {
-    public class AssetModule : ApplicationModule<AssetModuleDescription>, IAssetModule, IApplicationModuleAsync
+    public class AssetModule : ApplicationModuleAsync<AssetModuleDescription>, IAssetModule
     {
         public IProvider<string, IAssetLoader> Loaders { get; }
         public IProvider<string, IAssetInfo> Assets { get; }
@@ -72,8 +72,10 @@ namespace UGF.Module.Assets.Runtime
             });
         }
 
-        public async Task InitializeAsync()
+        protected override async Task OnInitializeAsync()
         {
+            await base.OnInitializeAsync();
+
             for (int i = 0; i < Description.PreloadAssetsAsync.Count; i++)
             {
                 string id = Description.PreloadAssetsAsync[i];
