@@ -10,7 +10,7 @@ namespace UGF.Module.Assets.Editor.Loaders.Resources
     internal class ResourcesAssetGroupAssetEditor : UnityEditor.Editor
     {
         private SerializedProperty m_propertyLoader;
-        private ReorderableListDrawer m_list;
+        private ResourcesAssetGroupAssetListDrawer m_list;
         private Styles m_styles;
 
         private class Styles
@@ -24,7 +24,6 @@ namespace UGF.Module.Assets.Editor.Loaders.Resources
         {
             m_propertyLoader = serializedObject.FindProperty("m_loader");
             m_list = new ResourcesAssetGroupAssetListDrawer(serializedObject.FindProperty("m_assets"));
-
             m_list.Enable();
         }
 
