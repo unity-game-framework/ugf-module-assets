@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e8b28303b9482aa9ed0a381fe0a110, type: 3}
   m_Name: New Resources Asset Group Asset
   m_EditorClassIdentifier: 
-  m_loader: ac6510b4371337e4d9d7b25ae86ad0c6
-  m_assets:
-  - m_id: 
-    m_address: 
+  m_loader:
+    m_first: 9796624618535857285
+    m_second: 6195471994665443881
+  m_assets: []

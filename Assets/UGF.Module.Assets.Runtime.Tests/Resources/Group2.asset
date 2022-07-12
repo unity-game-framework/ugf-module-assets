@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cffcfe9292b47d2a997dc373669eacb, type: 3}
   m_Name: Group2
   m_EditorClassIdentifier: 
-  m_loader: 1a640168e7a1eeb4c8ed95dcd9c7cf5c
+  m_loader:
+    m_first: 17200627555953279336
+    m_second: 6687783710191119816
   m_assets:
-  - m_guid: d307b79fb3863804f8298a0390544dc6
+  - m_guid:
+      m_first: 4036548557678294943
+      m_second: 14289170170227862008
     m_asset: {fileID: 2100000, guid: d307b79fb3863804f8298a0390544dc6, type: 2}
