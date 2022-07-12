@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using NUnit.Framework;
 using UGF.Application.Runtime;
+using UGF.EditorTools.Runtime.Ids;
 using UnityEngine;
 using UnityEngine.TestTools;
 
@@ -47,7 +48,7 @@ namespace UGF.Module.Assets.Runtime.Tests
             application.Initialize();
 
             var module = application.GetModule<IAssetModule>();
-            object asset = module.Load<Material>("7ab173a97bcf2bc44b710c33213fa557");
+            object asset = module.Load<Material>(new GlobalId("7ab173a97bcf2bc44b710c33213fa557"));
 
             Assert.NotNull(asset);
             Assert.IsInstanceOf<Material>(asset);
@@ -71,7 +72,7 @@ namespace UGF.Module.Assets.Runtime.Tests
             application.Initialize();
 
             var module = application.GetModule<IAssetModule>();
-            object asset = module.Load<Material>("d307b79fb3863804f8298a0390544dc6");
+            object asset = module.Load<Material>(new GlobalId("d307b79fb3863804f8298a0390544dc6"));
 
             Assert.NotNull(asset);
             Assert.IsInstanceOf<Material>(asset);
@@ -95,12 +96,12 @@ namespace UGF.Module.Assets.Runtime.Tests
             application.Initialize();
 
             var module = application.GetModule<IAssetModule>();
-            object asset = module.Load<Material>("7ab173a97bcf2bc44b710c33213fa557");
+            object asset = module.Load<Material>(new GlobalId("7ab173a97bcf2bc44b710c33213fa557"));
 
             Assert.NotNull(asset);
             Assert.IsInstanceOf<Material>(asset);
 
-            module.Unload("7ab173a97bcf2bc44b710c33213fa557", asset, AssetUnloadParameters.Empty);
+            module.Unload(new GlobalId("7ab173a97bcf2bc44b710c33213fa557"), asset, AssetUnloadParameters.Empty);
 
             Assert.Null(asset);
         }
@@ -122,12 +123,12 @@ namespace UGF.Module.Assets.Runtime.Tests
             application.Initialize();
 
             var module = application.GetModule<IAssetModule>();
-            object asset = module.Load<Material>("7ab173a97bcf2bc44b710c33213fa557");
+            object asset = module.Load<Material>(new GlobalId("7ab173a97bcf2bc44b710c33213fa557"));
 
             Assert.NotNull(asset);
             Assert.IsInstanceOf<Material>(asset);
 
-            module.Unload("7ab173a97bcf2bc44b710c33213fa557", asset, AssetUnloadParameters.Empty);
+            module.Unload(new GlobalId("7ab173a97bcf2bc44b710c33213fa557"), asset, AssetUnloadParameters.Empty);
 
             yield return Resources.UnloadUnusedAssets();
 
@@ -151,26 +152,26 @@ namespace UGF.Module.Assets.Runtime.Tests
             application.Initialize();
 
             var module = application.GetModule<IAssetModule>();
-            object asset1 = module.Load<Material>("7ab173a97bcf2bc44b710c33213fa557");
-            object asset2 = module.Load<Material>("7ab173a97bcf2bc44b710c33213fa557");
+            object asset1 = module.Load<Material>(new GlobalId("7ab173a97bcf2bc44b710c33213fa557"));
+            object asset2 = module.Load<Material>(new GlobalId("7ab173a97bcf2bc44b710c33213fa557"));
 
             Assert.NotNull(asset1);
             Assert.NotNull(asset2);
             Assert.AreEqual(asset1, asset2);
             Assert.IsNotEmpty(module.Tracker.Entries);
             Assert.AreEqual(1, module.Tracker.Entries.Count);
-            Assert.AreEqual(2, module.Tracker.Get("7ab173a97bcf2bc44b710c33213fa557").Count);
+            Assert.AreEqual(2, module.Tracker.Get(new GlobalId("7ab173a97bcf2bc44b710c33213fa557")).Count);
 
-            module.Unload("7ab173a97bcf2bc44b710c33213fa557", asset1, AssetUnloadParameters.Empty);
+            module.Unload(new GlobalId("7ab173a97bcf2bc44b710c33213fa557"), asset1, AssetUnloadParameters.Empty);
 
             Assert.NotNull(asset1);
             Assert.NotNull(asset2);
             Assert.AreEqual(asset1, asset2);
             Assert.IsNotEmpty(module.Tracker.Entries);
             Assert.AreEqual(1, module.Tracker.Entries.Count);
-            Assert.AreEqual(1, module.Tracker.Get("7ab173a97bcf2bc44b710c33213fa557").Count);
+            Assert.AreEqual(1, module.Tracker.Get(new GlobalId("7ab173a97bcf2bc44b710c33213fa557")).Count);
 
-            module.Unload("7ab173a97bcf2bc44b710c33213fa557", asset2, AssetUnloadParameters.Empty);
+            module.Unload(new GlobalId("7ab173a97bcf2bc44b710c33213fa557"), asset2, AssetUnloadParameters.Empty);
 
             Assert.AreEqual(null, asset1);
             Assert.AreEqual(null, asset2);
@@ -198,8 +199,8 @@ namespace UGF.Module.Assets.Runtime.Tests
             var module = application.GetModule<IAssetModule>();
 
             Assert.AreEqual(1, module.Tracker.Entries.Count);
-            Assert.True(module.Tracker.Entries.ContainsKey("6ecbdf2a84bc4b94794d0ccbb7164158"));
-            Assert.False(module.Tracker.Entries.ContainsKey("7532bc5c40ab10644812b87b664d33ba"));
+            Assert.True(module.Tracker.Entries.ContainsKey(new GlobalId("6ecbdf2a84bc4b94794d0ccbb7164158")));
+            Assert.False(module.Tracker.Entries.ContainsKey(new GlobalId("7532bc5c40ab10644812b87b664d33ba")));
 
             Task task = application.InitializeAsync();
 
@@ -209,8 +210,8 @@ namespace UGF.Module.Assets.Runtime.Tests
             }
 
             Assert.AreEqual(2, module.Tracker.Entries.Count);
-            Assert.True(module.Tracker.Entries.ContainsKey("6ecbdf2a84bc4b94794d0ccbb7164158"));
-            Assert.True(module.Tracker.Entries.ContainsKey("7532bc5c40ab10644812b87b664d33ba"));
+            Assert.True(module.Tracker.Entries.ContainsKey(new GlobalId("6ecbdf2a84bc4b94794d0ccbb7164158")));
+            Assert.True(module.Tracker.Entries.ContainsKey(new GlobalId("7532bc5c40ab10644812b87b664d33ba")));
         }
 
         [Test]
@@ -230,15 +231,15 @@ namespace UGF.Module.Assets.Runtime.Tests
             application.Initialize();
 
             var module = application.GetModule<IAssetModule>();
-            object asset1 = module.Load<Material>("7ab173a97bcf2bc44b710c33213fa557");
-            object asset2 = module.Load<Material>("7ab173a97bcf2bc44b710c33213fa557");
+            object asset1 = module.Load<Material>(new GlobalId("7ab173a97bcf2bc44b710c33213fa557"));
+            object asset2 = module.Load<Material>(new GlobalId("7ab173a97bcf2bc44b710c33213fa557"));
 
             Assert.NotNull(asset1);
             Assert.NotNull(asset2);
             Assert.AreEqual(asset1, asset2);
             Assert.IsNotEmpty(module.Tracker.Entries);
             Assert.AreEqual(1, module.Tracker.Entries.Count);
-            Assert.AreEqual(2, module.Tracker.Get("7ab173a97bcf2bc44b710c33213fa557").Count);
+            Assert.AreEqual(2, module.Tracker.Get(new GlobalId("7ab173a97bcf2bc44b710c33213fa557")).Count);
 
             application.Uninitialize();
 
