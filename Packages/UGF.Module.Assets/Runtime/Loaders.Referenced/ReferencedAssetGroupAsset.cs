@@ -20,7 +20,7 @@ namespace UGF.Module.Assets.Runtime.Loaders.Referenced
             for (int i = 0; i < m_assets.Count; i++)
             {
                 AssetIdReference<Object> reference = m_assets[i];
-                var info = new ReferencedAssetInfo(m_loader, reference.Guid, reference.Asset);
+                var info = new ReferencedAssetInfo(m_loader, reference.Guid.ToString(), reference.Asset);
 
                 assets.Add(reference.Guid, info);
             }
