@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_unloadTrackedAssetsOnUninitialize: 1
   m_loaders:
-  - m_guid: ac6510b4371337e4d9d7b25ae86ad0c6
+  - m_guid:
+      m_first: 4027404524412276916
+      m_second: 14326067960852174809
     m_asset: {fileID: 11400000, guid: ac6510b4371337e4d9d7b25ae86ad0c6, type: 2}
   m_groups: []
   m_preload: []

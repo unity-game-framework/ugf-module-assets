@@ -12,11 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e8b28303b9482aa9ed0a381fe0a110, type: 3}
   m_Name: Group
   m_EditorClassIdentifier: 
-  m_loader: 91ad2c859a2f87f42922ea41f4bcfa55
+  m_loader:
+    m_first: 9796624618535857285
+    m_second: 6195471994665443881
   m_assets:
-  - m_id: 7ab173a97bcf2bc44b710c33213fa557
+  - m_id:
+      m_first: 3153781770113086377
+      m_second: 6315523464279912779
     m_address: Asset
-  - m_id: 6ecbdf2a84bc4b94794d0ccbb7164158
+  - m_id:
+      m_first: 5446123794245345066
+      m_second: 6359389127465258361
     m_address: Asset2
-  - m_id: 7532bc5c40ab10644812b87b664d33ba
+  - m_id:
+      m_first: 1181140107427757148
+      m_second: 13417152817424503368
     m_address: Asset3

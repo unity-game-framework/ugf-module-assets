@@ -2,7 +2,7 @@
   "name": "com.ugf.module.assets",
   "displayName": "UGF.Module.Assets",
   "version": "4.0.0",
-  "unity": "2021.2",
+  "unity": "2022.1",
   "apiCompatibility": ".NET Standard 2.1",
   "description": "Module to manage assets loading.",
   "author": {
@@ -19,6 +19,7 @@
     "registry": "https://unitygameframework.jfrog.io/artifactory/api/npm/default"
   },
   "dependencies": {
-    "com.ugf.application": "8.0.0"
+    "com.ugf.application": "8.3.0",
+    "com.ugf.editortools": "2.8.1"
   }
 }

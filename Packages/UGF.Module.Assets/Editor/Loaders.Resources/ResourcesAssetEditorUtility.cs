@@ -1,5 +1,6 @@
 ﻿using System;
 using UGF.EditorTools.Editor.Assets;
+using UGF.EditorTools.Runtime.Ids;
 using UGF.Module.Assets.Runtime.Loaders.Resources;
 using UnityEditor;
 using Object = UnityEngine.Object;
@@ -16,7 +17,7 @@ namespace UGF.Module.Assets.Editor.Loaders.Resources
             {
                 ResourcesAssetGroupAsset.Entry entry = group.Assets[i];
 
-                if (!string.IsNullOrEmpty(entry.Id) && !string.IsNullOrEmpty(entry.Address))
+                if (entry.Id != GlobalId.Empty && !string.IsNullOrEmpty(entry.Address))
                 {
                     Object asset = UnityEngine.Resources.Load(entry.Address);
 
@@ -61,9 +62,9 @@ namespace UGF.Module.Assets.Editor.Loaders.Resources
             {
                 ResourcesAssetGroupAsset.Entry entry = group.Assets[i];
 
-                if (!string.IsNullOrEmpty(entry.Id))
+                if (entry.Id != GlobalId.Empty)
                 {
-                    string path = AssetDatabase.GUIDToAssetPath(entry.Id);
+                    string path = AssetDatabase.GUIDToAssetPath(entry.Id.ToString());
 
                     if (!string.IsNullOrEmpty(path) && AssetsEditorUtility.TryGetResourcesRelativePath(path, out string resourcesPath))
                     {

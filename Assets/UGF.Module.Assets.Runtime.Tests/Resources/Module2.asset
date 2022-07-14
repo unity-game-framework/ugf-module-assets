@@ -14,13 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_unloadTrackedAssetsOnUninitialize: 1
   m_loaders:
-  - m_guid: 91ad2c859a2f87f42922ea41f4bcfa55
+  - m_guid:
+      m_first: 9796624618535857285
+      m_second: 6195471994665443881
     m_asset: {fileID: 11400000, guid: 91ad2c859a2f87f42922ea41f4bcfa55, type: 2}
-  m_assets: []
   m_groups:
-  - m_guid: 8a7613277b8f83248952db4d175f124f
+  - m_guid:
+      m_first: 9449813774563676967
+      m_second: 5697721032272204425
     m_asset: {fileID: 11400000, guid: 8a7613277b8f83248952db4d175f124f, type: 2}
   m_preload:
-  - 6ecbdf2a84bc4b94794d0ccbb7164158
+  - m_first: 5446123794245345066
+    m_second: 6359389127465258361
   m_preloadAsync:
-  - 7532bc5c40ab10644812b87b664d33ba
+  - m_first: 1181140107427757148
+    m_second: 13417152817424503368

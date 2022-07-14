@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
+using UGF.EditorTools.Runtime.Ids;
 using UGF.RuntimeTools.Runtime.Providers;
 
 namespace UGF.Module.Assets.Runtime
 {
-    public class AssetTracker : Provider<string, AssetTrack>, IAssetTracker
+    public class AssetTracker : Provider<GlobalId, AssetTrack>, IAssetTracker
     {
-        public AssetTrack Add(string id, object asset)
+        public AssetTrack Add(GlobalId id, object asset)
         {
-            if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
+            if (!id.IsValid()) throw new ArgumentException("Value should be valid.", nameof(id));
             if (asset == null) throw new ArgumentNullException(nameof(asset));
 
             var track = new AssetTrack(asset);
@@ -18,9 +18,9 @@ namespace UGF.Module.Assets.Runtime
             return track;
         }
 
-        public void Update(string id, AssetTrack track)
+        public void Update(GlobalId id, AssetTrack track)
         {
-            if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
+            if (!id.IsValid()) throw new ArgumentException("Value should be valid.", nameof(id));
             if (track.Asset == null) throw new ArgumentException($"Asset not found in specified track: '{track}'.");
 
             Remove(id);
@@ -37,9 +37,9 @@ namespace UGF.Module.Assets.Runtime
         /// <param name="asset">The asset to track.</param>
         /// <param name="track">The modified or create asset track as result.</param>
         /// <returns>Returns True when asset was not already present, otherwise False.</returns>
-        public bool Track(string id, object asset, out AssetTrack track)
+        public bool Track(GlobalId id, object asset, out AssetTrack track)
         {
-            if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
+            if (!id.IsValid()) throw new ArgumentException("Value should be valid.", nameof(id));
             if (asset == null) throw new ArgumentNullException(nameof(asset));
 
             if (TryGet(id, out track))
@@ -62,9 +62,9 @@ namespace UGF.Module.Assets.Runtime
         /// <param name="asset">The asset to untrack.</param>
         /// <param name="track">The modified asset track as result.</param>
         /// <returns>Returns True when asset track count reached zero and was removed, otherwise False.</returns>
-        public bool UnTrack(string id, object asset, out AssetTrack track)
+        public bool UnTrack(GlobalId id, object asset, out AssetTrack track)
         {
-            if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
+            if (!id.IsValid()) throw new ArgumentException("Value should be valid.", nameof(id));
 
             if (TryGet(id, out track))
             {
@@ -82,9 +82,9 @@ namespace UGF.Module.Assets.Runtime
             return false;
         }
 
-        public AssetTrack Increment(string id)
+        public AssetTrack Increment(GlobalId id)
         {
-            if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
+            if (!id.IsValid()) throw new ArgumentException("Value should be valid.", nameof(id));
 
             AssetTrack track = Get(id);
 
@@ -95,9 +95,9 @@ namespace UGF.Module.Assets.Runtime
             return track;
         }
 
-        public AssetTrack Decrement(string id)
+        public AssetTrack Decrement(GlobalId id)
         {
-            if (string.IsNullOrEmpty(id)) throw new ArgumentException("Value cannot be null or empty.", nameof(id));
+            if (!id.IsValid()) throw new ArgumentException("Value should be valid.", nameof(id));
 
             AssetTrack track = Get(id);
 
@@ -117,11 +117,11 @@ namespace UGF.Module.Assets.Runtime
         {
             if (asset == null) throw new ArgumentNullException(nameof(asset));
 
-            foreach (KeyValuePair<string, AssetTrack> pair in this)
+            foreach ((_, AssetTrack value) in this)
             {
-                if (pair.Value.Asset == asset)
+                if (value.Asset == asset)
                 {
-                    track = pair.Value;
+                    track = value;
                     return true;
                 }
             }

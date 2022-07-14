@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UGF.Application.Runtime;
-using UGF.EditorTools.Runtime.IMGUI.AssetReferences;
-using UGF.EditorTools.Runtime.IMGUI.Attributes;
+using UGF.EditorTools.Runtime.Assets;
+using UGF.EditorTools.Runtime.Ids;
 using UnityEngine;
 
 namespace UGF.Module.Assets.Runtime
@@ -10,16 +10,18 @@ namespace UGF.Module.Assets.Runtime
     public class AssetModuleAsset : ApplicationModuleAsset<IAssetModule, AssetModuleDescription>
     {
         [SerializeField] private bool m_unloadTrackedAssetsOnUninitialize = true;
-        [SerializeField] private List<AssetReference<AssetLoaderAsset>> m_loaders = new List<AssetReference<AssetLoaderAsset>>();
-        [SerializeField] private List<AssetReference<AssetGroupAsset>> m_groups = new List<AssetReference<AssetGroupAsset>>();
-        [SerializeField, AssetGuid] private List<string> m_preload = new List<string>();
-        [SerializeField, AssetGuid] private List<string> m_preloadAsync = new List<string>();
+        [SerializeField] private List<AssetIdReference<AssetLoaderAsset>> m_loaders = new List<AssetIdReference<AssetLoaderAsset>>();
+        [SerializeField] private List<AssetIdReference<AssetGroupAsset>> m_groups = new List<AssetIdReference<AssetGroupAsset>>();
+        [AssetId]
+        [SerializeField] private List<GlobalId> m_preload = new List<GlobalId>();
+        [AssetId]
+        [SerializeField] private List<GlobalId> m_preloadAsync = new List<GlobalId>();
 
         public bool UnloadTrackedAssetsOnUninitialize { get { return m_unloadTrackedAssetsOnUninitialize; } set { m_unloadTrackedAssetsOnUninitialize = value; } }
-        public List<AssetReference<AssetLoaderAsset>> Loaders { get { return m_loaders; } }
-        public List<AssetReference<AssetGroupAsset>> Groups { get { return m_groups; } }
-        public List<string> Preload { get { return m_preload; } }
-        public List<string> PreloadAsync { get { return m_preloadAsync; } }
+        public List<AssetIdReference<AssetLoaderAsset>> Loaders { get { return m_loaders; } }
+        public List<AssetIdReference<AssetGroupAsset>> Groups { get { return m_groups; } }
+        public List<GlobalId> Preload { get { return m_preload; } }
+        public List<GlobalId> PreloadAsync { get { return m_preloadAsync; } }
 
         protected override IApplicationModuleDescription OnBuildDescription()
         {
@@ -34,7 +36,7 @@ namespace UGF.Module.Assets.Runtime
 
             for (int i = 0; i < m_loaders.Count; i++)
             {
-                AssetReference<AssetLoaderAsset> asset = m_loaders[i];
+                AssetIdReference<AssetLoaderAsset> asset = m_loaders[i];
                 IAssetLoader loader = asset.Asset.Build();
 
                 description.Loaders.Add(asset.Guid, loader);
