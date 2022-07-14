@@ -2,15 +2,16 @@
 
 UGF.Module.Assets
 
-## Info
+## Information
 
-- **Version**: `4.0.0`
-- **Unity**: `2021.2`
-- **API Compatibility Level**: `.NET Standard 2.0`
+- **Version**: `5.0.0-preview`
+- **Unity**: `2022.1`
+- **API Compatibility Level**: `.NET Standard 2.1`
 
 ### Dependencies
 
-- `com.ugf.application`: `8.0.0`
+- `com.ugf.application`: `8.3.0`
+- `com.ugf.editortools`: `2.8.1`
 
 
 ### Description
