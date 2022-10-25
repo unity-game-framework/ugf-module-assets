@@ -18,6 +18,14 @@ MonoBehaviour:
       m_first: 4027404524412276916
       m_second: 14326067960852174809
     m_asset: {fileID: 11400000, guid: ac6510b4371337e4d9d7b25ae86ad0c6, type: 2}
-  m_groups: []
-  m_preload: []
-  m_preloadAsync: []
+  m_groups:
+  - m_guid:
+      m_first: 0
+      m_second: 0
+    m_asset: {fileID: 0}
+  m_preload:
+  - m_first: 0
+    m_second: 0
+  m_preloadAsync:
+  - m_first: 0
+    m_second: 0
