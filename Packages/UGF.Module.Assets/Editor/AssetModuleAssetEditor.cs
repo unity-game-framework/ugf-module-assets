@@ -1,4 +1,5 @@
-﻿using UGF.EditorTools.Editor.IMGUI;
+﻿using UGF.EditorTools.Editor.Assets;
+using UGF.EditorTools.Editor.IMGUI;
 using UGF.EditorTools.Editor.IMGUI.Scopes;
 using UGF.Module.Assets.Runtime;
 using UnityEditor;
@@ -9,9 +10,9 @@ namespace UGF.Module.Assets.Editor
     internal class AssetModuleAssetEditor : UnityEditor.Editor
     {
         private SerializedProperty m_propertyUnloadTrackedAssetsOnUninitialize;
-        private ReorderableListDrawer m_listLoaders;
+        private AssetIdReferenceListDrawer m_listLoaders;
         private ReorderableListSelectionDrawerByPath m_listLoadersSelection;
-        private ReorderableListDrawer m_listGroups;
+        private AssetIdReferenceListDrawer m_listGroups;
         private ReorderableListSelectionDrawerByPath m_listGroupsSelection;
         private ReorderableListDrawer m_listPreloadAssets;
         private ReorderableListDrawer m_listPreloadAssetsAsync;
@@ -20,7 +21,7 @@ namespace UGF.Module.Assets.Editor
         {
             m_propertyUnloadTrackedAssetsOnUninitialize = serializedObject.FindProperty("m_unloadTrackedAssetsOnUninitialize");
 
-            m_listLoaders = new ReorderableListDrawer(serializedObject.FindProperty("m_loaders"))
+            m_listLoaders = new AssetIdReferenceListDrawer(serializedObject.FindProperty("m_loaders"))
             {
                 DisplayAsSingleLine = true
             };
@@ -33,7 +34,7 @@ namespace UGF.Module.Assets.Editor
                 }
             };
 
-            m_listGroups = new ReorderableListDrawer(serializedObject.FindProperty("m_groups"))
+            m_listGroups = new AssetIdReferenceListDrawer(serializedObject.FindProperty("m_groups"))
             {
                 DisplayAsSingleLine = true
             };
