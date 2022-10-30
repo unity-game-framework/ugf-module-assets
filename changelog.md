@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.0-preview.2](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/5.0.0-preview.2) - 2022-10-30  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assets/milestone/17?closed=1)  
+    
+
+### Added
+
+- Add asset database loader ([#59](https://github.com/unity-game-framework/ugf-module-assets/issues/59))  
+    - Update dependencies: `com.ugf.editortools` to `2.13.0` version.
+    - Add `AssetDatabaseAssetLoader` class as loader which can be used as loader from editor _AssetDatabase_ directly. (Editor Only)
+    - Change `AssetModuleAssetEditor` class to support asset replacements.
+
 ## [5.0.0-preview.1](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/5.0.0-preview.1) - 2022-10-25  
 
 ### Release Notes
