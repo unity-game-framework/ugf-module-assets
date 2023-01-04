@@ -28,10 +28,7 @@ namespace UGF.Module.Assets.Editor
 
             m_listLoadersSelection = new ReorderableListSelectionDrawerByPath(m_listLoaders, "m_asset")
             {
-                Drawer =
-                {
-                    DisplayTitlebar = true
-                }
+                Drawer = { DisplayTitlebar = true }
             };
 
             m_listGroups = new AssetIdReferenceListDrawer(serializedObject.FindProperty("m_groups"))
@@ -41,10 +38,7 @@ namespace UGF.Module.Assets.Editor
 
             m_listGroupsSelection = new ReorderableListSelectionDrawerByPath(m_listGroups, "m_asset")
             {
-                Drawer =
-                {
-                    DisplayTitlebar = true
-                }
+                Drawer = { DisplayTitlebar = true }
             };
 
             m_listPreloadAssets = new ReorderableListDrawer(serializedObject.FindProperty("m_preload"))
