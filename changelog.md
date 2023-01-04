@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.0](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/5.0.0) - 2023-01-04  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assets/milestone/18?closed=1)  
+    
+
+### Changed
+
+- Update project ([#62](https://github.com/unity-game-framework/ugf-module-assets/issues/62))  
+    - Update dependencies: `com.ugf.application` to `8.4.0` and `com.ugf.editortools` to `2.15.0` version.
+    - Update package _Unity_ version to `2022.2`.
+    - Add `AssetTrack.GetAsset<T>()` method to get access with casting to specific type.
+
 ## [5.0.0-preview.2](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/5.0.0-preview.2) - 2022-10-30  
 
 ### Release Notes
