@@ -25,31 +25,31 @@ namespace UGF.Module.Assets.Runtime
 
         protected override IApplicationModuleDescription OnBuildDescription()
         {
-            var description = new AssetModuleDescription
-            {
-                RegisterType = typeof(IAssetModule),
-                UnloadTrackedAssetsOnUninitialize = m_unloadTrackedAssetsOnUninitialize
-            };
-
-            description.PreloadAssets.AddRange(m_preload);
-            description.PreloadAssetsAsync.AddRange(m_preloadAsync);
+            var loaders = new Dictionary<GlobalId, IAssetLoader>();
+            var assets = new Dictionary<GlobalId, IAssetInfo>();
 
             for (int i = 0; i < m_loaders.Count; i++)
             {
-                AssetIdReference<AssetLoaderAsset> asset = m_loaders[i];
-                IAssetLoader loader = asset.Asset.Build();
+                AssetIdReference<AssetLoaderAsset> reference = m_loaders[i];
 
-                description.Loaders.Add(asset.Guid, loader);
+                loaders.Add(reference.Guid, reference.Asset.Build());
             }
 
             for (int i = 0; i < m_groups.Count; i++)
             {
-                AssetGroupAsset group = m_groups[i].Asset;
+                AssetIdReference<AssetGroupAsset> reference = m_groups[i];
 
-                group.GetAssets(description.Assets);
+                reference.Asset.GetAssets(assets);
             }
 
-            return description;
+            return new AssetModuleDescription(
+                typeof(IAssetModule),
+                loaders,
+                assets,
+                m_preload.ToArray(),
+                m_preloadAsync.ToArray(),
+                m_unloadTrackedAssetsOnUninitialize
+            );
         }
 
         protected override IAssetModule OnBuild(AssetModuleDescription description, IApplication application)
