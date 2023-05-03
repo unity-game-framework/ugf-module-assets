@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.0](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/5.1.0) - 2023-05-03  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assets/milestone/19?closed=1)  
+    
+
+### Added
+
+- Add asset group collection ([#65](https://github.com/unity-game-framework/ugf-module-assets/issues/65))  
+    - Update dependencies: `com.ugf.application` to `8.5.0` version.
+    - Add `AssetGroupCollectionListAsset` class as implementation of `AssetGroupAsset` class used to store collection of the `AssetGroupAsset` assets.
+    - Change `AssetModuleDescription` class to be read-only.
+
 ## [5.0.0](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/5.0.0) - 2023-01-04  
 
 ### Release Notes
