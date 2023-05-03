@@ -33,7 +33,8 @@ namespace UGF.Module.Assets.Editor
 
             m_listGroups = new AssetIdReferenceListDrawer(serializedObject.FindProperty("m_groups"))
             {
-                DisplayAsSingleLine = true
+                DisplayAsSingleLine = true,
+                DisplayReplaceButton = false
             };
 
             m_listGroupsSelection = new ReorderableListSelectionDrawerByPath(m_listGroups, "m_asset")
