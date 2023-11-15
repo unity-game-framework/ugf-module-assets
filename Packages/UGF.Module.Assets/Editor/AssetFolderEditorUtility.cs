@@ -42,6 +42,11 @@ namespace UGF.Module.Assets.Editor
             return false;
         }
 
+        public static string[] FindAssetAsGuids<T>(string folderPath) where T : Object
+        {
+            return FindAssetAsGuids(folderPath, typeof(T));
+        }
+
         public static string[] FindAssetAsGuids(string folderPath, Type assetType)
         {
             if (string.IsNullOrEmpty(folderPath)) throw new ArgumentException("Value cannot be null or empty.", nameof(folderPath));
