@@ -30,7 +30,23 @@ namespace UGF.Module.Assets.Editor
 
         public void Update()
         {
+            if (!IsValid()) throw new InvalidOperationException("Asset folder is invalid.");
+
             OnUpdate();
+        }
+
+        public string GetFolderPath()
+        {
+            if (!IsValid()) throw new InvalidOperationException("Asset folder is invalid.");
+
+            return AssetDatabase.GetAssetPath(m_folder);
+        }
+
+        public string[] FindAssetsAsGuids()
+        {
+            string path = GetFolderPath();
+
+            return AssetFolderEditorUtility.FindAssetsAsGuids(path, GetAssetType());
         }
 
         protected virtual bool OnIsValid()

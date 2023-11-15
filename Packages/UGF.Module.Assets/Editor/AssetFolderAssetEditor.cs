@@ -8,6 +8,12 @@ namespace UGF.Module.Assets.Editor
     public class AssetFolderAssetEditor : UnityEditor.Editor
     {
         private SerializedProperty m_propertyFolder;
+        private readonly string[] m_propertyExclude = { "m_Script", "m_folder" };
+
+        private void OnEnable()
+        {
+            m_propertyFolder = serializedObject.FindProperty("m_folder");
+        }
 
         public override void OnInspectorGUI()
         {
@@ -23,6 +29,7 @@ namespace UGF.Module.Assets.Editor
 
         protected virtual void OnDrawGUILayout()
         {
+            DrawPropertiesExcluding(serializedObject, m_propertyExclude);
         }
     }
 }
