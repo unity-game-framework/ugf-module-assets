@@ -9,12 +9,14 @@ namespace UGF.Module.Assets.Editor
     internal class AssetEditorSettingsDataEditor : UnityEditor.Editor
     {
         private SerializedProperty m_propertyFoldersUpdateOnPostprocess;
+        private SerializedProperty m_propertyFoldersUpdateOnBuild;
         private ReorderableListDrawer m_listFolders;
         private ReorderableListSelectionDrawerByElement m_listFoldersSelection;
 
         private void OnEnable()
         {
             m_propertyFoldersUpdateOnPostprocess = serializedObject.FindProperty("m_foldersUpdateOnPostprocess");
+            m_propertyFoldersUpdateOnBuild = serializedObject.FindProperty("m_foldersUpdateOnBuild");
 
             m_listFolders = new ReorderableListDrawer(serializedObject.FindProperty("m_folders"));
 
@@ -38,6 +40,7 @@ namespace UGF.Module.Assets.Editor
             using (new SerializedObjectUpdateScope(serializedObject))
             {
                 EditorGUILayout.PropertyField(m_propertyFoldersUpdateOnPostprocess);
+                EditorGUILayout.PropertyField(m_propertyFoldersUpdateOnBuild);
 
                 m_listFolders.DrawGUILayout();
             }

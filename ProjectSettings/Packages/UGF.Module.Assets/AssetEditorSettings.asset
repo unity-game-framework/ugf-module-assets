@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ea1caf38fb74149a8cd51d0b7f862f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_foldersUpdateOnPostprocess: 0
+  m_foldersUpdateOnPostprocess: 1
+  m_foldersUpdateOnBuild: 1
   m_folders: []
