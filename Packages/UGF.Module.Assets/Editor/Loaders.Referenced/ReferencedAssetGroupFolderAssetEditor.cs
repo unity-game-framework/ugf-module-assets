@@ -37,6 +37,8 @@ namespace UGF.Module.Assets.Editor.Loaders.Referenced
 
                 EditorGUILayout.PropertyField(m_propertyFolder);
                 EditorGUILayout.PropertyField(m_propertyGroup);
+
+                AssetFolderEditorGUIUtility.DrawObjectPickFieldLayout(m_propertyFolder, "t:folder");
             }
 
             AssetFolderEditorGUIUtility.DrawControlsGUILayout(serializedObject);
