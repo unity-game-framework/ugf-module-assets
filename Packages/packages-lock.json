@@ -65,8 +65,8 @@
       "url": "https://api.upmhub.org/registries/unity-game-framework"
     },
     "com.ugf.editortools": {
-      "version": "2.15.0",
-      "depth": 2,
+      "version": "3.0.0-preview",
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://api.upmhub.org/registries/unity-game-framework"
@@ -93,7 +93,8 @@
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "com.ugf.application": "8.5.0"
+        "com.ugf.application": "8.5.0",
+        "com.ugf.editortools": "3.0.0-preview"
       }
     },
     "com.ugf.runtimetools": {
