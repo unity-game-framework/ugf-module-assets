@@ -1,4 +1,5 @@
 ﻿using System;
+using UGF.EditorTools.Runtime.IMGUI.Attributes;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -7,6 +8,7 @@ namespace UGF.Module.Assets.Editor
 {
     public abstract class AssetFolderAsset : ScriptableObject
     {
+        [ObjectPicker("t:folder")]
         [SerializeField] private Object m_folder;
 
         public Object Folder { get { return m_folder; } set { m_folder = value; } }
