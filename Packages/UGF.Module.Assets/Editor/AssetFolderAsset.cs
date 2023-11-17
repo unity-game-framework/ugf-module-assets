@@ -27,6 +27,8 @@ namespace UGF.Module.Assets.Editor
 
         public Type GetAssetType()
         {
+            if (!IsValid()) throw new InvalidOperationException("Asset folder is invalid.");
+
             return OnGetAssetType();
         }
 
@@ -47,8 +49,9 @@ namespace UGF.Module.Assets.Editor
         public string[] FindAssetsAsGuids()
         {
             string path = GetFolderPath();
+            Type type = GetAssetType();
 
-            return AssetFolderEditorUtility.FindAssetsAsGuids(path, GetAssetType());
+            return AssetFolderEditorUtility.FindAssetsAsGuids(path, type);
         }
 
         protected virtual bool OnIsValid()
