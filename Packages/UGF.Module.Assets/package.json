@@ -1,7 +1,7 @@
 {
   "name": "com.ugf.module.assets",
   "displayName": "UGF.Module.Assets",
-  "version": "5.1.0",
+  "version": "6.0.0-preview",
   "unity": "2023.2",
   "apiCompatibility": ".NET Standard 2.1",
   "description": "Module to manage assets loading.",

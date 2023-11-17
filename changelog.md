@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.0.0-preview](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/6.0.0-preview) - 2023-11-17  
+
+### Release Notes
+
+- [Milestone](https://github.com/unity-game-framework/ugf-module-assets/milestone/20?closed=1)  
+    
+
+### Added
+
+- Add asset folder ([#67](https://github.com/unity-game-framework/ugf-module-assets/issues/67))  
+    - Update dependencies: `com.ugf.editortools` to `3.0.0-preview` version.
+    - Update package registry to use _UPM Hub_.
+    - Update package _Unity_ version to `2023.2`.
+    - Add `AssetFolderAsset` and related classes to implement auto updated collection of assets based on folder.
+    - Add `AssetEditorSettings` class for assets related project settings, including asset folders.
+    - Add `AssetFolderEditorUtility` class to work with asset folders.
+    - Add `ResourcesAssetGroupFolderAsset` class as editor-only asset to setup folder for `ResourcesAssetGroupAsset` group assets.
+    - Add `ReferencedAssetGroupFolderAsset` class as editor-only asset to setup folder for `ReferencedAssetGroupAsset` group assets.
+
 ## [5.1.0](https://github.com/unity-game-framework/ugf-module-assets/releases/tag/5.1.0) - 2023-05-03  
 
 ### Release Notes
