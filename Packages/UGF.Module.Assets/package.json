@@ -2,7 +2,7 @@
   "name": "com.ugf.module.assets",
   "displayName": "UGF.Module.Assets",
   "version": "5.1.0",
-  "unity": "2022.2",
+  "unity": "2023.2",
   "apiCompatibility": ".NET Standard 2.1",
   "description": "Module to manage assets loading.",
   "author": {
@@ -16,9 +16,10 @@
   "changelogUrl": "https://github.com/unity-game-framework/ugf-module-assets/blob/main/changelog.md",
   "licensesUrl": "https://github.com/unity-game-framework/ugf-module-assets/blob/main/license",
   "publishConfig": {
-    "registry": "https://unitygameframework.jfrog.io/artifactory/api/npm/default"
+    "registry": "https://api.upmhub.org/registries/unity-game-framework"
   },
   "dependencies": {
-    "com.ugf.application": "8.5.0"
+    "com.ugf.application": "8.5.0",
+    "com.ugf.editortools": "3.0.0-preview"
   }
 }
