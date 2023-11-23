@@ -15,6 +15,16 @@
       },
       "url": "https://api.upmhub.org/registries/unity-game-framework"
     },
+    "com.ugf.assets": {
+      "version": "1.0.0-preview",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.ugf.editortools": "3.0.0-preview",
+        "com.ugf.customsettings": "3.4.1"
+      },
+      "url": "https://api.upmhub.org/registries/unity-game-framework"
+    },
     "com.ugf.build": {
       "version": "1.2.0",
       "depth": 2,
@@ -37,7 +47,7 @@
     },
     "com.ugf.customsettings": {
       "version": "3.4.1",
-      "depth": 3,
+      "depth": 2,
       "source": "registry",
       "dependencies": {
         "com.ugf.editortools": "1.7.0",
@@ -94,7 +104,8 @@
       "source": "embedded",
       "dependencies": {
         "com.ugf.application": "8.5.0",
-        "com.ugf.editortools": "3.0.0-preview"
+        "com.ugf.editortools": "3.0.0-preview",
+        "com.ugf.assets": "1.0.0-preview"
       }
     },
     "com.ugf.runtimetools": {
