@@ -4,7 +4,7 @@ UGF.Module.Assets
 
 ## Information
 
-- **Version**: `6.0.0-preview`
+- **Version**: `6.0.0-preview.1`
 - **Unity**: `2023.2`
 - **API Compatibility Level**: `.NET Standard 2.1`
 
@@ -12,6 +12,7 @@ UGF.Module.Assets
 
 - `com.ugf.application`: `8.5.0`
 - `com.ugf.editortools`: `3.0.0-preview`
+- `com.ugf.assets`: `1.0.0-preview`
 
 
 ### Description
