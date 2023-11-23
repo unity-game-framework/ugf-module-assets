@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Group4Folder
   m_EditorClassIdentifier: 
   m_folder: {fileID: 102900000, guid: 71b4c324e083f404a892ba3cd9b56a7d, type: 3}
-  m_group: {fileID: 11400000, guid: dd35b7cf7b0b37b47ab4def580c51185, type: 2}
+  m_collection: {fileID: 11400000, guid: dd35b7cf7b0b37b47ab4def580c51185, type: 2}
