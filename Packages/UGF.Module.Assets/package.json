@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "com.ugf.application": "8.5.0",
-    "com.ugf.editortools": "3.0.0-preview"
+    "com.ugf.editortools": "3.0.0-preview",
+    "com.ugf.assets": "1.0.0-preview"
   }
 }
