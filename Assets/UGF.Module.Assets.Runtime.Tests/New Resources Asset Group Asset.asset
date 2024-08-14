@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: New Resources Asset Group Asset
   m_EditorClassIdentifier: 
   m_loader:
-    m_first: 9796624618535857285
-    m_second: 6195471994665443881
+    serializedVersion: 2
+    Hash: 91ad2c859a2f87f42922ea41f4bcfa55
   m_assets: []

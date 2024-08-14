@@ -13,20 +13,22 @@ namespace UGF.Module.Assets.Runtime
         [SerializeField] private List<AssetIdReference<AssetLoaderAsset>> m_loaders = new List<AssetIdReference<AssetLoaderAsset>>();
         [SerializeField] private List<AssetIdReference<AssetGroupAsset>> m_groups = new List<AssetIdReference<AssetGroupAsset>>();
         [AssetId]
-        [SerializeField] private List<GlobalId> m_preload = new List<GlobalId>();
+        [SerializeField] private List<Hash128> m_preload = new List<Hash128>();
         [AssetId]
-        [SerializeField] private List<GlobalId> m_preloadAsync = new List<GlobalId>();
+        [SerializeField] private List<Hash128> m_preloadAsync = new List<Hash128>();
 
         public bool UnloadTrackedAssetsOnUninitialize { get { return m_unloadTrackedAssetsOnUninitialize; } set { m_unloadTrackedAssetsOnUninitialize = value; } }
         public List<AssetIdReference<AssetLoaderAsset>> Loaders { get { return m_loaders; } }
         public List<AssetIdReference<AssetGroupAsset>> Groups { get { return m_groups; } }
-        public List<GlobalId> Preload { get { return m_preload; } }
-        public List<GlobalId> PreloadAsync { get { return m_preloadAsync; } }
+        public List<Hash128> Preload { get { return m_preload; } }
+        public List<Hash128> PreloadAsync { get { return m_preloadAsync; } }
 
-        protected override IApplicationModuleDescription OnBuildDescription()
+        protected override AssetModuleDescription OnBuildDescription()
         {
             var loaders = new Dictionary<GlobalId, IAssetLoader>();
             var assets = new Dictionary<GlobalId, IAssetInfo>();
+            var preload = new GlobalId[m_preload.Count];
+            var preloadAsync = new GlobalId[m_preloadAsync.Count];
 
             for (int i = 0; i < m_loaders.Count; i++)
             {
@@ -42,12 +44,21 @@ namespace UGF.Module.Assets.Runtime
                 reference.Asset.GetAssets(assets);
             }
 
+            for (int i = 0; i < m_preload.Count; i++)
+            {
+                preload[i] = m_preload[i];
+            }
+
+            for (int i = 0; i < m_preloadAsync.Count; i++)
+            {
+                preloadAsync[i] = m_preloadAsync[i];
+            }
+
             return new AssetModuleDescription(
-                typeof(IAssetModule),
                 loaders,
                 assets,
-                m_preload.ToArray(),
-                m_preloadAsync.ToArray(),
+                preload,
+                preloadAsync,
                 m_unloadTrackedAssetsOnUninitialize
             );
         }
