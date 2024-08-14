@@ -9,7 +9,7 @@ namespace UGF.Module.Assets.Runtime
 {
     public interface IAssetModule : IApplicationModule
     {
-        new IAssetModuleDescription Description { get; }
+        IAssetModuleDescription Description { get; }
         IProvider<GlobalId, IAssetLoader> Loaders { get; }
         IProvider<GlobalId, IAssetInfo> Assets { get; }
         IAssetTracker Tracker { get; }
