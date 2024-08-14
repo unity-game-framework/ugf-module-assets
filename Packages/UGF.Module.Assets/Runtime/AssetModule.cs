@@ -24,7 +24,7 @@ namespace UGF.Module.Assets.Runtime
         public event AssetUnloadHandler Unloading;
         public event AssetUnloadedHandler Unloaded;
 
-        private ILog m_logger;
+        private readonly ILog m_logger;
 
         public AssetModule(AssetModuleDescription description, IApplication application) : this(description, application, new Provider<GlobalId, IAssetLoader>(), new Provider<GlobalId, IAssetInfo>(), new AssetTracker())
         {
@@ -57,7 +57,7 @@ namespace UGF.Module.Assets.Runtime
                 Assets.Add(key, value);
             }
 
-            m_logger.Debug("Assets Module initialized", new
+            m_logger.Debug("Initialized", new
             {
                 loadersCount = Loaders.Entries.Count,
                 assetsCount = Assets.Entries.Count
@@ -70,7 +70,7 @@ namespace UGF.Module.Assets.Runtime
                 this.Load<Object>(id);
             }
 
-            m_logger.Debug("Assets Module preload", new
+            m_logger.Debug("Preload", new
             {
                 count = Description.PreloadAssets.Count
             });
@@ -87,7 +87,7 @@ namespace UGF.Module.Assets.Runtime
                 await this.LoadAsync<Object>(id);
             }
 
-            m_logger.Debug("Assets Module preload async", new
+            m_logger.Debug("Preload Async", new
             {
                 count = Description.PreloadAssetsAsync.Count
             });
@@ -99,7 +99,7 @@ namespace UGF.Module.Assets.Runtime
 
             if (Description.UnloadTrackedAssetsOnUninitialize)
             {
-                m_logger.Debug("Assets Module unload tracked assets on uninitialize", new
+                m_logger.Debug("Unload tracked assets on uninitialize", new
                 {
                     count = Tracker.Entries.Count
                 });
