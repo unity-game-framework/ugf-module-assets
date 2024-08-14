@@ -15,21 +15,17 @@ MonoBehaviour:
   m_unloadTrackedAssetsOnUninitialize: 1
   m_loaders:
   - m_guid:
-      m_first: 9796624618535857285
-      m_second: 6195471994665443881
+      serializedVersion: 2
+      Hash: 91ad2c859a2f87f42922ea41f4bcfa55
     m_asset: {fileID: 11400000, guid: 91ad2c859a2f87f42922ea41f4bcfa55, type: 2}
   m_groups:
   - m_guid:
-      m_first: 9449813774563676967
-      m_second: 5697721032272204425
+      serializedVersion: 2
+      Hash: 8a7613277b8f83248952db4d175f124f
     m_asset: {fileID: 11400000, guid: 8a7613277b8f83248952db4d175f124f, type: 2}
   - m_guid:
-      m_first: 2163032451470717418
-      m_second: 15737006823318955019
+      serializedVersion: 2
+      Hash: eb8df1eaa28d1e040b24d3db531465da
     m_asset: {fileID: 11400000, guid: eb8df1eaa28d1e040b24d3db531465da, type: 2}
-  m_preload:
-  - m_first: 5446123794245345066
-    m_second: 6359389127465258361
-  m_preloadAsync:
-  - m_first: 1181140107427757148
-    m_second: 13417152817424503368
+  m_preload: []
+  m_preloadAsync: []

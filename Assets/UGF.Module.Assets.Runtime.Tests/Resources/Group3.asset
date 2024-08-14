@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Group3
   m_EditorClassIdentifier: 
   m_loader:
-    m_first: 17200627555953279336
-    m_second: 6687783710191119816
+    serializedVersion: 2
+    Hash: 1a640168e7a1eeb4c8ed95dcd9c7cf5c
   m_assets:
   - m_guid:
-      m_first: 983180699195010062
-      m_second: 4480430376388267240
+      serializedVersion: 2
+      Hash: 0589ec0ef5a30da4e80c7e61b0af2d3e
     m_asset: {fileID: 2100000, guid: 0589ec0ef5a30da4e80c7e61b0af2d3e, type: 2}

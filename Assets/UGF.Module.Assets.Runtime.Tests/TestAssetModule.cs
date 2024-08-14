@@ -1,7 +1,9 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using UGF.Application.Runtime;
+using UGF.Builder.Runtime;
 using UGF.EditorTools.Runtime.Ids;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -34,16 +36,10 @@ namespace UGF.Module.Assets.Runtime.Tests
         [Test]
         public void Load()
         {
-            var application = new ApplicationConfigured(new ApplicationResources
+            var application = new Application.Runtime.Application(new ApplicationDescription(false, new Dictionary<GlobalId, IBuilder<IApplication, IApplicationModule>>
             {
-                new ApplicationConfig
-                {
-                    Modules =
-                    {
-                        (IApplicationModuleBuilder)Resources.Load("Module", typeof(IApplicationModuleBuilder))
-                    }
-                }
-            });
+                { new GlobalId("4614ceca8914e5b4d8326f86aded3229"), Resources.Load<ApplicationModuleAsset>("Module") }
+            }));
 
             application.Initialize();
 
@@ -58,16 +54,10 @@ namespace UGF.Module.Assets.Runtime.Tests
         [Test]
         public void LoadReferenced()
         {
-            var application = new ApplicationConfigured(new ApplicationResources
+            var application = new Application.Runtime.Application(new ApplicationDescription(false, new Dictionary<GlobalId, IBuilder<IApplication, IApplicationModule>>
             {
-                new ApplicationConfig
-                {
-                    Modules =
-                    {
-                        (IApplicationModuleBuilder)Resources.Load("Module", typeof(IApplicationModuleBuilder))
-                    }
-                }
-            });
+                { new GlobalId("4614ceca8914e5b4d8326f86aded3229"), Resources.Load<ApplicationModuleAsset>("Module") }
+            }));
 
             application.Initialize();
 
@@ -82,16 +72,10 @@ namespace UGF.Module.Assets.Runtime.Tests
         [Test]
         public void Unload()
         {
-            var application = new ApplicationConfigured(new ApplicationResources
+            var application = new Application.Runtime.Application(new ApplicationDescription(false, new Dictionary<GlobalId, IBuilder<IApplication, IApplicationModule>>
             {
-                new ApplicationConfig
-                {
-                    Modules =
-                    {
-                        (IApplicationModuleBuilder)Resources.Load("Module", typeof(IApplicationModuleBuilder))
-                    }
-                }
-            });
+                { new GlobalId("4614ceca8914e5b4d8326f86aded3229"), Resources.Load<ApplicationModuleAsset>("Module") }
+            }));
 
             application.Initialize();
 
@@ -109,16 +93,10 @@ namespace UGF.Module.Assets.Runtime.Tests
         [UnityTest]
         public IEnumerator UnloadWithUnused()
         {
-            var application = new ApplicationConfigured(new ApplicationResources
+            var application = new Application.Runtime.Application(new ApplicationDescription(false, new Dictionary<GlobalId, IBuilder<IApplication, IApplicationModule>>
             {
-                new ApplicationConfig
-                {
-                    Modules =
-                    {
-                        (IApplicationModuleBuilder)Resources.Load("Module", typeof(IApplicationModuleBuilder))
-                    }
-                }
-            });
+                { new GlobalId("4614ceca8914e5b4d8326f86aded3229"), Resources.Load<ApplicationModuleAsset>("Module") }
+            }));
 
             application.Initialize();
 
@@ -138,16 +116,10 @@ namespace UGF.Module.Assets.Runtime.Tests
         [Test]
         public void Track()
         {
-            var application = new ApplicationConfigured(new ApplicationResources
+            var application = new Application.Runtime.Application(new ApplicationDescription(false, new Dictionary<GlobalId, IBuilder<IApplication, IApplicationModule>>
             {
-                new ApplicationConfig
-                {
-                    Modules =
-                    {
-                        (IApplicationModuleBuilder)Resources.Load("Module", typeof(IApplicationModuleBuilder))
-                    }
-                }
-            });
+                { new GlobalId("4614ceca8914e5b4d8326f86aded3229"), Resources.Load<ApplicationModuleAsset>("Module") }
+            }));
 
             application.Initialize();
 
@@ -183,16 +155,10 @@ namespace UGF.Module.Assets.Runtime.Tests
         [UnityTest]
         public IEnumerator Preload()
         {
-            var application = new ApplicationConfigured(new ApplicationResources
+            var application = new Application.Runtime.Application(new ApplicationDescription(false, new Dictionary<GlobalId, IBuilder<IApplication, IApplicationModule>>
             {
-                new ApplicationConfig
-                {
-                    Modules =
-                    {
-                        (IApplicationModuleBuilder)Resources.Load("Module2", typeof(IApplicationModuleBuilder))
-                    }
-                }
-            });
+                { new GlobalId("4614ceca8914e5b4d8326f86aded3229"), Resources.Load<ApplicationModuleAsset>("Module2") }
+            }));
 
             application.Initialize();
 
@@ -217,16 +183,10 @@ namespace UGF.Module.Assets.Runtime.Tests
         [Test]
         public void Uninitialize()
         {
-            var application = new ApplicationConfigured(new ApplicationResources
+            var application = new Application.Runtime.Application(new ApplicationDescription(false, new Dictionary<GlobalId, IBuilder<IApplication, IApplicationModule>>
             {
-                new ApplicationConfig
-                {
-                    Modules =
-                    {
-                        (IApplicationModuleBuilder)Resources.Load("Module", typeof(IApplicationModuleBuilder))
-                    }
-                }
-            });
+                { new GlobalId("4614ceca8914e5b4d8326f86aded3229"), Resources.Load<ApplicationModuleAsset>("Module") }
+            }));
 
             application.Initialize();
 
