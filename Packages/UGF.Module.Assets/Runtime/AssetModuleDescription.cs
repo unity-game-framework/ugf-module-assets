@@ -13,12 +13,12 @@ namespace UGF.Module.Assets.Runtime
         public IReadOnlyList<GlobalId> PreloadAssetsAsync { get; }
         public bool UnloadTrackedAssetsOnUninitialize { get; }
 
-        public AssetModuleDescription(Type registerType,
+        public AssetModuleDescription(
             IReadOnlyDictionary<GlobalId, IAssetLoader> loaders,
             IReadOnlyDictionary<GlobalId, IAssetInfo> assets,
             IReadOnlyList<GlobalId> preloadAssets,
             IReadOnlyList<GlobalId> preloadAssetsAsync,
-            bool unloadTrackedAssetsOnUninitialize) : base(registerType)
+            bool unloadTrackedAssetsOnUninitialize)
         {
             Loaders = loaders ?? throw new ArgumentNullException(nameof(loaders));
             Assets = assets ?? throw new ArgumentNullException(nameof(assets));

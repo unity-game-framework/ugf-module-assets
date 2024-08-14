@@ -10,7 +10,7 @@ namespace UGF.Module.Assets.Runtime.Loaders.Resources
     public class ResourcesAssetGroupAsset : AssetGroupAsset
     {
         [AssetId(typeof(AssetLoaderAsset))]
-        [SerializeField] private GlobalId m_loader;
+        [SerializeField] private Hash128 m_loader;
         [SerializeField] private List<Entry> m_assets = new List<Entry>();
 
         public GlobalId Loader { get { return m_loader; } set { m_loader = value; } }
@@ -19,7 +19,7 @@ namespace UGF.Module.Assets.Runtime.Loaders.Resources
         [Serializable]
         public struct Entry
         {
-            [SerializeField] private GlobalId m_id;
+            [SerializeField] private Hash128 m_id;
             [SerializeField] private string m_address;
 
             public GlobalId Id { get { return m_id; } set { m_id = value; } }
@@ -31,6 +31,7 @@ namespace UGF.Module.Assets.Runtime.Loaders.Resources
             for (int i = 0; i < m_assets.Count; i++)
             {
                 Entry entry = m_assets[i];
+
                 var info = new AssetInfo(m_loader, entry.Address);
 
                 assets.Add(entry.Id, info);

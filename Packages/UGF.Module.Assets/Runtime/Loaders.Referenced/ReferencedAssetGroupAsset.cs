@@ -9,7 +9,7 @@ namespace UGF.Module.Assets.Runtime.Loaders.Referenced
     public class ReferencedAssetGroupAsset : AssetGroupAsset
     {
         [AssetId(typeof(AssetLoaderAsset))]
-        [SerializeField] private GlobalId m_loader;
+        [SerializeField] private Hash128 m_loader;
         [SerializeField] private List<AssetIdReference<Object>> m_assets = new List<AssetIdReference<Object>>();
 
         public GlobalId Loader { get { return m_loader; } set { m_loader = value; } }
@@ -20,6 +20,7 @@ namespace UGF.Module.Assets.Runtime.Loaders.Referenced
             for (int i = 0; i < m_assets.Count; i++)
             {
                 AssetIdReference<Object> reference = m_assets[i];
+
                 var info = new ReferencedAssetInfo(m_loader, reference.Guid.ToString(), reference.Asset);
 
                 assets.Add(reference.Guid, info);

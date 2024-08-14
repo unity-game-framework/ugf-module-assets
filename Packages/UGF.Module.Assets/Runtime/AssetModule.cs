@@ -24,6 +24,8 @@ namespace UGF.Module.Assets.Runtime
         public event AssetUnloadHandler Unloading;
         public event AssetUnloadedHandler Unloaded;
 
+        private ILog m_logger;
+
         public AssetModule(AssetModuleDescription description, IApplication application) : this(description, application, new Provider<GlobalId, IAssetLoader>(), new Provider<GlobalId, IAssetInfo>(), new AssetTracker())
         {
         }
@@ -37,6 +39,8 @@ namespace UGF.Module.Assets.Runtime
             Context.Add(Application);
             Context.Add(Loaders);
             Context.Add(Assets);
+
+            m_logger = Log.CreateWithLabel<AssetModule>();
         }
 
         protected override void OnInitialize()
@@ -53,7 +57,7 @@ namespace UGF.Module.Assets.Runtime
                 Assets.Add(key, value);
             }
 
-            Log.Debug("Assets Module initialized", new
+            m_logger.Debug("Assets Module initialized", new
             {
                 loadersCount = Loaders.Entries.Count,
                 assetsCount = Assets.Entries.Count
@@ -66,7 +70,7 @@ namespace UGF.Module.Assets.Runtime
                 this.Load<Object>(id);
             }
 
-            Log.Debug("Assets Module preload", new
+            m_logger.Debug("Assets Module preload", new
             {
                 count = Description.PreloadAssets.Count
             });
@@ -83,7 +87,7 @@ namespace UGF.Module.Assets.Runtime
                 await this.LoadAsync<Object>(id);
             }
 
-            Log.Debug("Assets Module preload async", new
+            m_logger.Debug("Assets Module preload async", new
             {
                 count = Description.PreloadAssetsAsync.Count
             });
@@ -95,7 +99,7 @@ namespace UGF.Module.Assets.Runtime
 
             if (Description.UnloadTrackedAssetsOnUninitialize)
             {
-                Log.Debug("Assets Module unload tracked assets on uninitialize", new
+                m_logger.Debug("Assets Module unload tracked assets on uninitialize", new
                 {
                     count = Tracker.Entries.Count
                 });
