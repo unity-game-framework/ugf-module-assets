@@ -149,7 +149,7 @@ namespace UGF.Module.Assets.Runtime.Tests
             Assert.AreEqual(null, asset2);
             Assert.IsEmpty(module.Tracker.Entries);
             Assert.AreEqual(0, module.Tracker.Entries.Count);
-            Assert.False(module.Tracker.TryGet("7ab173a97bcf2bc44b710c33213fa557", out _));
+            Assert.False(module.Tracker.TryGet(new GlobalId("7ab173a97bcf2bc44b710c33213fa557"), out _));
         }
 
         [UnityTest]
@@ -207,7 +207,7 @@ namespace UGF.Module.Assets.Runtime.Tests
             Assert.AreEqual(null, asset2);
             Assert.IsEmpty(module.Tracker.Entries);
             Assert.AreEqual(0, module.Tracker.Entries.Count);
-            Assert.False(module.Tracker.TryGet("7ab173a97bcf2bc44b710c33213fa557", out _));
+            Assert.False(module.Tracker.TryGet(new GlobalId("7ab173a97bcf2bc44b710c33213fa557"), out _));
         }
     }
 }
